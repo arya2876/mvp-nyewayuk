@@ -200,7 +200,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
             <ImageUpload
               onChange={setCustomValue}
               initialImage={getValues("nyewaGuardImageSrc")}
-              id="nyewaGuardImageSrc"
+              fieldName="nyewaGuardImageSrc"
             />
           </div>
         );

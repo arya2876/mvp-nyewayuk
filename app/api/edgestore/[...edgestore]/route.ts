@@ -1,10 +1,22 @@
 import { initEdgeStore } from "@edgestore/server";
 import { createEdgeStoreNextHandler } from "@edgestore/server/adapters/next/app";
+import type { NextRequest } from "next/server";
 
 const hasEdgeKeys =
   !!process.env.EDGE_STORE_ACCESS_KEY && !!process.env.EDGE_STORE_SECRET_KEY;
 
-let handler: any;
+const disabled = async () =>
+  new Response(
+    JSON.stringify({
+      message:
+        "EdgeStore disabled: missing EDGE_STORE_ACCESS_KEY/EDGE_STORE_SECRET_KEY",
+      code: "SERVICE_UNAVAILABLE",
+    }),
+    { status: 503, headers: { "content-type": "application/json" } }
+  );
+
+let GET: (req: NextRequest) => Promise<Response> = disabled;
+let POST: (req: NextRequest) => Promise<Response> = disabled;
 let edgeStoreRouter: any;
 
 if (hasEdgeKeys) {
@@ -12,23 +24,14 @@ if (hasEdgeKeys) {
   edgeStoreRouter = es.router({
     publicFiles: es.fileBucket(),
   });
-  handler = createEdgeStoreNextHandler({
+  const handler: any = createEdgeStoreNextHandler({
     router: edgeStoreRouter,
-  });
-} else {
-  const disabled = async () =>
-    new Response(
-      JSON.stringify({
-        message:
-          "EdgeStore disabled: missing EDGE_STORE_ACCESS_KEY/EDGE_STORE_SECRET_KEY",
-        code: "SERVICE_UNAVAILABLE",
-      }),
-      { status: 503, headers: { "content-type": "application/json" } }
-    );
-  handler = { GET: disabled, POST: disabled } as any;
+  } as any);
+  GET = handler.GET;
+  POST = handler.POST;
 }
 
-export const GET = hasEdgeKeys ? handler.GET ?? handler : handler.GET;
-export const POST = hasEdgeKeys ? handler.POST ?? handler : handler.POST;
+export { GET, POST };
 
 export type EdgeStoreRouter = typeof edgeStoreRouter;
+

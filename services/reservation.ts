@@ -1,6 +1,6 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { Listing, Reservation } from "@prisma/client";
+import { Item, Reservation } from "@prisma/client";
 
 import { db } from "@/lib/db";
 import { LISTINGS_BATCH } from "@/utils/constants";
@@ -18,18 +18,18 @@ export const getReservations = async (args: Record<string, string>) => {
     }
 
     if (listingId) {
-      where.listingId = listingId;
+      where.itemId = listingId;
     }
 
     if (authorId) {
-      where.listing = { userId: authorId };
+      where.item = { userId: authorId };
     }
 
     const filterQuery: any = {
       where,
       take: LISTINGS_BATCH,
       include: {
-        listing: true,
+        item: true,
       },
       orderBy: { createdAt: "desc" },
     };
@@ -41,7 +41,7 @@ export const getReservations = async (args: Record<string, string>) => {
 
     const reservations = (await db.reservation.findMany({
       ...filterQuery,
-    })) as (Reservation & { listing: Listing })[];
+    })) as (Reservation & { item: Item })[];
 
     const nextCursor =
       reservations.length === LISTINGS_BATCH
@@ -49,10 +49,10 @@ export const getReservations = async (args: Record<string, string>) => {
         : null;
 
     const listings = reservations.map((reservation) => {
-      const { id, startDate, endDate, totalPrice, listing } = reservation;
+      const { id, startDate, endDate, totalPrice, item } = reservation;
 
       return {
-        ...listing,
+        ...item,
         reservation: { id, startDate, endDate, totalPrice },
       };
     });
@@ -167,13 +167,13 @@ export const deleteReservation = async (reservationId: string) => {
         id: reservationId,
         OR: [
           { userId: currentUser.id },
-          { listing: { userId: currentUser.id } },
+          { item: { userId: currentUser.id } },
         ],
       },
     });
 
     revalidatePath("/reservations");
-    revalidatePath(`/listings/${reservation.listingId}`);
+    revalidatePath(`/listings/${reservation.itemId}`);
     revalidatePath("/trips");
 
     return reservation;
@@ -197,11 +197,11 @@ export const createPaymentSession = async ({
   if (!listingId || !startDate || !endDate || !totalPrice)
     throw new Error("Invalid data");
 
-  const listing = await db.listing.findUnique({
+  const listing = await db.item.findUnique({
     where: {id: listingId}
   })
 
-  if(!listing) throw new Error("Listing not found!");
+  if(!listing) throw new Error("Item not found!");
 
   const user = await getCurrentUser();
 
@@ -210,7 +210,7 @@ export const createPaymentSession = async ({
   }
 
   const product = await stripe.products.create({
-    name: "Listing",
+    name: "Rental Item",
     images: [listing.imageSrc],
     default_price_data: {
       currency: "USD",

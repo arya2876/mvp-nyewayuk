@@ -82,7 +82,7 @@ export const updateFavorite = async ({
 export const getFavoriteListings = async () => {
   try {
     const favoriteIds = await getFavorites();
-    const favorites = await db.listing.findMany({
+    const favorites = await db.item.findMany({
       where: {
         id: {
           in: [...(favoriteIds || [])],

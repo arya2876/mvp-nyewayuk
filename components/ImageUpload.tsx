@@ -9,9 +9,10 @@ import { cn } from "@/utils/helper";
 interface ImageUploadProps {
   onChange: (fieldName: string, imgSrc: string) => void;
   initialImage?: string;
+  fieldName?: string;
 }
 
-const ImageUpload: FC<ImageUploadProps> = ({ onChange, initialImage = "" }) => {
+const ImageUpload: FC<ImageUploadProps> = ({ onChange, initialImage = "", fieldName = "image" }) => {
   const [image, setImage] = useState(initialImage);
   const [isLoading, startTransition] = useTransition();
   const [isDragging, setIsDragging] = useState(false);
@@ -28,7 +29,7 @@ const ImageUpload: FC<ImageUploadProps> = ({ onChange, initialImage = "" }) => {
         },
       });
 
-      onChange("image", res.url);
+      onChange(fieldName, res.url);
       setTimeout(() => {
         e.target.form?.requestSubmit();
       }, 1000);

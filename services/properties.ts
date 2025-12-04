@@ -24,7 +24,7 @@ export const getProperties = async (args?: Record<string, string>) => {
       filterQuery.skip = 1;
     }
 
-    const properties = await db.listing.findMany({
+    const properties = await db.item.findMany({
       ...filterQuery,
     });
 
@@ -57,7 +57,7 @@ export const deleteProperty = async (listingId: string) => {
       throw new Error("Invalid ID");
     }
 
-    await db.listing.deleteMany({
+    await db.item.deleteMany({
       where: {
         id: listingId,
         userId: currentUser.id,

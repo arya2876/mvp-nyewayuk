@@ -59,7 +59,7 @@ model Item {
   brand                String
   model                String
   condition            String
-  depositAmount        Int
+  depositAmount        Int?
   isNyewaGuardVerified Boolean  @default(false)
   nyewaGuardImageSrc   String?
 

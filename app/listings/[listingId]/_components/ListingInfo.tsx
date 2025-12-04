@@ -11,9 +11,9 @@ interface ListingInfoProps {
     name: string | null;
   };
   description: string;
-  guestCount: number;
-  roomCount: number;
-  bathroomCount: number;
+  brand?: string;
+  model?: string;
+  condition?: string;
   category: Category | undefined;
   latlng: number[];
 }
@@ -25,9 +25,9 @@ const Map = dynamic(() => import("@/components/Map"), {
 const ListingInfo: React.FC<ListingInfoProps> = ({
   user,
   description,
-  guestCount,
-  roomCount,
-  bathroomCount,
+  brand,
+  model,
+  condition,
   category,
   latlng,
 }) => {
@@ -38,14 +38,16 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
           <span className="mr-1">Hosted by</span> <Avatar src={user?.image} />
           <span> {user?.name}</span>
         </div>
-        <div
-          className="flex flex-row items-center gap-4 font-light text-neutral-700
+        {(brand || model || condition) && (
+          <div
+            className="flex flex-row items-center gap-4 font-light text-neutral-700
           "
-        >
-          <span>{guestCount} guests</span>
-          <span>{roomCount} rooms</span>
-          <span>{bathroomCount} bathrooms</span>
-        </div>
+          >
+            {brand && <span>Brand: {brand}</span>}
+            {model && <span>Model: {model}</span>}
+            {condition && <span>Condition: {condition}</span>}
+          </div>
+        )}
       </div>
       <hr />
       {category && (

@@ -9,9 +9,6 @@ export const getListings = async (query?: {
   try {
     const {
       userId,
-      roomCount,
-      guestCount,
-      bathroomCount,
       country,
       startDate,
       endDate,
@@ -27,24 +24,6 @@ export const getListings = async (query?: {
 
     if (category) {
       where.category = category;
-    }
-
-    if (roomCount) {
-      where.roomCount = {
-        gte: +roomCount,
-      };
-    }
-
-    if (guestCount) {
-      where.guestCount = {
-        gte: +guestCount,
-      };
-    }
-
-    if (bathroomCount) {
-      where.bathroomCount = {
-        gte: +bathroomCount,
-      };
     }
 
     if (country) {
@@ -81,7 +60,7 @@ export const getListings = async (query?: {
       filterQuery.skip = 1;
     }
 
-    const listings = await db.listing.findMany(filterQuery);
+    const listings = await db.item.findMany(filterQuery);
 
     const nextCursor =
       listings.length === LISTINGS_BATCH
@@ -101,7 +80,7 @@ export const getListings = async (query?: {
 };
 
 export const getListingById = async (id: string) => {
-  const listing = await db.listing.findUnique({
+  const listing = await db.item.findUnique({
     where: {
       id,
     },
@@ -128,13 +107,14 @@ export const createListing = async (data: { [x: string]: any }) => {
   const {
     category,
     location: { region, label: country, latlng },
-    guestCount,
-    bathroomCount,
-    roomCount,
     image: imageSrc,
     price,
     title,
     description,
+    brand,
+    model,
+    condition,
+    nyewaGuardImageSrc,
   } = data;
 
   Object.keys(data).forEach((value: any) => {
@@ -146,15 +126,16 @@ export const createListing = async (data: { [x: string]: any }) => {
   const user = await getCurrentUser();
   if (!user) throw new Error("Unauthorized!");
 
-  const listing = await db.listing.create({
+  const listing = await db.item.create({
     data: {
       title,
       description,
       imageSrc,
       category,
-      roomCount,
-      bathroomCount,
-      guestCount,
+      brand,
+      model,
+      condition,
+      nyewaGuardImageSrc,
       country,
       region,
       latlng,

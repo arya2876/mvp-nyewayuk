@@ -28,9 +28,9 @@ const ListingPage = async ({ params: { listingId } }: { params: IParams }) => {
     user: owner,
     price,
     description,
-    roomCount,
-    guestCount,
-    bathroomCount,
+    brand,
+    model,
+    condition,
     latlng,
     reservations,
   } = listing;
@@ -61,9 +61,9 @@ const ListingPage = async ({ params: { listingId } }: { params: IParams }) => {
           user={owner}
           category={category}
           description={description}
-          roomCount={roomCount}
-          guestCount={guestCount}
-          bathroomCount={bathroomCount}
+          brand={brand}
+          model={model}
+          condition={condition}
           latlng={latlng}
         />
       </ListingClient>

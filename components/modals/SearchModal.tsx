@@ -9,7 +9,6 @@ import { formatISO } from "date-fns";
 import Modal from "./Modal";
 import Button from "../Button";
 import Heading from "../Heading";
-import Counter from "../inputs/Counter";
 import CountrySelect from "../inputs/CountrySelect";
 
 const Calendar = dynamic(() => import("@/components/Calender"), { ssr: false });
@@ -17,13 +16,11 @@ const Calendar = dynamic(() => import("@/components/Calender"), { ssr: false });
 const steps = {
   "0": "location",
   "1": "dateRange",
-  "2": "guestCount",
 };
 
 enum STEPS {
   LOCATION = 0,
   DATE = 1,
-  INFO = 2,
 }
 
 const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
@@ -34,9 +31,6 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
   const { handleSubmit, setValue, watch, getValues } = useForm<FieldValues>({
     defaultValues: {
       location: null,
-      guestCount: 1,
-      bathroomCount: 1,
-      roomCount: 1,
       dateRange: {
         startDate: new Date(),
         endDate: new Date(),
@@ -75,8 +69,8 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
   };
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    if (step !== STEPS.INFO) return onNext();
-    const { guestCount, roomCount, bathroomCount, dateRange } = data;
+    if (step !== STEPS.DATE) return onNext();
+    const { dateRange } = data;
 
     let currentQuery = {};
 
@@ -87,9 +81,6 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
     const updatedQuery: any = {
       ...currentQuery,
       country: location?.label,
-      guestCount,
-      roomCount,
-      bathroomCount,
     };
 
     if (dateRange.startDate) {
@@ -123,39 +114,6 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
             <div className="h-[348px] w-full">
               <Calendar onChange={setCustomValue} value={dateRange} />
             </div>
-          </div>
-        );
-
-      case STEPS.INFO:
-        return (
-          <div className="flex flex-col gap-6">
-            <Heading
-              title="More information"
-              subtitle="Find your perfect place!"
-            />
-            <Counter
-              title="Guests"
-              subtitle="How many guests do you allow?"
-              watch={watch}
-              onChange={setCustomValue}
-              name="guestCount"
-            />
-            <hr />
-            <Counter
-              onChange={setCustomValue}
-              watch={watch}
-              title="Rooms"
-              subtitle="How many rooms do you have?"
-              name="roomCount"
-            />
-            <hr />
-            <Counter
-              onChange={setCustomValue}
-              watch={watch}
-              title="Bathrooms"
-              subtitle="How many bathrooms do you have?"
-              name="bathroomCount"
-            />
           </div>
         );
 
@@ -202,7 +160,7 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
               className="flex items-center gap-2 justify-center"
               disabled={!isFieldFilled}
             >
-              {step === STEPS.INFO ? "Search" : "Next"}
+              {step === STEPS.DATE ? "Search" : "Next"}
             </Button>
           </div>
         </div>
