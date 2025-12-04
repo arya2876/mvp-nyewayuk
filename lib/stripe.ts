@@ -1,6 +1,11 @@
 import Stripe from 'stripe'
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? '', {
-  apiVersion: "2024-09-30.acacia",
-  typescript: true,
-})
+const secret = process.env.STRIPE_SECRET_KEY
+
+export const stripe = secret
+  ? new Stripe(secret, {
+      apiVersion: '2024-09-30.acacia',
+      typescript: true,
+    })
+  : // Fallback stub to avoid build-time crashes when env is missing
+    ({ webhooks: { constructEvent: () => ({}) } } as unknown as Stripe)

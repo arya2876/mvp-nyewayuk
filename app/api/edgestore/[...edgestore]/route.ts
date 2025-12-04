@@ -24,11 +24,12 @@ if (hasEdgeKeys) {
   edgeStoreRouter = es.router({
     publicFiles: es.fileBucket(),
   });
-  const handler: any = createEdgeStoreNextHandler({
+  const handler = createEdgeStoreNextHandler({
     router: edgeStoreRouter,
   } as any);
-  GET = handler.GET;
-  POST = handler.POST;
+  // Some versions return a single handler function; use it for both verbs
+  GET = handler as (req: NextRequest) => Promise<Response>;
+  POST = handler as (req: NextRequest) => Promise<Response>;
 }
 
 export { GET, POST };

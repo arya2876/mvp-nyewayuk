@@ -7,6 +7,16 @@ import { createReservation } from '@/services/reservation'
 
 export async function POST(req: Request) {
   try {
+    if (!process.env.STRIPE_WEBHOOK_SECRET || !process.env.STRIPE_SECRET_KEY) {
+      return NextResponse.json(
+        {
+          ok: false,
+          message:
+            'Stripe webhook disabled: missing STRIPE_WEBHOOK_SECRET/STRIPE_SECRET_KEY',
+        },
+        { status: 503 }
+      )
+    }
     const body = await req.text()
     const signature = headers().get('stripe-signature');
 
