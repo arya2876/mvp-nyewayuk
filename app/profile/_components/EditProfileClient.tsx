@@ -151,15 +151,17 @@ const EditProfileClient: React.FC<EditProfileClientProps> = ({ user, userDetails
           <div className="mt-8 flex gap-4">
             <Button
               type="button"
-              label="Cancel"
               onClick={() => router.back()}
               outline
-            />
+            >
+              Cancel
+            </Button>
             <Button
               type="submit"
-              label={isLoading ? "Saving..." : "Save Changes"}
               disabled={isLoading}
-            />
+            >
+              {isLoading ? "Saving..." : "Save Changes"}
+            </Button>
           </div>
         </form>
       </div>

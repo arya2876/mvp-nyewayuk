@@ -100,10 +100,11 @@ const DeleteAccountClient: React.FC<DeleteAccountClientProps> = ({ user }) => {
           <div className="flex gap-4">
             <Button
               type="button"
-              label="Cancel"
               onClick={() => router.back()}
               outline
-            />
+            >
+              Cancel
+            </Button>
             <button
               onClick={handleDelete}
               disabled={isLoading || confirmText !== "DELETE"}
