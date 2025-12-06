@@ -73,7 +73,7 @@ const DeleteAccountClient: React.FC<DeleteAccountClientProps> = ({ user }) => {
                 <li>• Your profile will be permanently deleted</li>
                 <li>• All your listings will be removed</li>
                 <li>• Your booking history will be lost</li>
-                <li>• You won't be able to recover your account</li>
+                <li>• You won&apos;t be able to recover your account</li>
               </ul>
             </div>
           </div>

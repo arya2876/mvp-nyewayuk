@@ -1,5 +1,6 @@
 import React, { FC, Suspense } from "react";
 import nextDynamic from "next/dynamic";
+import Image from "next/image";
 import { IdCard, ShieldCheck, MapPin, DollarSign, Wine, Bike, Umbrella, ThumbsUp, Trophy } from "lucide-react";
 
 import ListingCard from "@/components/ListingCard";
@@ -32,10 +33,12 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
       <section className="relative w-full h-[420px] flex items-center justify-center overflow-hidden">
         {/* Background Image dengan Overlay */}
         <div className="absolute inset-0">
-          <img 
+          <Image 
             src="/images/hero-bg.jpg" 
-            className="w-full h-full object-cover" 
-            alt="Drone Flying Background" 
+            fill
+            className="object-cover" 
+            alt="Drone Flying Background"
+            priority
           />
           {/* Dark Overlay untuk readability */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#0A2E46]/80 via-[#1e3a5f]/70 to-[#0A2E46]/80"></div>

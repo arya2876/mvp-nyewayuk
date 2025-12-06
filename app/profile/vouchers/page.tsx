@@ -45,7 +45,7 @@ export default async function VouchersPage() {
           <div className="flex flex-col items-center justify-center py-12">
             <Ticket className="w-16 h-16 text-gray-300 mb-4" />
             <p className="text-gray-500 text-center">
-              You don't have any vouchers yet
+              You don&apos;t have any vouchers yet
             </p>
             <p className="text-sm text-gray-400 text-center mt-2">
               Check back later for exclusive offers
