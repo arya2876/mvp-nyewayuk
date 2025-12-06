@@ -8,12 +8,16 @@ import Navbar from "@/components/navbar";
 import Providers from "@/components/Provider";
 import Footer from "@/components/Footer";
 
-const nunito = Nunito({ subsets: ["latin"] });
+const nunito = Nunito({ 
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "VacationHub",
+  title: "NyewaYuk - Sewa Aman, Hidup Hemat",
   description:
-    "Your Ultimate Destination Connection. Discover a world of endless possibilities and seamless vacation planning at VacationHub.",
+    "Platform peer-to-peer rental terpercaya di Indonesia. Sewa barang yang Anda butuhkan atau sewakan barang yang Anda miliki dengan aman menggunakan NyewaGuard AI.",
 };
 
 export default function RootLayout({
@@ -22,11 +26,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={nunito.className}>
+    <html lang="id" suppressHydrationWarning>
+      <body className={`${nunito.className} antialiased`} suppressHydrationWarning>
         <Providers>
           <Navbar />
-          <main className="pb-16 md:pt-28 pt-24">{children}</main>
+          <main className="pb-16 pt-[80px]">{children}</main>
           <Footer />
         </Providers>
       </body>

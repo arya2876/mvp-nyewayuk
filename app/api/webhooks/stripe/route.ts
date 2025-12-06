@@ -10,7 +10,7 @@ export async function POST(req: Request) {
     if (!process.env.STRIPE_WEBHOOK_SECRET || !process.env.STRIPE_SECRET_KEY) {
       return NextResponse.json(
         {
-          ok: false,
+          ok: true,
           message:
             'Stripe webhook disabled: missing STRIPE_WEBHOOK_SECRET/STRIPE_SECRET_KEY',
         },

@@ -1,35 +1,40 @@
-import { TbCamera, TbDrone, TbDeviceProjector, TbAntenna, TbSpeakerphone, TbConfetti } from "react-icons/tb";
+import { TbCamera, TbDrone, TbDeviceProjector, TbHeadset, TbSpeakerphone, TbDeviceGamepad, TbDots } from "react-icons/tb";
 
 export const categories = [
   {
     label: "Kamera",
     icon: TbCamera,
-    description: "Semua kebutuhan kamera untuk memotret dan merekam.",
+    description: "Kamera DSLR & Mirrorless",
   },
   {
     label: "Drone",
     icon: TbDrone,
-    description: "Ambil gambar udara dengan mudah dan stabil.",
+    description: "Drone profesional",
   },
   {
     label: "Proyektor",
     icon: TbDeviceProjector,
-    description: "Presentasi atau nonton bareng jadi maksimal.",
+    description: "Proyektor untuk event",
   },
   {
     label: "HT",
-    icon: TbAntenna,
-    description: "Komunikasi tim yang andal untuk event.",
+    icon: TbHeadset,
+    description: "Komunikasi event lancar",
   },
   {
-    label: "Audio",
+    label: "Sound System",
     icon: TbSpeakerphone,
-    description: "Sound system untuk acara dan pesta.",
+    description: "Audio jernih",
   },
   {
-    label: "Alat Pesta",
-    icon: TbConfetti,
-    description: "Perlengkapan pesta agar acara lebih meriah.",
+    label: "Console",
+    icon: TbDeviceGamepad,
+    description: "PS5, Xbox, Nintendo",
+  },
+  {
+    label: "Lainnya",
+    icon: TbDots,
+    description: "Barang seru lainnya",
   },
 ];
 
@@ -37,19 +42,11 @@ export const LISTINGS_BATCH = 16;
 
 export const menuItems = [
   {
-    label: "My trips",
+    label: "Booking",
     path: "/trips",
   },
   {
-    label: "My favorites",
-    path: "/favorites",
-  },
-  {
-    label: "My reservations",
-    path: "/reservations",
-  },
-  {
-    label: "My properties",
-    path: "/properties",
+    label: "My Profile",
+    path: "/profile",
   },
 ];

@@ -68,6 +68,13 @@ export const authOptions: AuthOptions = {
       }
       return token;
     },
+
+    async redirect({ url, baseUrl }) {
+      // Redirect to homepage after sign in
+      if (url.startsWith(baseUrl)) return url;
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      return baseUrl;
+    },
   },
   pages: {
     signIn: "/",

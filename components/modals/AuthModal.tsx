@@ -160,7 +160,7 @@ const AuthModal = ({
         <hr />
         <Button
           outline
-          onClick={() => signIn("google")}
+          onClick={() => signIn("google", { callbackUrl: "/" })}
           className="flex flex-row justify-center gap-2 items-center px-3 py-2"
         >
           <FcGoogle className="w-6 h-6" />
@@ -168,7 +168,7 @@ const AuthModal = ({
         </Button>
         <Button
           outline
-          onClick={() => signIn("github")}
+          onClick={() => signIn("github", { callbackUrl: "/" })}
           className="flex flex-row justify-center gap-2 items-center px-3 py-2"
         >
           <AiFillGithub className="w-6 h-6" />

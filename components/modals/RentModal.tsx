@@ -21,22 +21,18 @@ import { createListing } from "@/services/listing";
 
 const steps = {
   "0": "category",
-  "1": "location",
-  "2": "brand",
-  "3": "image",
-  "4": "nyewaGuardImageSrc",
-  "5": "title",
-  "6": "price",
+  "1": "description",
+  "2": "image",
+  "3": "price",
+  "4": "location",
 };
 
 enum STEPS {
   CATEGORY = 0,
-  LOCATION = 1,
-  INFO = 2,
-  IMAGES = 3,
-  NYEWAGUARD = 4,
-  DESCRIPTION = 5,
-  PRICE = 6,
+  DESCRIPTION = 1,
+  IMAGES = 2,
+  PRICE = 3,
+  LOCATION = 4,
 }
 
 const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
@@ -54,16 +50,12 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
     getValues,
   } = useForm<FieldValues>({
     defaultValues: {
-      category: "Beach",
+      category: "Kamera",
       location: null,
       image: "",
-      nyewaGuardImageSrc: "",
       price: "",
       title: "",
       description: "",
-      brand: "",
-      model: "",
-      condition: "",
     },
   });
 
@@ -96,7 +88,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
   };
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    if (step !== STEPS.PRICE) return onNext();
+    if (step !== STEPS.LOCATION) return onNext();
 
     startTransition(async () => {
       try {
@@ -119,31 +111,17 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
 
   const body = () => {
     switch (step) {
-      case STEPS.LOCATION:
+      case STEPS.DESCRIPTION:
         return (
           <div className="flex flex-col gap-6">
             <Heading
-              title="Where is your place located?"
-              subtitle="Help guests find you!"
-            />
-            <CountrySelect value={location} onChange={setCustomValue} />
-            <div className="h-[240px]">
-              <Map center={location?.latlng} />
-            </div>
-          </div>
-        );
-
-      case STEPS.INFO:
-        return (
-          <div className="flex flex-col gap-6">
-            <Heading
-              title="Informasi Barang"
-              subtitle="Isi detail dasar barang sewaan Anda"
+              title="Deskripsi Barang"
+              subtitle="Jelaskan barang yang akan Anda sewakan"
             />
             <Input
-              id="brand"
-              label="Merek Barang"
-              placeholder="Sony, Canon..."
+              id="title"
+              label="Judul"
+              placeholder="Contoh: Kamera Sony A7III Lengkap dengan Lensa"
               disabled={isLoading}
               register={register}
               errors={errors}
@@ -153,20 +131,9 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
             />
             <hr />
             <Input
-              id="model"
-              label="Model"
-              placeholder="A7III, Mavic Air..."
-              disabled={isLoading}
-              register={register}
-              errors={errors}
-              required
-              watch={watch}
-            />
-            <hr />
-            <Input
-              id="condition"
-              label="Kondisi"
-              placeholder="Baru / Bekas Baik"
+              id="description"
+              label="Deskripsi Detail"
+              placeholder="Jelaskan kondisi, kelengkapan, dan hal penting lainnya..."
               disabled={isLoading}
               register={register}
               errors={errors}
@@ -180,8 +147,8 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
         return (
           <div className="flex flex-col gap-6">
             <Heading
-              title="Add a photo of your place"
-              subtitle="Show guests what your place looks like!"
+              title="Kirim Foto Barang"
+              subtitle="Upload foto barang yang akan disewakan"
             />
             <ImageUpload
               onChange={setCustomValue}
@@ -190,71 +157,39 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
           </div>
         );
 
-      case STEPS.NYEWAGUARD:
-        return (
-          <div className="flex flex-col gap-6">
-            <Heading
-              title="NyewaGuard Verification"
-              subtitle="Upload 1 foto khusus untuk verifikasi AI"
-            />
-            <ImageUpload
-              onChange={setCustomValue}
-              initialImage={getValues("nyewaGuardImageSrc")}
-              fieldName="nyewaGuardImageSrc"
-            />
-          </div>
-        );
-
-      case STEPS.DESCRIPTION:
-        return (
-          <div className="flex flex-col gap-6">
-            <Heading
-              title="How would you describe your place?"
-              subtitle="Short and sweet works best!"
-            />
-            <Input
-              id="title"
-              label="Title"
-              disabled={isLoading}
-              register={register}
-              errors={errors}
-              required
-              watch={watch}
-              autoFocus
-            />
-            <hr />
-            <Input
-              id="description"
-              label="Description"
-              disabled={isLoading}
-              register={register}
-              errors={errors}
-              required
-              watch={watch}
-            />
-          </div>
-        );
-
       case STEPS.PRICE:
         return (
           <div className="flex flex-col gap-6">
             <Heading
-              title="Now, set your price"
-              subtitle="How much do you charge per night?"
+              title="Tentukan Harga Sewa"
+              subtitle="Berapa harga sewa per hari?"
             />
-            <Input
-              key="price"
-              id="price"
-              label="Price"
-              icon={BiDollar}
-              type="number"
-              disabled={isLoading}
-              register={register}
-              errors={errors}
-              required
-              watch={watch}
-              autoFocus
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-700 font-semibold z-10">Rp</span>
+              <input
+                id="price"
+                type="number"
+                placeholder="50000"
+                disabled={isLoading}
+                {...register("price", { required: true, valueAsNumber: true })}
+                className="w-full p-4 pl-14 font-light bg-white border-2 rounded-md outline-none transition disabled:opacity-70 disabled:cursor-not-allowed border-neutral-300 focus:border-black"
+              />
+            </div>
+            <p className="text-sm text-neutral-500">Masukkan hanya angka. Contoh: 50000 untuk Rp 50.000/hari</p>
+          </div>
+        );
+
+      case STEPS.LOCATION:
+        return (
+          <div className="flex flex-col gap-6">
+            <Heading
+              title="Lokasi Penjemputan"
+              subtitle="Di mana barang dapat diserahkan/dijemput?"
             />
+            <CountrySelect value={location} onChange={setCustomValue} />
+            <div className="h-[240px]">
+              <Map center={location?.latlng} />
+            </div>
           </div>
         );
 
@@ -281,11 +216,11 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
     }
   };
 
-  const isFieldFilled = !!getValues(steps[step]);
+  const isFieldFilled = !!getValues(steps[step.toString() as keyof typeof steps]);
 
   return (
     <div className="w-full h-full flex flex-col">
-      <Modal.WindowHeader title="Share your home!" />
+      <Modal.WindowHeader title="Sewakan Barang Anda" />
       <form
         className="flex-1  md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none "
         onSubmit={handleSubmit(onSubmit)}
@@ -310,10 +245,10 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
             >
               {isLoading ? (
                 <SpinnerMini />
-              ) : step === STEPS.PRICE ? (
-                "Create"
+              ) : step === STEPS.LOCATION ? (
+                "Publikasikan"
               ) : (
-                "Next"
+                "Lanjut"
               )}
             </Button>
           </div>

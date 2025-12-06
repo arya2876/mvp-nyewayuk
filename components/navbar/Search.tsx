@@ -64,7 +64,7 @@ const Search = () => {
         <input
           type="text"
           className="flex-1 outline-none bg-transparent text-sm"
-          placeholder="Search for what you want to rent"
+          placeholder="Cari barang yang ingin disewa..."
           aria-label="Search items"
         />
       </div>
@@ -81,7 +81,7 @@ const Search = () => {
       </Modal>
       <button type="button" onClick={onNearMe} className="inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm hover:bg-gray-50">
         <MapPin className="h-4 w-4" />
-        Near me
+        <span className="hidden md:inline">Dekat Saya</span>
       </button>
     </div>
   );

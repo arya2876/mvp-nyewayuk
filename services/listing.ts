@@ -111,15 +111,23 @@ export const createListing = async (data: { [x: string]: any }) => {
     price,
     title,
     description,
-    brand,
-    model,
-    condition,
-    nyewaGuardImageSrc,
   } = data;
 
-  Object.keys(data).forEach((value: any) => {
-    if (!data[value]) {
-      throw new Error("Invalid data");
+  // Validate required fields only
+  const requiredFields = {
+    category,
+    region,
+    country,
+    latlng,
+    imageSrc,
+    price,
+    title,
+    description,
+  };
+
+  Object.entries(requiredFields).forEach(([key, value]) => {
+    if (!value) {
+      throw new Error(`Missing required field: ${key}`);
     }
   });
 
@@ -132,10 +140,10 @@ export const createListing = async (data: { [x: string]: any }) => {
       description,
       imageSrc,
       category,
-      brand,
-      model,
-      condition,
-      nyewaGuardImageSrc,
+      brand: "-",
+      model: "-",
+      condition: "-",
+      nyewaGuardImageSrc: "",
       country,
       region,
       latlng,

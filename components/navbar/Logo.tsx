@@ -4,13 +4,14 @@ import Link from "next/link";
 
 const Logo = () => {
   return (
-    <Link href="/" className="h-[35px] w-[150px] relative hidden md:block ">
+    <Link href="/" className="relative h-[50px] w-[140px] md:w-[160px]">
       <Image
-        src="/images/vacationhub.png"
-        alt="logo"
+        src="/images/Logo Ny.png"
+        alt="NyewaYuk Logo"
         fill
-        sizes="150px"
+        sizes="160px"
         priority
+        className="object-contain"
         unoptimized
       />
     </Link>

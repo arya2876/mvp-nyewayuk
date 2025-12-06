@@ -108,8 +108,8 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
         return (
           <div className="flex flex-col gap-3">
             <Heading
-              title="When do you plan to go?"
-              subtitle="Make sure everyone is free!"
+              title="Kapan tanggal sewanya?"
+              subtitle="Pilih tanggal mulai dan selesai sewa"
             />
             <div className="h-[348px] w-full">
               <Calendar onChange={setCustomValue} value={dateRange} />
@@ -121,8 +121,8 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
         return (
           <div className="flex flex-col gap-4">
             <Heading
-              title="Where is your place located?"
-              subtitle="Help guests find you!"
+              title="Di mana lokasi barang?"
+              subtitle="Cari barang berdasarkan lokasi"
             />
             <CountrySelect value={location} onChange={setCustomValue} />
             <div className="h-[240px]">

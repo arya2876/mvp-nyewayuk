@@ -28,6 +28,34 @@ const CountrySelect = ({
     return () => clearTimeout(timer);
   }, []);
 
+  // Auto-detect user location
+  useEffect(() => {
+    if (!value && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          // Find closest country based on coordinates
+          const closest = countries.reduce((prev, curr) => {
+            const prevDist = Math.hypot(
+              prev.latlng[0] - latitude,
+              prev.latlng[1] - longitude
+            );
+            const currDist = Math.hypot(
+              curr.latlng[0] - latitude,
+              curr.latlng[1] - longitude
+            );
+            return currDist < prevDist ? curr : prev;
+          });
+          onChange("location", closest as CountrySelectValue);
+        },
+        (error) => {
+          console.log("Location access denied or unavailable");
+        },
+        { enableHighAccuracy: false, timeout: 5000 }
+      );
+    }
+  }, [value, onChange]);
+
   const handleChange = (value: CountrySelectValue) => {
     onChange("location", value);
   };
@@ -35,7 +63,7 @@ const CountrySelect = ({
   return (
     <Select
       ref={ref}
-      placeholder="Anywhere"
+      placeholder="Pilih lokasi atau deteksi otomatis..."
       isClearable
       options={countries}
       value={value}

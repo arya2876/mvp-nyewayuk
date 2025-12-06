@@ -3,6 +3,7 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { Item } from "@prisma/client";
 import Skeleton from "react-loading-skeleton";
+import { ShieldCheck } from "lucide-react";
 
 import HeartButton from "./HeartButton";
 import Image from "./Image";
@@ -51,7 +52,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
       </div>
       <Link href={`/listings/${data.id}`} className="col-span-1 cursor-pointer">
         <div className="flex flex-col gap-1 w-full">
-          <div className=" overflow-hidden md:rounded-xl rounded-md">
+          <div className=" overflow-hidden md:rounded-xl rounded-md relative">
             <div className="aspect-[1/0.95] relative bg-gray-100">
               <Image
                 imageSrc={data.imageSrc}
@@ -62,19 +63,26 @@ const ListingCard: React.FC<ListingCardProps> = ({
                 sizes="100vw"
               />
             </div>
+            {/* NyewaGuard AI Badge */}
+            {data.nyewaGuardImageSrc && (
+              <div className="absolute bottom-2 right-2 flex items-center gap-1 bg-emerald-500 text-white text-xs font-semibold px-2 py-1 rounded-full shadow-md">
+                <ShieldCheck className="h-3 w-3" />
+                <span>Verified</span>
+              </div>
+            )}
           </div>
-          <span className="font-semibold text-[16px] mt-[4px]">
-            {data?.region}, {data?.country}
+          <span className="font-semibold text-[16px] mt-[4px] truncate">
+            {data.title}
           </span>
           <span className="font-light text-neutral-500 text-sm">
-            {reservationDate || data.category}
+            {reservationDate || `${data.region}, ${data.country}`}
           </span>
 
           <div className="flex flex-row items-baseline gap-1">
             <span className="font-bold text-[#444] text-[14px]">
-              $ {formatPrice(price)}
+              Rp {formatPrice(price)}
             </span>
-            {!reservation && <span className="font-light">night</span>}
+            {!reservation && <span className="font-light">/ hari</span>}
           </div>
         </div>
       </Link>
