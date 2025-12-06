@@ -104,45 +104,76 @@ export const getListingById = async (id: string) => {
 };
 
 export const createListing = async (data: { [x: string]: any }) => {
-  const {
-    category,
-    location: { region, label: country, latlng },
-    image: imageSrc,
-    price,
-    title,
-    description,
-    brand,
-    model,
-    condition,
-    nyewaGuardImageSrc,
-  } = data;
-
-  Object.keys(data).forEach((value: any) => {
-    if (!data[value]) {
-      throw new Error("Invalid data");
+  try {
+    // Validate that data object exists
+    if (!data || typeof data !== "object") {
+      throw new Error("Invalid listing data");
     }
-  });
 
-  const user = await getCurrentUser();
-  if (!user) throw new Error("Unauthorized!");
-
-  const listing = await db.item.create({
-    data: {
+    const {
+      category,
+      location,
+      image: imageSrc,
+      price,
       title,
       description,
-      imageSrc,
-      category,
       brand,
       model,
       condition,
       nyewaGuardImageSrc,
-      country,
-      region,
-      latlng,
-      price: parseInt(price, 10),
-      userId: user.id,
-    },
-  });
+    } = data;
 
-  return listing;
+    // Consolidated validation checks
+    const validationErrors: string[] = [];
+
+    if (!category) validationErrors.push("category");
+    if (!location || !location.region || !location.label || !location.latlng) {
+      validationErrors.push("location");
+    }
+    if (!imageSrc || typeof imageSrc !== "string" || !imageSrc.startsWith("http")) {
+      validationErrors.push("image");
+    }
+    if (!title?.trim()) validationErrors.push("title");
+    if (!description?.trim()) validationErrors.push("description");
+    if (!brand?.trim()) validationErrors.push("brand");
+    if (!model?.trim()) validationErrors.push("model");
+    if (!condition?.trim()) validationErrors.push("condition");
+    
+    const priceNum = parseInt(price, 10);
+    if (isNaN(priceNum) || priceNum <= 0) {
+      validationErrors.push("price");
+    }
+
+    if (validationErrors.length > 0) {
+      throw new Error(`Please provide valid: ${validationErrors.join(", ")}`);
+    }
+
+    const { region, label: country, latlng } = location;
+
+    const user = await getCurrentUser();
+    if (!user) throw new Error("You must be logged in to create a listing");
+
+    const listing = await db.item.create({
+      data: {
+        title: title.trim(),
+        description: description.trim(),
+        imageSrc,
+        category,
+        brand: brand.trim(),
+        model: model.trim(),
+        condition: condition.trim(),
+        nyewaGuardImageSrc: nyewaGuardImageSrc || null,
+        country,
+        region,
+        latlng,
+        price: priceNum,
+        userId: user.id,
+      },
+    });
+
+    return listing;
+  } catch (error: any) {
+    console.error("Create listing error:", error);
+    throw error;
+  }
 };

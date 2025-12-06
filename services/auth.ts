@@ -14,6 +14,16 @@ export const registerUser = async ({
   try {
     if (!name || !email || !inputPassword)
       throw new Error("Please provide all credentials");
+    
+    // Check if user already exists
+    const existingUser = await db.user.findUnique({
+      where: { email },
+    });
+
+    if (existingUser) {
+      throw new Error("User with this email already exists");
+    }
+
     const hashedPassword = await bcrypt.hash(inputPassword, 12);
 
     const user = await db.user.create({
@@ -30,6 +40,7 @@ export const registerUser = async ({
       name: user.name,
     };
   } catch (error: any) {
-    throw new Error(error.message);
+    console.error("Registration error:", error);
+    throw new Error(error.message || "Failed to register user");
   }
 };

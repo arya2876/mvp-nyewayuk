@@ -77,16 +77,23 @@ const AuthModal = ({
           if (callback?.ok) {
             toast.success("You've successfully logged in.");
             onCloseModal?.();
+            
+            // Use router.push with refresh for better Next.js integration
+            // The window.location approach was used to ensure session updates
+            // but router with delay works more reliably with the framework
             router.refresh();
+            await new Promise(resolve => setTimeout(resolve, 100));
+            router.push("/");
           }
         } else {
           await registerUser({ email, password, name });
+          toast.success("You've successfully registered. Please log in.");
           setTitle("Login");
-          toast.success("You've successfully registered.");
           reset();
         }
       } catch (error: any) {
-        toast.error(error.message);
+        const errorMessage = error.message || "An error occurred. Please try again.";
+        toast.error(errorMessage);
         if (isLoginModal) {
           reset();
           setError("email", {});
@@ -160,7 +167,7 @@ const AuthModal = ({
         <hr />
         <Button
           outline
-          onClick={() => signIn("google")}
+          onClick={() => signIn("google", { callbackUrl: "/" })}
           className="flex flex-row justify-center gap-2 items-center px-3 py-2"
         >
           <FcGoogle className="w-6 h-6" />
@@ -168,7 +175,7 @@ const AuthModal = ({
         </Button>
         <Button
           outline
-          onClick={() => signIn("github")}
+          onClick={() => signIn("github", { callbackUrl: "/" })}
           className="flex flex-row justify-center gap-2 items-center px-3 py-2"
         >
           <AiFillGithub className="w-6 h-6" />

@@ -111,8 +111,9 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
         router.refresh();
         router.push(`/listings/${newListing.id}`);
       } catch (error: any) {
-        toast.error("Failed to create listing!");
-        console.log(error?.message)
+        console.error("Create listing error:", error);
+        const errorMessage = error?.message || "Failed to create listing. Please try again.";
+        toast.error(errorMessage);
       }
     });
   };
@@ -281,7 +282,31 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
     }
   };
 
-  const isFieldFilled = !!getValues(steps[step]);
+  const isFieldFilled = () => {
+    // Ensure step is within valid range
+    if (step < STEPS.CATEGORY || step > STEPS.PRICE) {
+      return false;
+    }
+    
+    const stepKey = steps[step as keyof typeof steps];
+    if (!stepKey) {
+      return false;
+    }
+    
+    const value = getValues(stepKey);
+    
+    // For location, check if it's a valid object with required properties
+    if (stepKey === "location") {
+      return value && typeof value === "object" && value.label && value.latlng;
+    }
+    
+    // For other fields, check if they have a truthy value
+    if (typeof value === "string") {
+      return value.trim().length > 0;
+    }
+    
+    return !!value;
+  };
 
   return (
     <div className="w-full h-full flex flex-col">
@@ -306,7 +331,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
             <Button
               type="submit"
               className="flex items-center gap-2 justify-center"
-              disabled={isLoading || !isFieldFilled}
+              disabled={isLoading || !isFieldFilled()}
             >
               {isLoading ? (
                 <SpinnerMini />
