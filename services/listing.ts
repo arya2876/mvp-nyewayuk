@@ -105,11 +105,9 @@ export const getListingById = async (id: string) => {
 
 export const createListing = async (data: { [x: string]: any }) => {
   try {
-    // Validate required fields
-    if (!data.category || !data.location || !data.image || !data.price || 
-        !data.title || !data.description || !data.brand || !data.model || 
-        !data.condition) {
-      throw new Error("Please fill in all required fields");
+    // Validate that data object exists
+    if (!data || typeof data !== "object") {
+      throw new Error("Invalid listing data");
     }
 
     const {
@@ -125,36 +123,45 @@ export const createListing = async (data: { [x: string]: any }) => {
       nyewaGuardImageSrc,
     } = data;
 
-    // Validate location object
+    // Consolidated validation checks
+    const validationErrors: string[] = [];
+
+    if (!category) validationErrors.push("category");
     if (!location || !location.region || !location.label || !location.latlng) {
-      throw new Error("Please select a valid location");
+      validationErrors.push("location");
+    }
+    if (!imageSrc || typeof imageSrc !== "string" || !imageSrc.startsWith("http")) {
+      validationErrors.push("image");
+    }
+    if (!title?.trim()) validationErrors.push("title");
+    if (!description?.trim()) validationErrors.push("description");
+    if (!brand?.trim()) validationErrors.push("brand");
+    if (!model?.trim()) validationErrors.push("model");
+    if (!condition?.trim()) validationErrors.push("condition");
+    
+    const priceNum = parseInt(price, 10);
+    if (isNaN(priceNum) || priceNum <= 0) {
+      validationErrors.push("price");
+    }
+
+    if (validationErrors.length > 0) {
+      throw new Error(`Please provide valid: ${validationErrors.join(", ")}`);
     }
 
     const { region, label: country, latlng } = location;
-
-    // Validate image URLs
-    if (!imageSrc || typeof imageSrc !== "string" || !imageSrc.startsWith("http")) {
-      throw new Error("Please upload a valid image");
-    }
-
-    // Validate price
-    const priceNum = parseInt(price, 10);
-    if (isNaN(priceNum) || priceNum <= 0) {
-      throw new Error("Please enter a valid price");
-    }
 
     const user = await getCurrentUser();
     if (!user) throw new Error("You must be logged in to create a listing");
 
     const listing = await db.item.create({
       data: {
-        title,
-        description,
+        title: title.trim(),
+        description: description.trim(),
         imageSrc,
         category,
-        brand,
-        model,
-        condition,
+        brand: brand.trim(),
+        model: model.trim(),
+        condition: condition.trim(),
         nyewaGuardImageSrc: nyewaGuardImageSrc || null,
         country,
         region,

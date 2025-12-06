@@ -283,7 +283,16 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
   };
 
   const isFieldFilled = () => {
+    // Ensure step is within valid range
+    if (step < STEPS.CATEGORY || step > STEPS.PRICE) {
+      return false;
+    }
+    
     const stepKey = steps[step as keyof typeof steps];
+    if (!stepKey) {
+      return false;
+    }
+    
     const value = getValues(stepKey);
     
     // For location, check if it's a valid object with required properties

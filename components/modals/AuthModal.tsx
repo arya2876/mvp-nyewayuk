@@ -77,10 +77,13 @@ const AuthModal = ({
           if (callback?.ok) {
             toast.success("You've successfully logged in.");
             onCloseModal?.();
-            // Force a full page reload to ensure session is properly updated
-            setTimeout(() => {
-              window.location.href = "/";
-            }, 500);
+            
+            // Use router.push with refresh for better Next.js integration
+            // The window.location approach was used to ensure session updates
+            // but router with delay works more reliably with the framework
+            router.refresh();
+            await new Promise(resolve => setTimeout(resolve, 100));
+            router.push("/");
           }
         } else {
           await registerUser({ email, password, name });
