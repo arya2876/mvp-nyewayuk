@@ -6,17 +6,32 @@ import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import { db } from "./db";
 
+// Validate required environment variables
+if (!process.env.NEXTAUTH_SECRET) {
+  throw new Error("NEXTAUTH_SECRET is not set");
+}
+
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(db),
   providers: [
-    GitHubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID as string,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
-    }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-    }),
+    // Only add GitHub provider if credentials are set
+    ...(process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET
+      ? [
+          GitHubProvider({
+            clientId: process.env.GITHUB_CLIENT_ID,
+            clientSecret: process.env.GITHUB_CLIENT_SECRET,
+          }),
+        ]
+      : []),
+    // Only add Google provider if credentials are set
+    ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
+      ? [
+          GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+          }),
+        ]
+      : []),
     CredentialsProvider({
       name: "credentials",
       credentials: {
