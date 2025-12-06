@@ -104,45 +104,69 @@ export const getListingById = async (id: string) => {
 };
 
 export const createListing = async (data: { [x: string]: any }) => {
-  const {
-    category,
-    location: { region, label: country, latlng },
-    image: imageSrc,
-    price,
-    title,
-    description,
-    brand,
-    model,
-    condition,
-    nyewaGuardImageSrc,
-  } = data;
-
-  Object.keys(data).forEach((value: any) => {
-    if (!data[value]) {
-      throw new Error("Invalid data");
+  try {
+    // Validate required fields
+    if (!data.category || !data.location || !data.image || !data.price || 
+        !data.title || !data.description || !data.brand || !data.model || 
+        !data.condition) {
+      throw new Error("Please fill in all required fields");
     }
-  });
 
-  const user = await getCurrentUser();
-  if (!user) throw new Error("Unauthorized!");
-
-  const listing = await db.item.create({
-    data: {
+    const {
+      category,
+      location,
+      image: imageSrc,
+      price,
       title,
       description,
-      imageSrc,
-      category,
       brand,
       model,
       condition,
       nyewaGuardImageSrc,
-      country,
-      region,
-      latlng,
-      price: parseInt(price, 10),
-      userId: user.id,
-    },
-  });
+    } = data;
 
-  return listing;
+    // Validate location object
+    if (!location || !location.region || !location.label || !location.latlng) {
+      throw new Error("Please select a valid location");
+    }
+
+    const { region, label: country, latlng } = location;
+
+    // Validate image URLs
+    if (!imageSrc || typeof imageSrc !== "string" || !imageSrc.startsWith("http")) {
+      throw new Error("Please upload a valid image");
+    }
+
+    // Validate price
+    const priceNum = parseInt(price, 10);
+    if (isNaN(priceNum) || priceNum <= 0) {
+      throw new Error("Please enter a valid price");
+    }
+
+    const user = await getCurrentUser();
+    if (!user) throw new Error("You must be logged in to create a listing");
+
+    const listing = await db.item.create({
+      data: {
+        title,
+        description,
+        imageSrc,
+        category,
+        brand,
+        model,
+        condition,
+        nyewaGuardImageSrc: nyewaGuardImageSrc || null,
+        country,
+        region,
+        latlng,
+        price: priceNum,
+        userId: user.id,
+      },
+    });
+
+    return listing;
+  } catch (error: any) {
+    console.error("Create listing error:", error);
+    throw error;
+  }
 };
