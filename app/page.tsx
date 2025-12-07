@@ -1,7 +1,6 @@
 import React, { FC, Suspense } from "react";
 import nextDynamic from "next/dynamic";
 import Image from "next/image";
-import { IdCard, ShieldCheck, MapPin, DollarSign, Wine, Bike, Umbrella, ThumbsUp, Trophy } from "lucide-react";
 
 import ListingCard from "@/components/ListingCard";
 import LoadMore from "@/components/LoadMore";
@@ -213,8 +212,14 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
           <div className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-2">
             {/* Row 1 */}
             <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-28 w-28 items-center justify-center rounded-full bg-[#7B2D8E] text-white shadow-lg">
-                <Wine className="h-14 w-14" />
+              <div className="flex h-28 w-28 items-center justify-center rounded-full overflow-hidden">
+                <Image 
+                  src="/images/value-props/together.png" 
+                  alt="Semuanya terjamin"
+                  width={112}
+                  height={112}
+                  className="object-contain"
+                />
               </div>
               <h3 className="text-xl font-bold text-neutral-800">Semuanya terjamin</h3>
               <p className="text-sm text-neutral-600 max-w-xs">
@@ -223,8 +228,14 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
             </div>
 
             <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-28 w-28 items-center justify-center rounded-full bg-[#7B2D8E] text-white shadow-lg">
-                <IdCard className="h-14 w-14" />
+              <div className="flex h-28 w-28 items-center justify-center rounded-full overflow-hidden">
+                <Image 
+                  src="/images/value-props/card-id.png" 
+                  alt="Semua orang terverifikasi"
+                  width={112}
+                  height={112}
+                  className="object-contain"
+                />
               </div>
               <h3 className="text-xl font-bold text-neutral-800">Semua orang terverifikasi</h3>
               <p className="text-sm text-neutral-600 max-w-xs">
@@ -234,8 +245,14 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
 
             {/* Row 2 */}
             <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-28 w-28 items-center justify-center rounded-full bg-[#7B2D8E] text-white shadow-lg">
-                <DollarSign className="h-14 w-14" />
+              <div className="flex h-28 w-28 items-center justify-center rounded-full overflow-hidden">
+                <Image 
+                  src="/images/value-props/money.png" 
+                  alt="Lebih murah daripada membeli"
+                  width={112}
+                  height={112}
+                  className="object-contain"
+                />
               </div>
               <h3 className="text-xl font-bold text-neutral-800">Lebih murah daripada membeli</h3>
               <p className="text-sm text-neutral-600 max-w-xs">
@@ -244,8 +261,14 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
             </div>
 
             <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-28 w-28 items-center justify-center rounded-full bg-[#7B2D8E] text-white shadow-lg">
-                <Bike className="h-14 w-14" />
+              <div className="flex h-28 w-28 items-center justify-center rounded-full overflow-hidden">
+                <Image 
+                  src="/images/value-props/location.png" 
+                  alt="Sewa di daerah Anda"
+                  width={112}
+                  height={112}
+                  className="object-contain"
+                />
               </div>
               <h3 className="text-xl font-bold text-neutral-800">Sewa di daerah Anda</h3>
               <p className="text-sm text-neutral-600 max-w-xs">
@@ -255,8 +278,14 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
 
             {/* Row 3 */}
             <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-28 w-28 items-center justify-center rounded-full bg-[#7B2D8E] text-white shadow-lg">
-                <Umbrella className="h-14 w-14" />
+              <div className="flex h-28 w-28 items-center justify-center rounded-full overflow-hidden">
+                <Image 
+                  src="/images/value-props/clock.png" 
+                  alt="Jam yang sesuai untuk Anda"
+                  width={112}
+                  height={112}
+                  className="object-contain"
+                />
               </div>
               <h3 className="text-xl font-bold text-neutral-800">Jam yang sesuai untuk Anda</h3>
               <p className="text-sm text-neutral-600 max-w-xs">
@@ -265,8 +294,14 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
             </div>
 
             <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-28 w-28 items-center justify-center rounded-full bg-[#7B2D8E] text-white shadow-lg">
-                <ThumbsUp className="h-14 w-14" />
+              <div className="flex h-28 w-28 items-center justify-center rounded-full overflow-hidden">
+                <Image 
+                  src="/images/value-props/environment.png" 
+                  alt="Baik untuk Lingkungan"
+                  width={112}
+                  height={112}
+                  className="object-contain"
+                />
               </div>
               <h3 className="text-xl font-bold text-neutral-800">Baik untuk Lingkungan</h3>
               <p className="text-sm text-neutral-600 max-w-xs">
