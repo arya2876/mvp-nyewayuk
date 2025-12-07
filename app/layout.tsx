@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Nunito } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 import "./globals.css";
@@ -7,12 +6,6 @@ import "react-loading-skeleton/dist/skeleton.css";
 import Navbar from "@/components/navbar";
 import Providers from "@/components/Provider";
 import Footer from "@/components/Footer";
-
-const nunito = Nunito({ 
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "NyewaYuk - Sewa Aman, Hidup Hemat",
@@ -27,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" suppressHydrationWarning>
-      <body className={`${nunito.className} antialiased`} suppressHydrationWarning>
+      <body className="antialiased" suppressHydrationWarning>
         <Providers>
           <Navbar />
           <main className="pb-16 pt-[80px]">{children}</main>
