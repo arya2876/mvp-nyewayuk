@@ -1,6 +1,7 @@
 import React, { FC, Suspense } from "react";
 import nextDynamic from "next/dynamic";
 import Image from "next/image";
+import { Trophy, MapPin } from "lucide-react";
 
 import ListingCard from "@/components/ListingCard";
 import LoadMore from "@/components/LoadMore";
