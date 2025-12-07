@@ -71,8 +71,8 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
   const priceBreakdown = useMemo(() => {
     return calculateRentalPrice({
       pricePerDay: price,
-      startDate: dateRange.startDate || null,
-      endDate: dateRange.endDate || null,
+      startDate: dateRange.startDate ?? null,
+      endDate: dateRange.endDate ?? null,
       logisticsOption,
       depositAmount,
     });
