@@ -219,7 +219,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                   alt="Semuanya terjamin"
                   width={112}
                   height={112}
-                  className="object-contain"
+                  className="object-contain w-auto h-auto"
                 />
               </div>
               <h3 className="text-xl font-bold text-neutral-800">Semuanya terjamin</h3>
@@ -235,7 +235,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                   alt="Semua orang terverifikasi"
                   width={112}
                   height={112}
-                  className="object-contain"
+                  className="object-contain w-auto h-auto"
                 />
               </div>
               <h3 className="text-xl font-bold text-neutral-800">Semua orang terverifikasi</h3>
@@ -252,7 +252,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                   alt="Lebih murah daripada membeli"
                   width={112}
                   height={112}
-                  className="object-contain"
+                  className="object-contain w-auto h-auto"
                 />
               </div>
               <h3 className="text-xl font-bold text-neutral-800">Lebih murah daripada membeli</h3>
@@ -268,7 +268,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                   alt="Sewa di daerah Anda"
                   width={112}
                   height={112}
-                  className="object-contain"
+                  className="object-contain w-auto h-auto"
                 />
               </div>
               <h3 className="text-xl font-bold text-neutral-800">Sewa di daerah Anda</h3>
@@ -285,7 +285,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                   alt="Jam yang sesuai untuk Anda"
                   width={112}
                   height={112}
-                  className="object-contain"
+                  className="object-contain w-auto h-auto"
                 />
               </div>
               <h3 className="text-xl font-bold text-neutral-800">Jam yang sesuai untuk Anda</h3>
@@ -301,7 +301,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                   alt="Baik untuk Lingkungan"
                   width={112}
                   height={112}
-                  className="object-contain"
+                  className="object-contain w-auto h-auto"
                 />
               </div>
               <h3 className="text-xl font-bold text-neutral-800">Baik untuk Lingkungan</h3>

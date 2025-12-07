@@ -68,15 +68,25 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
   }, [reservations]);
 
   // Kalkulasi harga dinamis dengan useMemo
+  // Use timestamps for stable dependency comparison
+  const startDateTimestamp = dateRange?.startDate?.getTime() ?? 0;
+  const endDateTimestamp = dateRange?.endDate?.getTime() ?? 0;
+  
+  // Logika Jaminan NyewaYuk:
+  // - Delivery (nyewa-express): Deposit uang Rp 200.000
+  // - Pickup (self-pickup): Deposit KTP/Identitas (Rp 0)
+  const SECURITY_DEPOSIT = 200000;
+  const actualDepositAmount = logisticsOption === 'nyewa-express' ? SECURITY_DEPOSIT : 0;
+  
   const priceBreakdown = useMemo(() => {
     return calculateRentalPrice({
       pricePerDay: price,
-      startDate: dateRange.startDate ?? null,
-      endDate: dateRange.endDate ?? null,
+      startDate: dateRange?.startDate ?? null,
+      endDate: dateRange?.endDate ?? null,
       logisticsOption,
-      depositAmount,
+      depositAmount: actualDepositAmount,
     });
-  }, [price, dateRange.startDate, dateRange.endDate, logisticsOption, depositAmount]);
+  }, [price, startDateTimestamp, endDateTimestamp, logisticsOption, actualDepositAmount]);
 
   const onCreateReservation = useCallback(() => {
     if (!currentUser) {
@@ -103,6 +113,10 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         startDate: dateRange.startDate,
         endDate: dateRange.endDate,
         listingId: listingId,
+        logistics_method: logisticsOption,
+        deposit_included: logisticsOption === 'nyewa-express',
+        deposit_amount: actualDepositAmount,
+        id_card_url: currentUser?.idCardUrl || currentUser?.image || '',
       })
       .then(() => {
         toast.success("Listing reserved!");
@@ -116,7 +130,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
       .finally(() => {
         setIsLoading(false);
       });
-  }, [priceBreakdown.totalPrice, dateRange, listingId, router, currentUser, priceBreakdown.dayCount]);
+  }, [priceBreakdown.totalPrice, dateRange, listingId, router, currentUser, priceBreakdown.dayCount, logisticsOption, actualDepositAmount]);
 
   return (
     <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
@@ -126,9 +140,12 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         {/* Calendar */}
         <div className="mb-6">
           <Calender
-            value={dateRange}
+            value={dateRange || initialDateRange}
             disabledDates={disabledDates}
-            onChange={(value) => setDateRange(value.selection)}
+            onChange={(fieldName, value) => {
+              console.log('Calendar onChange:', value);
+              setDateRange(value);
+            }}
           />
         </div>
 
@@ -137,7 +154,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
           <div>
             <div className="text-sm font-semibold mb-2">Pickup</div>
             <div className="text-sm text-gray-600">
-              {dateRange.startDate?.toLocaleDateString("id-ID", {
+              {dateRange?.startDate?.toLocaleDateString("id-ID", {
                 day: "numeric",
                 month: "short",
               }) || "Select date"}
@@ -146,7 +163,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
           <div>
             <div className="text-sm font-semibold mb-2">Drop off</div>
             <div className="text-sm text-gray-600">
-              {dateRange.endDate?.toLocaleDateString("id-ID", {
+              {dateRange?.endDate?.toLocaleDateString("id-ID", {
                 day: "numeric",
                 month: "short",
               }) || "Select date"}
@@ -169,7 +186,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
               />
               <div className="flex-1">
                 <div className="font-medium">Self Pickup</div>
-                <div className="text-xs text-gray-500">Pick up and return yourself</div>
+                <div className="text-xs text-gray-500">Deposit: KTP/Identitas Asli</div>
               </div>
               <div className="text-sm font-semibold text-green-600">FREE</div>
             </label>
@@ -184,12 +201,27 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
               />
               <div className="flex-1">
                 <div className="font-medium">Nyewa Express</div>
-                <div className="text-xs text-gray-500">We deliver to your location</div>
+                <div className="text-xs text-gray-500">Deposit: Rp 200.000 (Refundable)</div>
               </div>
               <div className="text-sm font-semibold">Rp 25,000</div>
             </label>
           </div>
         </div>
+
+        {/* Warning untuk Self Pickup */}
+        {logisticsOption === "self-pickup" && (
+          <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">⚠️</span>
+              <div>
+                <div className="font-semibold text-yellow-800 mb-1">PENTING: Deposit Identitas</div>
+                <div className="text-sm text-yellow-700">
+                  Anda memilih <strong>Ambil Sendiri</strong>. Anda WAJIB meninggalkan <strong>KTP/Identitas Asli</strong> kepada pemilik barang saat pengambilan sebagai jaminan keamanan.
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Price Breakdown */}
         {priceBreakdown.dayCount > 0 && (
@@ -200,22 +232,26 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
               </span>
               <span className="font-medium">Rp {formatRupiah(priceBreakdown.basePrice)}</span>
             </div>
-            <div className="flex justify-between">
+            {/* Service fee disabled untuk MVP launch */}
+            {/* <div className="flex justify-between">
               <span className="text-gray-600">Service fee (5%)</span>
               <span className="font-medium">Rp {formatRupiah(priceBreakdown.serviceFee)}</span>
-            </div>
+            </div> */}
             {priceBreakdown.logisticsFee > 0 && (
               <div className="flex justify-between">
                 <span className="text-gray-600">Nyewa Express</span>
                 <span className="font-medium">Rp {formatRupiah(priceBreakdown.logisticsFee)}</span>
               </div>
             )}
-            {priceBreakdown.depositAmount > 0 && (
-              <div className="flex justify-between">
-                <span className="text-gray-600">Deposit (refundable)</span>
-                <span className="font-medium">Rp {formatRupiah(priceBreakdown.depositAmount)}</span>
-              </div>
-            )}
+            {/* Deposit - Always show based on logistics option */}
+            <div className="flex justify-between">
+              <span className="text-gray-600">
+                Deposit Keamanan {logisticsOption === 'self-pickup' ? '(KTP/Identitas)' : '(Refundable)'}
+              </span>
+              <span className="font-medium">
+                {logisticsOption === 'self-pickup' ? 'Rp 0' : `Rp ${formatRupiah(priceBreakdown.depositAmount)}`}
+              </span>
+            </div>
             <div className="pt-2 border-t border-gray-300 flex justify-between">
               <span className="font-bold">Total</span>
               <span className="font-bold text-lg text-purple-600">

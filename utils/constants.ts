@@ -46,6 +46,10 @@ export const menuItems = [
     path: "/trips",
   },
   {
+    label: "My Properties",
+    path: "/properties",
+  },
+  {
     label: "My Profile",
     path: "/profile",
   },

@@ -52,8 +52,8 @@ export function calculateRentalPrice(
   // 2. Hitung basePrice
   const basePrice = pricePerDay * dayCount;
 
-  // 3. Hitung serviceFee (5% dari basePrice)
-  const serviceFee = Math.round(basePrice * NYEWAYUK_SERVICE_FEE_PERCENTAGE);
+  // 3. Hitung serviceFee (DISABLED untuk MVP launch - gratis 1 bulan pertama)
+  const serviceFee = 0; // Math.round(basePrice * NYEWAYUK_SERVICE_FEE_PERCENTAGE);
 
   // 4. Tentukan logisticsFee
   const logisticsFee = logisticsOption === "nyewa-express" ? NYEWA_EXPRESS_FEE : 0;

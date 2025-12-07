@@ -126,7 +126,7 @@ const Window: FC<WindowProps> = ({ children, name }) => {
               initial="hidden"
               animate="show"
               exit="hidden"
-              className="md:h-auto h-screen md:max-h-screen overflow-y-auto rounded-lg shadow-lg w-screen bg-white md:w-[420px]"
+              className="md:h-auto h-screen md:max-h-screen overflow-y-auto rounded-lg shadow-lg w-screen bg-white md:w-[900px] md:max-w-4xl"
               ref={ref}
             >
               {cloneElement(children, { onCloseModal: close })}

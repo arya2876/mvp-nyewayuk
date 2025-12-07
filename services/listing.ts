@@ -154,3 +154,61 @@ export const createListing = async (data: { [x: string]: any }) => {
 
   return listing;
 };
+
+export const updateListing = async (listingId: string, data: { [x: string]: any }) => {
+  const {
+    category,
+    location: { region, label: country, latlng },
+    image: imageSrc,
+    price,
+    title,
+    description,
+  } = data;
+
+  // Validate required fields
+  const requiredFields = {
+    category,
+    region,
+    country,
+    latlng,
+    imageSrc,
+    price,
+    title,
+    description,
+  };
+
+  Object.entries(requiredFields).forEach(([key, value]) => {
+    if (!value) {
+      throw new Error(`Missing required field: ${key}`);
+    }
+  });
+
+  const user = await getCurrentUser();
+  if (!user) throw new Error("Unauthorized!");
+
+  // Check if user owns this listing
+  const existingListing = await db.item.findUnique({
+    where: { id: listingId },
+  });
+
+  if (!existingListing || existingListing.userId !== user.id) {
+    throw new Error("Unauthorized to update this listing");
+  }
+
+  const listing = await db.item.update({
+    where: { id: listingId },
+    data: {
+      title,
+      description,
+      imageSrc,
+      category,
+      country,
+      region,
+      locationValue: latlng,
+      price: parseInt(price, 10),
+    },
+  });
+
+  return listing;
+};
+

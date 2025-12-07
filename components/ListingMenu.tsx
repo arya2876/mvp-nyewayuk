@@ -1,13 +1,14 @@
 "use client";
 import React, { FC, useTransition } from "react";
 import { BsThreeDots } from "react-icons/bs";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 import Menu from "./Menu";
 import Modal from "./modals/Modal";
 import ConfirmDelete from "./ConfirmDelete";
+import EditListingModalContent from "./EditListingModalContent";
 
 import { deleteProperty } from "@/services/properties";
 import { deleteReservation } from "@/services/reservation";
@@ -24,6 +25,7 @@ interface ListingMenuProps {
 
 const ListingMenu: FC<ListingMenuProps> = ({ id }) => {
   const pathname = usePathname();
+  const router = useRouter();
   const { mutate: deleteListing } = useMutation({
     mutationFn: deleteProperty,
   });
@@ -32,7 +34,7 @@ const ListingMenu: FC<ListingMenuProps> = ({ id }) => {
   });
   const [isLoading, startTransition] = useTransition();
 
-  if (pathname === "/" || pathname === "/favorites") return null;
+  if (pathname === "" || pathname === "/favorites") return null;
 
   const onConfirm = (onModalClose?: () => void) => {
     startTransition(() => {
@@ -64,18 +66,25 @@ const ListingMenu: FC<ListingMenuProps> = ({ id }) => {
       <Menu>
         <Menu.Toggle
           id="lisiting-menu"
-          className="w-10 h-10 flex items-center z-5 justify-center"
+          className="w-10 h-10 flex items-center z-10 justify-center"
         >
           <button
             type="button"
-            className="w-7 h-7 rounded-full bg-neutral-700/50 flex items-center justify-center hover:bg-neutral-700/70 group transition duration-200 z-[5]"
+            className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center hover:bg-white shadow-md group transition duration-200 z-10"
           >
-            <BsThreeDots className="h-[18px] w-[18px] text-gray-300 transition duration-100 group-hover:text-gray-100 " />
+            <BsThreeDots className="h-5 w-5 text-gray-700 transition duration-100 group-hover:text-gray-900" />
           </button>
         </Menu.Toggle>
         <Menu.List position="bottom-left" className="rounded-md">
+          {pathname === "/properties" && (
+            <Modal.Trigger name="edit-listing">
+              <Menu.Button className="text-[14px] rounded-md font-semibold py-[10px] hover:bg-neutral-100 transition">
+                Edit listing
+              </Menu.Button>
+            </Modal.Trigger>
+          )}
           <Modal.Trigger name="confirm-delete">
-            <Menu.Button className="text-[14px] rounded-md font-semibold py-[10px] hover:bg-neutral-100 transition">
+            <Menu.Button className="text-[14px] rounded-md font-semibold py-[10px] hover:bg-neutral-100 transition text-red-600">
               {pathNameDict[pathname]}
             </Menu.Button>
           </Modal.Trigger>
@@ -88,6 +97,11 @@ const ListingMenu: FC<ListingMenuProps> = ({ id }) => {
           isLoading={isLoading}
         />
       </Modal.Window>
+      {pathname === "/properties" && (
+        <Modal.Window name="edit-listing">
+          <EditListingModalContent listingId={id} />
+        </Modal.Window>
+      )}
     </Modal>
   );
 };

@@ -1,9 +1,11 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import { format } from "date-fns";
 import { Item } from "@prisma/client";
 import Skeleton from "react-loading-skeleton";
 import { ShieldCheck } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 import HeartButton from "./HeartButton";
 import Image from "./Image";
@@ -26,6 +28,9 @@ const ListingCard: React.FC<ListingCardProps> = ({
   reservation,
   hasFavorited,
 }) => {
+  const pathname = usePathname();
+  const showMenu = pathname === "/properties" || pathname === "/reservations" || pathname === "/trips";
+  
   const price = reservation ? reservation.totalPrice : data?.price;
 
   let reservationDate;
@@ -37,12 +42,14 @@ const ListingCard: React.FC<ListingCardProps> = ({
 
   return (
     <div className="relative">
-      <div className="absolute top-0 left-0 p-3 flex items-center justify-between w-full">
-        <div className="z-5">
-          <ListingMenu id={reservation?.id || data.id} />
-        </div>
+      <div className="absolute top-0 left-0 p-3 flex items-center justify-between w-full z-10">
+        {showMenu && (
+          <div className="z-10">
+            <ListingMenu id={reservation?.id || data.id} />
+          </div>
+        )}
 
-        <div className="w-[28px] h-[28px] flex items-center justify-center">
+        <div className={`w-[28px] h-[28px] flex items-center justify-center ${!showMenu ? 'ml-auto' : ''}`}>
           <HeartButton
             listingId={data.id}
             key={data.id}

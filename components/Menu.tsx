@@ -76,7 +76,7 @@ const List: FC<ListProps> = ({
             originY: 0,
           }}
           className={cn(
-            `absolute top-[110%]  w-max min-w-[170px] bg-white rounded-sm z-[9999] text-[12px] overflow-hidden `,
+            `absolute top-[110%] w-max min-w-[170px] bg-white rounded-lg shadow-lg border border-gray-200 z-[9999] text-[12px] overflow-hidden`,
             className,
             position === "bottom-left" ? "left-0" : "right-0"
           )}

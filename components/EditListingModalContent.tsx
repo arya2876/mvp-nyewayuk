@@ -1,54 +1,97 @@
 "use client";
-import React, { useMemo, useState, useTransition } from "react";
+import React, { useMemo, useState, useTransition, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
-import Modal from "./Modal";
-import Button from "../Button";
-import SpinnerMini from "../Loader";
-import Heading from "../Heading";
-import Input from "../inputs/Input";
-import CategoryButton from "../inputs/CategoryButton";
-import CountrySelect from "../inputs/CountrySelect";
-import ImageUpload from "../ImageUpload";
+import Button from "./Button";
+import SpinnerMini from "./Loader";
+import Heading from "./Heading";
+import Input from "./inputs/Input";
+import CategoryButton from "./inputs/CategoryButton";
+import CountrySelect from "./inputs/CountrySelect";
+import ImageUpload from "./ImageUpload";
+import Modal from "./modals/Modal";
 
 import { categories } from "@/utils/constants";
-import { createListing } from "@/services/listing";
+import { updateListing } from "@/services/listing";
 
-const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
+interface EditListingModalContentProps {
+  listingId: string;
+}
+
+const EditListingModalContent: React.FC<EditListingModalContentProps> = ({ listingId }) => {
   const [isLoading, startTransition] = useTransition();
-  const queryClient = useQueryClient();
+  const [listing, setListing] = useState<any>(null);
+  const [loadingData, setLoadingData] = useState(true);
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchListing = async () => {
+      try {
+        const response = await axios.get(`/api/listings/${listingId}`);
+        setListing(response.data);
+      } catch (error) {
+        toast.error("Failed to load listing");
+      } finally {
+        setLoadingData(false);
+      }
+    };
+    fetchListing();
+  }, [listingId]);
+
   const {
     register,
     handleSubmit,
     setValue,
     watch,
     formState: { errors },
-    reset,
   } = useForm<FieldValues>({
     defaultValues: {
-      category: "Kamera",
-      location: null,
-      images: [],
-      price: "",
-      title: "",
-      description: "",
+      category: listing?.category || "Kamera",
+      location: listing?.country
+        ? {
+            label: listing.country,
+            latlng: listing.locationValue,
+            region: listing.region,
+            value: listing.country,
+          }
+        : null,
+      images: listing?.imageSrc ? [listing.imageSrc] : [],
+      price: listing?.price || "",
+      title: listing?.title || "",
+      description: listing?.description || "",
     },
   });
+
+  useEffect(() => {
+    if (listing) {
+      setValue("category", listing.category);
+      setValue("title", listing.title);
+      setValue("description", listing.description);
+      setValue("images", listing.imageSrc ? [listing.imageSrc] : []);
+      setValue("price", listing.price);
+      if (listing.country) {
+        setValue("location", {
+          label: listing.country,
+          latlng: listing.locationValue,
+          region: listing.region,
+          value: listing.country,
+        });
+      }
+    }
+  }, [listing, setValue]);
 
   const location = watch("location");
   const country = location?.label;
 
   const Map = useMemo(
     () =>
-      dynamic(() => import("../Map"), {
+      dynamic(() => import("./Map"), {
         ssr: false,
       }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [country]
   );
 
@@ -61,39 +104,38 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
   };
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    // Validate all required fields
-    if (!data.category || !data.title || !data.description || !data.images || data.images.length === 0 || !data.price || !data.location) {
-      toast.error("Mohon lengkapi semua field!");
-      return;
-    }
-
     startTransition(async () => {
       try {
-        const newListing = await createListing({
+        await updateListing(listingId, {
           ...data,
           image: data.images[0] || "", // Use first image as main image
         });
-        toast.success(`${data.title} added successfully!`);
-        queryClient.invalidateQueries({
-          queryKey: ["listings"],
-        });
-        reset();
-        onCloseModal?.();
+        toast.success("Listing updated successfully!");
         router.refresh();
-        router.push(`/listings/${newListing.id}`);
       } catch (error: any) {
-        toast.error("Failed to create listing!");
-        console.log(error?.message);
+        toast.error("Failed to update listing!");
       }
     });
   };
 
-  const body = () => {
+  if (loadingData) {
     return (
-      <div className="space-y-8">
+      <div className="flex items-center justify-center p-8">
+        <SpinnerMini />
+      </div>
+    );
+  }
+
+  return (
+    <div className="w-full h-full flex flex-col max-h-[90vh]">
+      <Modal.WindowHeader title="Edit Listing" />
+      <form
+        className="flex-1 overflow-y-auto p-6 space-y-8"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         {/* Category Section */}
         <div>
-          <Heading title="Kategori Barang" subtitle="Pilih kategori yang sesuai" />
+          <Heading title="Kategori" subtitle="Pilih kategori barang" />
           <div className="grid grid-cols-2 gap-3 mt-4">
             {categories.map((item) => (
               <CategoryButton
@@ -111,10 +153,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
 
         {/* Description Section */}
         <div>
-          <Heading
-            title="Deskripsi Barang"
-            subtitle="Jelaskan barang yang akan Anda sewakan"
-          />
+          <Heading title="Informasi Barang" subtitle="Detail barang Anda" />
           <div className="space-y-4 mt-4">
             <Input
               id="title"
@@ -125,7 +164,6 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
               errors={errors}
               required
               watch={watch}
-              autoFocus
             />
             <Input
               id="description"
@@ -162,7 +200,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
 
         {/* Price Section */}
         <div>
-          <Heading title="Tentukan Harga Sewa" subtitle="Berapa harga sewa per hari?" />
+          <Heading title="Harga Sewa" subtitle="Tentukan harga sewa per hari" />
           <div className="relative mt-4">
             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-700 font-semibold z-10">
               Rp
@@ -196,25 +234,15 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
             </div>
           </div>
         </div>
-      </div>
-    );
-  };
 
-  return (
-    <div className="w-full h-full flex flex-col max-h-[90vh]">
-      <Modal.WindowHeader title="Sewakan Barang Anda" />
-      <form
-        className="flex-1 overflow-y-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <div className="p-6">{body()}</div>
-        <div className="sticky bottom-0 bg-white px-6 pb-6 pt-3 border-t">
+        {/* Submit Button */}
+        <div className="sticky bottom-0 bg-white pt-4 pb-2 border-t">
           <Button
             type="submit"
             className="w-full flex items-center gap-2 justify-center"
             disabled={isLoading}
           >
-            {isLoading ? <SpinnerMini /> : "Publikasikan"}
+            {isLoading ? <SpinnerMini /> : "Update Listing"}
           </Button>
         </div>
       </form>
@@ -222,4 +250,4 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
   );
 };
 
-export default RentModal;
+export default EditListingModalContent;
