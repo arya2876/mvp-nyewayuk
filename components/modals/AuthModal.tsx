@@ -108,7 +108,7 @@ const AuthModal = ({
         onSubmit={handleSubmit(onSubmit)}
       >
         <Heading
-          title={!isLoginModal ? "Welcome to Airbnb" : "Welcome back"}
+          title={!isLoginModal ? "Welcome to NyewaYuk" : "Welcome back"}
           subtitle={
             title === "Sign up"
               ? "Create an account!"
@@ -186,7 +186,7 @@ const AuthModal = ({
             <small className="text-[15px]">
               {!isLoginModal
                 ? "Already have an account?"
-                : "First time using Airbnb?"}
+                : "First time using NyewaYuk?"}
             </small>
             <button
               type="button"

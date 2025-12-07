@@ -1,6 +1,6 @@
-# Airbnb Clone
+# NyewaYuk - Platform Sewa Barang C2C
 
-This is an Airbnb clone built with Next.js, TypeScript, Tailwind CSS, MongoDB, Prisma, Next auth, Leaflet and many other technologies.
+NyewaYuk adalah platform rental peer-to-peer yang memungkinkan orang untuk menyewakan dan menyewa barang dari tetangga sekitar. Dibangun dengan Next.js, TypeScript, Tailwind CSS, MongoDB, Prisma, NextAuth, Leaflet dan teknologi modern lainnya.
 
 ## Features
 
@@ -12,15 +12,19 @@ This is an Airbnb clone built with Next.js, TypeScript, Tailwind CSS, MongoDB, P
 
 ## Demo
 
-You can check out a live demo of the Airbnb clone project [here](https://airbnb-clone-phi-green.vercel.app/).
+Platform NyewaYuk akan segera live! Stay tuned.
 
-## Screenshots
+## Features
 
-<kbd><img width="944" alt="vacationhub" src="https://github.com/sudeepmahato16/airbnb_clone/assets/122378993/f893e203-8a2d-4ff1-ae20-67e64187b770"></kbd>
-
-<kbd><img width="886" alt="login-modal" src="https://github.com/sudeepmahato16/airbnb_clone/assets/122378993/3d6675e0-6046-48dc-b55f-7ef318581ccd"></kbd>
-
-<kbd><img width="810" alt="listing" src="https://github.com/sudeepmahato16/airbnb_clone/assets/122378993/a0b05a50-cbc2-40db-8f62-6cc203a7c887"></kbd>
+- 🔐 Autentikasi dengan Google OAuth & Email
+- 📦 Upload & manage listings dengan multiple images
+- 📅 Calendar booking dengan date picker
+- 📍 Location-based search dengan GPS detection
+- 💰 Transparent pricing dengan deposit system
+- 🚚 Flexible logistics (self-pickup atau delivery)
+- ⭐ Rating & review system (coming soon)
+- 💬 WhatsApp integration untuk komunikasi
+- 👤 User profile & verification
 
 ## Prerequisites
 
@@ -35,13 +39,13 @@ Make sure you have the following software installed on your system:
 - Clone the repository:
 
   ```
-  git clone https://github.com/sudeepmahato16/airbnb_clone.git
+  git clone https://github.com/arya2876/mvp-nyewayuk.git
   ```
 
-- Navigate to the project directory:
+2. Navigate to the project directory:
 
   ```
-  cd Airbnb
+  cd mvp-nyewayuk
   ```
 
 - Install the dependencies:
