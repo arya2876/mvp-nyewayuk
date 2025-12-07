@@ -1,7 +1,4 @@
 import React from "react";
-import dynamic from "next/dynamic";
-
-import Avatar from "@/components/Avatar";
 import ListingCategory from "./ListingCategory";
 import { Category } from "@/types";
 
@@ -18,10 +15,6 @@ interface ListingInfoProps {
   latlng: number[];
 }
 
-const Map = dynamic(() => import("@/components/Map"), {
-  ssr: false,
-});
-
 const ListingInfo: React.FC<ListingInfoProps> = ({
   user,
   description,
@@ -32,37 +25,51 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
   latlng,
 }) => {
   return (
-    <div className="col-span-4 flex flex-col gap-8">
-      <div className="flex flex-col gap-2">
-        <div className="text-[16px] font-semibold flex flex-row items-center gap-2">
-          <span className="mr-1">Hosted by</span> <Avatar src={user?.image} />
-          <span> {user?.name}</span>
-        </div>
-        {(brand || model || condition) && (
-          <div
-            className="flex flex-row items-center gap-4 font-light text-neutral-700
-          "
-          >
-            {brand && <span>Brand: {brand}</span>}
-            {model && <span>Model: {model}</span>}
-            {condition && <span>Condition: {condition}</span>}
+    <div className="space-y-8">
+      {/* Description Section */}
+      <div>
+        <h2 className="text-2xl font-bold mb-4">About this item</h2>
+        <p className="text-gray-700 leading-relaxed">{description}</p>
+      </div>
+
+      {/* Specifications */}
+      {(brand || model || condition) && (
+        <div className="bg-gray-50 rounded-xl p-6">
+          <h3 className="text-xl font-bold mb-4">Specifications</h3>
+          <div className="grid grid-cols-2 gap-4">
+            {brand && (
+              <div>
+                <div className="text-sm text-gray-500 mb-1">Brand</div>
+                <div className="font-semibold">{brand}</div>
+              </div>
+            )}
+            {model && (
+              <div>
+                <div className="text-sm text-gray-500 mb-1">Model</div>
+                <div className="font-semibold">{model}</div>
+              </div>
+            )}
+            {condition && (
+              <div>
+                <div className="text-sm text-gray-500 mb-1">Condition</div>
+                <div className="font-semibold capitalize">{condition}</div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-      <hr />
-      {category && (
-        <ListingCategory
-          icon={category.icon}
-          label={category?.label}
-          description={category?.description || ""}
-        />
+        </div>
       )}
-      <hr />
-      <p className=" font-light text-neutral-500 text-[16px] ">{description}</p>
-      <hr />
-      <div className="h-[210px]">
-        <Map center={latlng} />
-      </div>
+
+      {/* Category */}
+      {category && (
+        <div>
+          <h3 className="text-xl font-bold mb-4">Category</h3>
+          <ListingCategory
+            icon={category.icon}
+            label={category?.label}
+            description={category?.description || ""}
+          />
+        </div>
+      )}
     </div>
   );
 };
