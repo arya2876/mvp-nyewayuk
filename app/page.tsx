@@ -214,7 +214,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
             <div className="flex flex-col items-center text-center space-y-4">
               <div className="flex h-28 w-28 items-center justify-center rounded-full overflow-hidden">
                 <Image 
-                  src="/images/value-props/together.png" 
+                  src="/images/Cool Kids - Together.png" 
                   alt="Semuanya terjamin"
                   width={112}
                   height={112}
@@ -230,7 +230,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
             <div className="flex flex-col items-center text-center space-y-4">
               <div className="flex h-28 w-28 items-center justify-center rounded-full overflow-hidden">
                 <Image 
-                  src="/images/value-props/card-id.png" 
+                  src="/images/Lifesavers - Card ID.png" 
                   alt="Semua orang terverifikasi"
                   width={112}
                   height={112}
@@ -247,7 +247,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
             <div className="flex flex-col items-center text-center space-y-4">
               <div className="flex h-28 w-28 items-center justify-center rounded-full overflow-hidden">
                 <Image 
-                  src="/images/value-props/money.png" 
+                  src="/images/Moneyverse - Money.png" 
                   alt="Lebih murah daripada membeli"
                   width={112}
                   height={112}
@@ -263,7 +263,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
             <div className="flex flex-col items-center text-center space-y-4">
               <div className="flex h-28 w-28 items-center justify-center rounded-full overflow-hidden">
                 <Image 
-                  src="/images/value-props/location.png" 
+                  src="/images/Pebble People - Location Pin.png" 
                   alt="Sewa di daerah Anda"
                   width={112}
                   height={112}
@@ -280,7 +280,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
             <div className="flex flex-col items-center text-center space-y-4">
               <div className="flex h-28 w-28 items-center justify-center rounded-full overflow-hidden">
                 <Image 
-                  src="/images/value-props/clock.png" 
+                  src="/images/Cool Kids - Clock.png" 
                   alt="Jam yang sesuai untuk Anda"
                   width={112}
                   height={112}
@@ -296,7 +296,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
             <div className="flex flex-col items-center text-center space-y-4">
               <div className="flex h-28 w-28 items-center justify-center rounded-full overflow-hidden">
                 <Image 
-                  src="/images/value-props/environment.png" 
+                  src="/images/People of Brooklyn - The Borough.png" 
                   alt="Baik untuk Lingkungan"
                   width={112}
                   height={112}
