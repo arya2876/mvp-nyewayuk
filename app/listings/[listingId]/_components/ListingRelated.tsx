@@ -94,7 +94,7 @@ const ListingRelated: React.FC<ListingRelatedProps> = ({
               <ListingCard
                 key={listing.id}
                 data={listing as any}
-                currentUser={currentUser}
+                hasFavorited={false}
               />
             ))}
           </div>
@@ -110,7 +110,7 @@ const ListingRelated: React.FC<ListingRelatedProps> = ({
               <ListingCard
                 key={listing.id}
                 data={listing as any}
-                currentUser={currentUser}
+                hasFavorited={false}
               />
             ))}
           </div>
