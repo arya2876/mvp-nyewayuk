@@ -43,7 +43,7 @@ export default function CaraKerjaPage() {
               </div>
               <h3 className="text-xl font-semibold mb-3">2. Ajukan Sewa</h3>
               <p className="text-gray-600">
-                Pilih tanggal sewa dan klik "Ajukan Sewa". Anda akan diarahkan ke WhatsApp untuk koordinasi dengan pemilik
+                Pilih tanggal sewa dan klik &quot;Ajukan Sewa&quot;. Anda akan diarahkan ke WhatsApp untuk koordinasi dengan pemilik
               </p>
             </div>
 
@@ -81,7 +81,7 @@ export default function CaraKerjaPage() {
               </div>
               <h3 className="text-xl font-semibold mb-3">1. Upload Barang</h3>
               <p className="text-gray-600">
-                Klik "Sewakan Barang", isi detail lengkap (brand, model, kondisi), upload foto, dan tentukan harga sewa per hari
+                Klik &quot;Sewakan Barang&quot;, isi detail lengkap (brand, model, kondisi), upload foto, dan tentukan harga sewa per hari
               </p>
             </div>
 

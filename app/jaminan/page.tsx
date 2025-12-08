@@ -69,7 +69,7 @@ export default function JaminanPage() {
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-2">Barang Terverifikasi</h4>
                     <p className="text-gray-600 text-sm">
-                      Barang dengan badge "Terverifikasi" telah dikonfirmasi kondisinya oleh NyewaGuard AI
+                      Barang dengan badge &quot;Terverifikasi&quot; telah dikonfirmasi kondisinya oleh NyewaGuard AI
                     </p>
                   </div>
                 </div>
@@ -145,7 +145,7 @@ export default function JaminanPage() {
             <div className="bg-white rounded-xl p-6 text-center">
               <div className="text-3xl mb-3">✅</div>
               <h3 className="font-semibold mb-2">Verifikasi Otomatis</h3>
-              <p className="text-sm text-gray-600">Badge "Terverifikasi" diberikan untuk barang yang lolos verifikasi</p>
+              <p className="text-sm text-gray-600">Badge &quot;Terverifikasi&quot; diberikan untuk barang yang lolos verifikasi</p>
             </div>
             <div className="bg-white rounded-xl p-6 text-center">
               <div className="text-3xl mb-3">🛡️</div>
