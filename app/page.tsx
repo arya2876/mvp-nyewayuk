@@ -24,6 +24,19 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
   const lng = searchParams?.lng ? Number(searchParams.lng) : undefined;
   const center = lat !== undefined && lng !== undefined ? [lat, lng] : undefined;
 
+  // Debug logging
+  if (lat && lng) {
+    console.log(`🔍 PAGE: Searching with user location [${lat}, ${lng}]`);
+    console.log(`📊 PAGE: Found ${listings.length} listings`);
+    if (listings.length > 0) {
+      listings.forEach(listing => {
+        if (listing.latlng && listing.latlng.length >= 2) {
+          console.log(`  - "${listing.title}": [${listing.latlng[0]}, ${listing.latlng[1]}]`);
+        }
+      });
+    }
+  }
+
   const Map = nextDynamic(() => import("@/components/Map"), { ssr: false });
 
   return (

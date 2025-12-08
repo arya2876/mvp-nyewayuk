@@ -149,6 +149,12 @@ const LocationSelect: React.FC<LocationSelectProps> = ({ value, onChange }) => {
             latlng: nearestDistrict.latlng,
             label: `${nearestDistrict.name}, ${nearestCity.name}, ${nearestProvince.province}`,
           };
+          
+          console.log(`📍 UPLOAD FORM: Detected GPS [${latitude}, ${longitude}]`);
+          console.log(`📍 UPLOAD FORM: Nearest district "${nearestDistrict.name}" at [${nearestDistrict.latlng[0]}, ${nearestDistrict.latlng[1]}]`);
+          console.log(`📍 UPLOAD FORM: Distance ${distance.toFixed(2)}km`);
+          console.log(`📍 UPLOAD FORM: Will save coordinates:`, nearestDistrict.latlng);
+          
           onChange("location", locationValue);
 
           toast.success(

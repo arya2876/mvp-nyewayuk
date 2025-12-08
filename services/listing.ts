@@ -225,6 +225,8 @@ export const createListing = async (data: { [x: string]: any }) => {
     },
   });
 
+  console.log(`✅ LISTING CREATED: "${title}" at coordinates [${latlng[0]}, ${latlng[1]}] (${district}, ${city})`);
+
   return listing;
 };
 
