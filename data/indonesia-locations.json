@@ -1,0 +1,312 @@
+[
+  {
+    "province": "DKI Jakarta",
+    "latlng": [-6.2088, 106.8456],
+    "cities": [
+      {
+        "name": "Jakarta Pusat",
+        "latlng": [-6.1862, 106.8063],
+        "districts": [
+          { "name": "Menteng", "latlng": [-6.1962, 106.8318] },
+          { "name": "Tanah Abang", "latlng": [-6.1954, 106.8115] },
+          { "name": "Gambir", "latlng": [-6.1752, 106.8272] },
+          { "name": "Kemayoran", "latlng": [-6.1643, 106.8672] },
+          { "name": "Cempaka Putih", "latlng": [-6.1761, 106.8702] }
+        ]
+      },
+      {
+        "name": "Jakarta Selatan",
+        "latlng": [-6.2615, 106.8106],
+        "districts": [
+          { "name": "Kebayoran Baru", "latlng": [-6.2423, 106.7972] },
+          { "name": "Cilandak", "latlng": [-6.2897, 106.8019] },
+          { "name": "Pancoran", "latlng": [-6.2532, 106.8452] },
+          { "name": "Jagakarsa", "latlng": [-6.3369, 106.8219] },
+          { "name": "Pasar Minggu", "latlng": [-6.2843, 106.8421] }
+        ]
+      },
+      {
+        "name": "Jakarta Barat",
+        "latlng": [-6.1668, 106.7625],
+        "districts": [
+          { "name": "Kebon Jeruk", "latlng": [-6.1843, 106.7644] },
+          { "name": "Grogol Petamburan", "latlng": [-6.1660, 106.7907] },
+          { "name": "Cengkareng", "latlng": [-6.1417, 106.7382] },
+          { "name": "Kembangan", "latlng": [-6.1757, 106.7316] },
+          { "name": "Taman Sari", "latlng": [-6.1395, 106.8139] }
+        ]
+      },
+      {
+        "name": "Jakarta Timur",
+        "latlng": [-6.2250, 106.9004],
+        "districts": [
+          { "name": "Jatinegara", "latlng": [-6.2155, 106.8707] },
+          { "name": "Matraman", "latlng": [-6.2058, 106.8589] },
+          { "name": "Pulo Gadung", "latlng": [-6.1837, 106.8969] },
+          { "name": "Kramat Jati", "latlng": [-6.2729, 106.8723] },
+          { "name": "Cipayung", "latlng": [-6.3101, 106.9162] }
+        ]
+      },
+      {
+        "name": "Jakarta Utara",
+        "latlng": [-6.1215, 106.8981],
+        "districts": [
+          { "name": "Kelapa Gading", "latlng": [-6.1580, 106.9058] },
+          { "name": "Tanjung Priok", "latlng": [-6.1239, 106.8700] },
+          { "name": "Pademangan", "latlng": [-6.1344, 106.8482] },
+          { "name": "Penjaringan", "latlng": [-6.1249, 106.7880] },
+          { "name": "Koja", "latlng": [-6.1017, 106.8972] }
+        ]
+      }
+    ]
+  },
+  {
+    "province": "Jawa Barat",
+    "latlng": [-6.9175, 107.6191],
+    "cities": [
+      {
+        "name": "Bandung",
+        "latlng": [-6.9175, 107.6191],
+        "districts": [
+          { "name": "Coblong", "latlng": [-6.8738, 107.6124] },
+          { "name": "Sukasari", "latlng": [-6.8692, 107.5891] },
+          { "name": "Cicendo", "latlng": [-6.9169, 107.5887] },
+          { "name": "Bandung Wetan", "latlng": [-6.9036, 107.6333] },
+          { "name": "Sumur Bandung", "latlng": [-6.9147, 107.6098] }
+        ]
+      },
+      {
+        "name": "Bekasi",
+        "latlng": [-6.2383, 106.9756],
+        "districts": [
+          { "name": "Bekasi Barat", "latlng": [-6.2297, 106.9630] },
+          { "name": "Bekasi Timur", "latlng": [-6.2496, 107.0089] },
+          { "name": "Bekasi Selatan", "latlng": [-6.2646, 106.9807] },
+          { "name": "Bekasi Utara", "latlng": [-6.2073, 107.0024] },
+          { "name": "Medan Satria", "latlng": [-6.2105, 106.9914] }
+        ]
+      },
+      {
+        "name": "Depok",
+        "latlng": [-6.4025, 106.7942],
+        "districts": [
+          { "name": "Beji", "latlng": [-6.3694, 106.8104] },
+          { "name": "Pancoran Mas", "latlng": [-6.4094, 106.7828] },
+          { "name": "Sukmajaya", "latlng": [-6.3890, 106.8458] },
+          { "name": "Cilodong", "latlng": [-6.4351, 106.8209] },
+          { "name": "Limo", "latlng": [-6.3674, 106.7750] }
+        ]
+      },
+      {
+        "name": "Bogor",
+        "latlng": [-6.5950, 106.7970],
+        "districts": [
+          { "name": "Bogor Tengah", "latlng": [-6.5939, 106.7989] },
+          { "name": "Bogor Utara", "latlng": [-6.5731, 106.8082] },
+          { "name": "Bogor Selatan", "latlng": [-6.6214, 106.8067] },
+          { "name": "Bogor Barat", "latlng": [-6.6087, 106.7698] },
+          { "name": "Bogor Timur", "latlng": [-6.6037, 106.8325] }
+        ]
+      },
+      {
+        "name": "Cimahi",
+        "latlng": [-6.8720, 107.5425],
+        "districts": [
+          { "name": "Cimahi Selatan", "latlng": [-6.8918, 107.5376] },
+          { "name": "Cimahi Tengah", "latlng": [-6.8823, 107.5448] },
+          { "name": "Cimahi Utara", "latlng": [-6.8599, 107.5444] }
+        ]
+      }
+    ]
+  },
+  {
+    "province": "Jawa Tengah",
+    "latlng": [-7.1509, 110.1403],
+    "cities": [
+      {
+        "name": "Semarang",
+        "latlng": [-7.0051, 110.4381],
+        "districts": [
+          { "name": "Semarang Tengah", "latlng": [-6.9832, 110.4213] },
+          { "name": "Semarang Utara", "latlng": [-6.9537, 110.4156] },
+          { "name": "Semarang Selatan", "latlng": [-7.0223, 110.4270] },
+          { "name": "Semarang Barat", "latlng": [-7.0051, 110.3992] },
+          { "name": "Semarang Timur", "latlng": [-6.9902, 110.4430] }
+        ]
+      },
+      {
+        "name": "Solo (Surakarta)",
+        "latlng": [-7.5755, 110.8243],
+        "districts": [
+          { "name": "Laweyan", "latlng": [-7.5710, 110.7984] },
+          { "name": "Serengan", "latlng": [-7.5689, 110.8159] },
+          { "name": "Pasar Kliwon", "latlng": [-7.5797, 110.8249] },
+          { "name": "Jebres", "latlng": [-7.5606, 110.8385] },
+          { "name": "Banjarsari", "latlng": [-7.5517, 110.8168] }
+        ]
+      }
+    ]
+  },
+  {
+    "province": "DI Yogyakarta",
+    "latlng": [-7.7956, 110.3695],
+    "cities": [
+      {
+        "name": "Yogyakarta",
+        "latlng": [-7.7956, 110.3695],
+        "districts": [
+          { "name": "Gondokusuman", "latlng": [-7.7822, 110.3784] },
+          { "name": "Jetis", "latlng": [-7.7921, 110.3561] },
+          { "name": "Danurejan", "latlng": [-7.7968, 110.3646] },
+          { "name": "Gedongtengen", "latlng": [-7.7991, 110.3658] },
+          { "name": "Ngampilan", "latlng": [-7.7972, 110.3571] }
+        ]
+      },
+      {
+        "name": "Sleman",
+        "latlng": [-7.7053, 110.3547],
+        "districts": [
+          { "name": "Depok", "latlng": [-7.7612, 110.3975] },
+          { "name": "Mlati", "latlng": [-7.7361, 110.3543] },
+          { "name": "Ngaglik", "latlng": [-7.7119, 110.3928] },
+          { "name": "Sleman", "latlng": [-7.6947, 110.3550] },
+          { "name": "Godean", "latlng": [-7.7693, 110.2937] }
+        ]
+      }
+    ]
+  },
+  {
+    "province": "Jawa Timur",
+    "latlng": [-7.5361, 112.2384],
+    "cities": [
+      {
+        "name": "Surabaya",
+        "latlng": [-7.2575, 112.7521],
+        "districts": [
+          { "name": "Sukolilo", "latlng": [-7.2894, 112.7686] },
+          { "name": "Tegalsari", "latlng": [-7.2701, 112.7402] },
+          { "name": "Genteng", "latlng": [-7.2650, 112.7468] },
+          { "name": "Gubeng", "latlng": [-7.2821, 112.7514] },
+          { "name": "Rungkut", "latlng": [-7.3194, 112.7583] }
+        ]
+      },
+      {
+        "name": "Malang",
+        "latlng": [-7.9797, 112.6304],
+        "districts": [
+          { "name": "Lowokwaru", "latlng": [-7.9447, 112.6161] },
+          { "name": "Blimbing", "latlng": [-7.9368, 112.6495] },
+          { "name": "Klojen", "latlng": [-7.9830, 112.6283] },
+          { "name": "Sukun", "latlng": [-8.0052, 112.6209] },
+          { "name": "Kedungkandang", "latlng": [-8.0065, 112.6676] }
+        ]
+      }
+    ]
+  },
+  {
+    "province": "Bali",
+    "latlng": [-8.4095, 115.1889],
+    "cities": [
+      {
+        "name": "Denpasar",
+        "latlng": [-8.6705, 115.2126],
+        "districts": [
+          { "name": "Denpasar Selatan", "latlng": [-8.6824, 115.2189] },
+          { "name": "Denpasar Timur", "latlng": [-8.6630, 115.2346] },
+          { "name": "Denpasar Barat", "latlng": [-8.6644, 115.1985] },
+          { "name": "Denpasar Utara", "latlng": [-8.6320, 115.2143] }
+        ]
+      },
+      {
+        "name": "Badung",
+        "latlng": [-8.5069, 115.1761],
+        "districts": [
+          { "name": "Kuta", "latlng": [-8.7184, 115.1698] },
+          { "name": "Kuta Selatan", "latlng": [-8.7912, 115.1666] },
+          { "name": "Kuta Utara", "latlng": [-8.6454, 115.1438] },
+          { "name": "Mengwi", "latlng": [-8.5595, 115.1703] },
+          { "name": "Abiansemal", "latlng": [-8.5800, 115.2249] }
+        ]
+      }
+    ]
+  },
+  {
+    "province": "Banten",
+    "latlng": [-6.4058, 106.0640],
+    "cities": [
+      {
+        "name": "Tangerang",
+        "latlng": [-6.1783, 106.6319],
+        "districts": [
+          { "name": "Tangerang", "latlng": [-6.1783, 106.6319] },
+          { "name": "Cipondoh", "latlng": [-6.1624, 106.6649] },
+          { "name": "Karawaci", "latlng": [-6.1972, 106.6267] },
+          { "name": "Batuceper", "latlng": [-6.1377, 106.6371] },
+          { "name": "Neglasari", "latlng": [-6.1398, 106.6638] }
+        ]
+      },
+      {
+        "name": "Tangerang Selatan",
+        "latlng": [-6.2886, 106.7173],
+        "districts": [
+          { "name": "Serpong", "latlng": [-6.3169, 106.6639] },
+          { "name": "Ciputat", "latlng": [-6.3060, 106.7471] },
+          { "name": "Pamulang", "latlng": [-6.3427, 106.7385] },
+          { "name": "Pondok Aren", "latlng": [-6.2633, 106.6981] },
+          { "name": "Setu", "latlng": [-6.3170, 106.7208] }
+        ]
+      }
+    ]
+  },
+  {
+    "province": "Sumatera Utara",
+    "latlng": [2.1153, 99.5450],
+    "cities": [
+      {
+        "name": "Medan",
+        "latlng": [3.5952, 98.6722],
+        "districts": [
+          { "name": "Medan Baru", "latlng": [3.5909, 98.6917] },
+          { "name": "Medan Polonia", "latlng": [3.5780, 98.6755] },
+          { "name": "Medan Petisah", "latlng": [3.5732, 98.6596] },
+          { "name": "Medan Timur", "latlng": [3.5946, 98.7067] },
+          { "name": "Medan Selayang", "latlng": [3.6118, 98.6490] }
+        ]
+      }
+    ]
+  },
+  {
+    "province": "Sumatera Selatan",
+    "latlng": [-3.3194, 103.9144],
+    "cities": [
+      {
+        "name": "Palembang",
+        "latlng": [-2.9761, 104.7754],
+        "districts": [
+          { "name": "Ilir Barat I", "latlng": [-2.9888, 104.7631] },
+          { "name": "Ilir Timur I", "latlng": [-2.9711, 104.7643] },
+          { "name": "Seberang Ulu I", "latlng": [-2.9994, 104.7561] },
+          { "name": "Sako", "latlng": [-3.0274, 104.7478] },
+          { "name": "Plaju", "latlng": [-2.9989, 104.8122] }
+        ]
+      }
+    ]
+  },
+  {
+    "province": "Sulawesi Selatan",
+    "latlng": [-3.6687, 119.9740],
+    "cities": [
+      {
+        "name": "Makassar",
+        "latlng": [-5.1477, 119.4327],
+        "districts": [
+          { "name": "Makassar", "latlng": [-5.1354, 119.4225] },
+          { "name": "Tamalate", "latlng": [-5.1862, 119.4349] },
+          { "name": "Panakkukang", "latlng": [-5.1487, 119.4568] },
+          { "name": "Rappocini", "latlng": [-5.1701, 119.4512] },
+          { "name": "Mamajang", "latlng": [-5.1514, 119.4173] }
+        ]
+      }
+    ]
+  }
+]

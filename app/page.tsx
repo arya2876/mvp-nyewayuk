@@ -1,7 +1,6 @@
 import React, { FC, Suspense } from "react";
 import nextDynamic from "next/dynamic";
 import Image from "next/image";
-import { Trophy, MapPin } from "lucide-react";
 
 import ListingCard from "@/components/ListingCard";
 import LoadMore from "@/components/LoadMore";
@@ -61,18 +60,34 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
         </div>
       </section>
 
-      {/* Pencarian Terbaru - Quick Category Pills */}
+      {/* Popular Categories dengan Icon */}
       <section className="mx-auto max-w-6xl px-6 py-6">
-        <h3 className="text-sm font-medium text-neutral-600 mb-3">Pencarian terbaru</h3>
-        <div className="flex flex-wrap gap-2">
-          {["Mesin Asap", "Proyektor", "Lampu Pesta"].map((label) => (
-            <button
-              key={label}
-              className="px-4 py-2 bg-white border border-neutral-300 rounded-full text-sm text-neutral-700 hover:bg-gray-50 hover:border-neutral-400 transition shadow-sm"
-            >
-              {label}
-            </button>
-          ))}
+        <h3 className="text-sm font-medium text-neutral-600 mb-3">Atau telusuri kategori kami yang paling populer...</h3>
+        <div className="flex flex-wrap gap-3">
+          {categories.map((category) => {
+            const Icon = category.icon;
+            const isSelected = searchParams?.category === category.label;
+            // Preserve location coordinates when filtering by category
+            const categoryParams = new URLSearchParams();
+            categoryParams.set('category', category.label);
+            if (searchParams?.lat) categoryParams.set('lat', searchParams.lat);
+            if (searchParams?.lng) categoryParams.set('lng', searchParams.lng);
+            
+            return (
+              <a
+                key={category.label}
+                href={`/?${categoryParams.toString()}`}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition shadow-sm ${
+                  isSelected
+                    ? 'bg-[#0A2E46] text-white border-2 border-[#0A2E46]'
+                    : 'bg-white text-neutral-700 border border-neutral-300 hover:bg-gray-50 hover:border-neutral-400'
+                }`}
+              >
+                <Icon className="w-5 h-5" />
+                {category.label}
+              </a>
+            );
+          })}
         </div>
       </section>
 
@@ -82,6 +97,18 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
           <h2 className="text-2xl md:text-3xl font-bold text-neutral-800">
             Item yang baru-baru ini aktif
           </h2>
+          {/* Info banner jika filter lokasi aktif */}
+          {lat && lng && (
+            <div className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 border border-emerald-200 rounded-lg">
+              <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span className="text-sm text-emerald-800">
+                Menampilkan <strong>{listings.length}</strong> barang dalam radius <strong>10km</strong> dari lokasi Anda
+              </span>
+            </div>
+          )}
         </div>
         
         {/* Grid Listing atau Empty State */}
@@ -104,11 +131,13 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
               {listings.map((listing) => {
                 const hasFavorited = favorites.includes(listing.id);
+                const userLocation = lat && lng ? { lat, lng } : undefined;
                 return (
                   <ListingCard
                     key={listing.id}
                     data={listing}
                     hasFavorited={hasFavorited}
+                    userLocation={userLocation}
                   />
                 );
               })}
@@ -124,6 +153,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                     queryFn={getListings}
                     queryKey={["listings", searchParams]}
                     favorites={favorites}
+                    userLocation={lat && lng ? { lat, lng } : undefined}
                   />
                 </Suspense>
               </div>
@@ -132,26 +162,10 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
         )}
       </section>
 
-      {/* Section Kategori Populer - Style Pills */}
-      <section className="mx-auto max-w-6xl px-6 py-12 border-t border-neutral-200">
-        <div className="mb-6">
-          <h2 className="text-xl md:text-2xl font-bold text-neutral-800">
-            Atau telusuri kategori kami yang paling populer...
-          </h2>
-        </div>
-        
-        {/* Kategori Pills */}
-        <div className="flex flex-wrap gap-3">
-          {categories.map((category) => (
-            <button
-              key={category.label}
-              className="px-5 py-2.5 bg-white border border-neutral-300 rounded-full text-sm font-medium text-neutral-700 hover:bg-gray-100 hover:border-neutral-400 transition shadow-sm"
-            >
-              {category.label}
-            </button>
-          ))}
-        </div>
-      </section>
+      {/* Separator / Divider */}
+      <div className="mx-auto max-w-6xl px-6">
+        <hr className="border-t-2 border-gray-200" />
+      </div>
 
       {/* Section Testimonial - 3 Kolom */}
       <section className="bg-white py-16">
@@ -160,8 +174,15 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
             {/* Testimonial 1 */}
             <div className="rounded-2xl bg-gray-50 p-8 shadow-sm hover:shadow-md transition">
               <div className="mb-6 flex justify-center">
-                <div className="h-32 w-32 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center overflow-hidden">
-                  <Trophy className="h-16 w-16 text-white" />
+                <div className="h-32 w-32 rounded-full overflow-hidden flex items-center justify-center">
+                  <Image 
+                    src="/images/Allura - Trophy.png" 
+                    alt="Daftar Teratas 2024"
+                    width={128}
+                    height={128}
+                    className="object-contain w-auto h-auto"
+                    unoptimized
+                  />
                 </div>
               </div>
               <h3 className="mb-3 text-center text-xl font-bold text-neutral-800">
@@ -176,31 +197,42 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
             <div className="rounded-2xl bg-gray-50 p-8 shadow-sm hover:shadow-md transition">
               <div className="mb-6 flex justify-center">
                 <div className="h-32 w-32 rounded-full bg-gradient-to-br from-blue-400 to-cyan-500 overflow-hidden">
-                  <div className="h-full w-full bg-gray-300 flex items-center justify-center">
-                    <span className="text-4xl">👩</span>
-                  </div>
+                  <Image 
+                    src="/images/Agung.jpg" 
+                    alt="Agung - Panitia Event Kampus"
+                    className="h-full w-full object-cover"
+                    width={128}
+                    height={128}
+                  />
                 </div>
               </div>
               <h3 className="mb-3 text-center text-xl font-bold text-neutral-800">
-                Anwen: Menyewa mesin cuci bertekanan jauh lebih baik daripada membelinya
+                Agung : Panitia Event Kampus
               </h3>
               <p className="text-center text-sm text-neutral-600 leading-relaxed">
-                Menyewa di NyewaYuk menghemat uang saya dan mencegah pemborosan karena memiliki sesuatu yang jarang saya butuhkan. Memilih menyewa berarti mengurangi jejak karbon saya dan mencegah barang yang kurang terpakai menumpuk debu di garasi saya.
+                Nyari proyektor dadakan H-1 acara susah banget, untung nemu di NyewaYuk. Respon admin cepet, barang bisa langsung COD di kampus.
               </p>
             </div>
 
             {/* Testimonial 3 */}
             <div className="rounded-2xl bg-gray-50 p-8 shadow-sm hover:shadow-md transition">
               <div className="mb-6 flex justify-center">
-                <div className="h-32 w-32 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center overflow-hidden">
-                  <MapPin className="h-16 w-16 text-white" />
+                <div className="h-32 w-32 rounded-full overflow-hidden flex items-center justify-center">
+                  <Image 
+                    src="/images/Croods - Lightbulb.png" 
+                    alt="Mahasiswa Cerdas Berbagi"
+                    width={128}
+                    height={128}
+                    className="object-contain w-auto h-auto"
+                    unoptimized
+                  />
                 </div>
               </div>
-              <h3 className="mb-3 text-center text-xl font-bold text-neutral-800">
-                Lebih dari Satu Juta Sewa di Seluruh Indonesia
-              </h3>
+                    <h3 className="mb-3 text-center text-xl font-bold text-neutral-800">
+                    Mahasiswa Cerdas Berbagi, Bukan Membeli
+                    </h3>
               <p className="text-center text-sm text-neutral-600 leading-relaxed">
-                Kami ingin orang-orang mengurangi belanja dan berbagi. Misi NyewaYuk adalah menjadikannya terjangkau dan mudah untuk mendapatkan barang apa pun, di mana pun, tanpa perlu membelinya.
+                Kami percaya mahasiswa tidak perlu membeli segalanya. Misi NyewaYuk adalah menghubungkan barang nganggur di kost temanmu menjadi solusi hemat untuk kebutuhanmu, kapan saja, di mana saja.
               </p>
             </div>
           </div>
@@ -257,7 +289,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
               </div>
               <h3 className="text-xl font-bold text-neutral-800">Lebih murah daripada membeli</h3>
               <p className="text-sm text-neutral-600 max-w-xs">
-                Seringkali 60% lebih murah menyewa melalui NyewaYuk daripada menyewa melalui perusahaan.
+                Seringkali 60% lebih murah menyewa melalui NyewaYuk di banding beli baru.
               </p>
             </div>
 

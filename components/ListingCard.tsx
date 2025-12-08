@@ -21,12 +21,27 @@ interface ListingCardProps {
     totalPrice: number;
   };
   hasFavorited: boolean;
+  userLocation?: { lat: number; lng: number }; // Koordinat user untuk hitung jarak
 }
+
+// Fungsi Haversine untuk menghitung jarak
+const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
+  const R = 6371; // Radius bumi dalam km
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c;
+};
 
 const ListingCard: React.FC<ListingCardProps> = ({
   data,
   reservation,
   hasFavorited,
+  userLocation,
 }) => {
   const pathname = usePathname();
   const showMenu = pathname === "/properties" || pathname === "/reservations" || pathname === "/trips";
@@ -38,6 +53,28 @@ const ListingCard: React.FC<ListingCardProps> = ({
     const start = new Date(reservation.startDate);
     const end = new Date(reservation.endDate);
     reservationDate = `${format(start, "PP")} - ${format(end, "PP")}`;
+  }
+
+  // Format location consistently - prioritize new format
+  const locationDisplay = data.district && data.city 
+    ? `${data.district}, ${data.city}` 
+    : (data.region && data.country 
+        ? `${data.region}, ${data.country}` 
+        : data.country || "Indonesia"
+      );
+
+  // Hitung jarak jika koordinat user dan listing tersedia
+  let distanceText = '';
+  if (userLocation && data.latlng && data.latlng.length >= 2) {
+    const distance = calculateDistance(
+      userLocation.lat,
+      userLocation.lng,
+      data.latlng[0],
+      data.latlng[1]
+    );
+    distanceText = distance < 1 
+      ? `${Math.round(distance * 1000)}m dari Anda`
+      : `${distance.toFixed(1)}km dari Anda`;
   }
 
   return (
@@ -81,9 +118,21 @@ const ListingCard: React.FC<ListingCardProps> = ({
           <span className="font-semibold text-[16px] mt-[4px] truncate">
             {data.title}
           </span>
-          <span className="font-light text-neutral-500 text-sm">
-            {reservationDate || `${data.region}, ${data.country}`}
+          {/* Brand & Model */}
+          {(data.brand || data.model) && (
+            <span className="text-xs text-gray-500 truncate">
+              {data.brand} {data.model}
+            </span>
+          )}
+          <span className="font-light text-neutral-500 text-sm truncate">
+            {reservationDate || locationDisplay}
           </span>
+          {/* Distance from user */}
+          {distanceText && !reservation && (
+            <span className="text-xs text-emerald-600 font-medium">
+              📍 {distanceText}
+            </span>
+          )}
 
           <div className="flex flex-row items-baseline gap-1">
             <span className="font-bold text-[#444] text-[14px]">

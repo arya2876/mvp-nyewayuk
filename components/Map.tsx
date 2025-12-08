@@ -21,10 +21,17 @@ interface MapProps {
 }
 
 const Map: React.FC<MapProps> = ({ center }) => {
+  // Default center: Indonesia (center of archipelago)
+  const defaultCenter: L.LatLngExpression = [-2.5489, 118.0149];
+  const mapCenter = center ? (center as L.LatLngExpression) : defaultCenter;
+  
+  // Zoom level: 13 untuk district level, 5 untuk Indonesia view
+  const zoomLevel = center ? 13 : 5;
+
   return (
     <MapContainer
-      center={(center as L.LatLngExpression) || [52, -0.09]}
-      zoom={center ? 4 : 2}
+      center={mapCenter}
+      zoom={zoomLevel}
       scrollWheelZoom={false}
       className={`h-full rounded-lg`}
     >

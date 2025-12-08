@@ -54,9 +54,13 @@ model Item {
   category             String
   userId               String   @db.ObjectId
   price                Int      // price per day
-  country              String?
+  // Location fields (Indonesia specific)
+  province             String?  // Provinsi
+  city                 String?  // Kota/Kabupaten
+  district             String?  // Kecamatan
+  country              String?  // Legacy field, kept for compatibility
   latlng               Int[]
-  region               String?
+  region               String?  // Legacy field, kept for compatibility
   // New rental-specific fields
   brand                String
   model                String

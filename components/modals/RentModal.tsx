@@ -12,7 +12,7 @@ import SpinnerMini from "../Loader";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
 import CategoryButton from "../inputs/CategoryButton";
-import CountrySelect from "../inputs/CountrySelect";
+import LocationSelect from "../inputs/LocationSelect";
 import ImageUpload from "../ImageUpload";
 
 import { categories } from "@/utils/constants";
@@ -37,6 +37,9 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
       price: "",
       title: "",
       description: "",
+      brand: "",
+      model: "",
+      condition: "Baik",
     },
   });
 
@@ -61,7 +64,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     // Validate all required fields
-    if (!data.category || !data.title || !data.description || !data.images || data.images.length === 0 || !data.price || !data.location) {
+    if (!data.category || !data.title || !data.description || !data.brand || !data.model || !data.condition || !data.images || data.images.length === 0 || !data.price || !data.location) {
       toast.error("Mohon lengkapi semua field!");
       return;
     }
@@ -141,6 +144,54 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
 
         <hr />
 
+        {/* Specifications Section */}
+        <div>
+          <Heading
+            title="Spesifikasi Barang"
+            subtitle="Informasi detail tentang barang"
+          />
+          <div className="space-y-4 mt-4">
+            <Input
+              id="brand"
+              label="Brand / Merek"
+              placeholder="Contoh: Sony, Canon, Nikon"
+              disabled={isLoading}
+              register={register}
+              errors={errors}
+              required
+              watch={watch}
+            />
+            <Input
+              id="model"
+              label="Model / Tipe"
+              placeholder="Contoh: A7III, EOS R5, Z6 II"
+              disabled={isLoading}
+              register={register}
+              errors={errors}
+              required
+              watch={watch}
+            />
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Kondisi
+              </label>
+              <select
+                id="condition"
+                {...register("condition", { required: true })}
+                disabled={isLoading}
+                className="w-full p-4 font-light bg-white border-2 rounded-md outline-none transition disabled:opacity-70 disabled:cursor-not-allowed border-neutral-300 focus:border-black"
+              >
+                <option value="Baru">Baru</option>
+                <option value="Seperti Baru">Seperti Baru</option>
+                <option value="Baik">Baik</option>
+                <option value="Cukup Baik">Cukup Baik</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <hr />
+
         {/* Images Section */}
         <div>
           <Heading
@@ -189,8 +240,8 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
             subtitle="Di mana barang dapat diserahkan/dijemput?"
           />
           <div className="mt-4 space-y-4">
-            <CountrySelect value={location} onChange={setCustomValue} />
-            <div className="h-[200px] rounded-lg overflow-hidden">
+            <LocationSelect value={location} onChange={setCustomValue} />
+            <div className="h-[300px] rounded-lg overflow-hidden">
               <Map center={location?.latlng} />
             </div>
           </div>

@@ -1,31 +1,117 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
+
+// Database landmark terkenal di Indonesia dengan koordinat
+export const landmarks = [
+  { name: "Kampus Udinus Semarang", lat: -6.9825, lng: 110.4093, radius: 2 },
+  { name: "Simpang Lima Semarang", lat: -6.9932, lng: 110.4203, radius: 2 },
+  { name: "Undip Tembalang", lat: -7.0512, lng: 110.4377, radius: 3 },
+  { name: "Lawang Sewu Semarang", lat: -6.9838, lng: 110.4106, radius: 1.5 },
+  { name: "Masjid Agung Jawa Tengah", lat: -6.9765, lng: 110.4467, radius: 2 },
+  { name: "Kampus Unnes Sekaran", lat: -7.0551, lng: 110.4031, radius: 3 },
+  { name: "Mall Paragon Semarang", lat: -6.9826, lng: 110.4089, radius: 1 },
+  { name: "Stasiun Tawang Semarang", lat: -6.9673, lng: 110.4246, radius: 1 },
+  // Tambahkan landmark lainnya sesuai kebutuhan
+  { name: "Monas Jakarta", lat: -6.1751, lng: 106.8270, radius: 2 },
+  { name: "Malioboro Yogyakarta", lat: -7.7926, lng: 110.3657, radius: 2 },
+  { name: "Alun-Alun Bandung", lat: -6.9217, lng: 107.6071, radius: 2 },
+];
+
+// Fungsi untuk mendapatkan koordinat dari nama landmark
+export const getLandmarkCoords = (landmarkName: string): { lat: number; lng: number } | null => {
+  const landmark = landmarks.find(l => l.name === landmarkName);
+  return landmark ? { lat: landmark.lat, lng: landmark.lng } : null;
+};
+
+// Fungsi untuk menghitung jarak (Haversine formula)
+const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
+  const R = 6371; // Radius bumi dalam km
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c;
+};
+
+// Fungsi untuk mencari landmark terdekat
+const findNearestLandmark = (lat: number, lng: number): string => {
+  let nearest = null;
+  let minDistance = Infinity;
+
+  for (const landmark of landmarks) {
+    const distance = calculateDistance(lat, lng, landmark.lat, landmark.lng);
+    if (distance <= landmark.radius && distance < minDistance) {
+      minDistance = distance;
+      nearest = landmark.name;
+    }
+  }
+
+  return nearest || "Kampus Udinus Semarang"; // Default jika tidak ada landmark terdekat
+};
 
 const HeroSearch = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   
-  const [location, setLocation] = useState('21 Larch Crescent, Epsom');
+  const [location, setLocation] = useState('Kampus Udinus Semarang');
   const [date, setDate] = useState('6 Desember');
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [showDateModal, setShowDateModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isDetecting, setIsDetecting] = useState(false);
+  
+  // Store actual GPS coordinates separately from display location
+  const [userCoords, setUserCoords] = useState<{lat: number, lng: number} | null>(null);
   
   // Temporary state for modals
   const [tempLocation, setTempLocation] = useState(location);
   const [tempDate, setTempDate] = useState('');
+
+  // Auto-detect location on mount
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          const nearestLandmark = findNearestLandmark(latitude, longitude);
+          setLocation(nearestLandmark);
+          setTempLocation(nearestLandmark);
+          // Store actual GPS coordinates
+          setUserCoords({ lat: latitude, lng: longitude });
+        },
+        (error) => {
+          console.log('Geolocation not available, using default location');
+          // Keep default location
+        },
+        { enableHighAccuracy: false, timeout: 5000, maximumAge: 0 }
+      );
+    }
+  }, []);
 
   const handleLocationChange = () => {
     if (tempLocation.trim()) {
       setLocation(tempLocation);
       setShowLocationModal(false);
       
-      // Update URL with location (simplified)
+      // Use actual GPS coordinates if available, otherwise fallback to landmark coords
       const params = new URLSearchParams(searchParams?.toString());
+      if (userCoords) {
+        params.set('lat', userCoords.lat.toString());
+        params.set('lng', userCoords.lng.toString());
+      } else {
+        const coords = getLandmarkCoords(tempLocation);
+        if (coords) {
+          params.set('lat', coords.lat.toString());
+          params.set('lng', coords.lng.toString());
+        }
+      }
       params.set('location', tempLocation);
       router.push(`/?${params.toString()}`);
     }
@@ -49,24 +135,50 @@ const HeroSearch = () => {
   };
 
   const handleSearch = () => {
+    const params = new URLSearchParams(searchParams?.toString());
     if (searchQuery.trim()) {
-      const params = new URLSearchParams(searchParams?.toString());
       params.set('search', searchQuery);
-      router.push(`/?${params.toString()}`);
     }
+    // Use actual GPS coordinates if available, otherwise fallback to landmark coords
+    if (userCoords) {
+      params.set('lat', userCoords.lat.toString());
+      params.set('lng', userCoords.lng.toString());
+    } else {
+      const coords = getLandmarkCoords(location);
+      if (coords) {
+        params.set('lat', coords.lat.toString());
+        params.set('lng', coords.lng.toString());
+      }
+    }
+    router.push(`/?${params.toString()}`);
   };
 
   const handleDetectLocation = () => {
     if (navigator.geolocation) {
+      setIsDetecting(true);
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          // In real app, you'd reverse geocode this
-          setTempLocation(`Lokasi Anda (${position.coords.latitude.toFixed(2)}, ${position.coords.longitude.toFixed(2)})`);
+          const { latitude, longitude } = position.coords;
+          console.log('Detected coordinates:', latitude, longitude);
+          const nearestLandmark = findNearestLandmark(latitude, longitude);
+          console.log('Nearest landmark:', nearestLandmark);
+          setTempLocation(nearestLandmark);
+          // Store actual GPS coordinates
+          setUserCoords({ lat: latitude, lng: longitude });
+          setIsDetecting(false);
+          // Show success notification
+          const notification = document.createElement('div');
+          notification.className = 'fixed top-20 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+          notification.textContent = `Lokasi terdeteksi: ${nearestLandmark}`;
+          document.body.appendChild(notification);
+          setTimeout(() => notification.remove(), 3000);
         },
         (error) => {
           console.error('Error detecting location:', error);
-          alert('Tidak dapat mendeteksi lokasi. Pastikan izin lokasi diaktifkan.');
-        }
+          setIsDetecting(false);
+          alert('Tidak dapat mendeteksi lokasi. Pastikan izin lokasi diaktifkan di browser Anda.');
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
       );
     } else {
       alert('Browser Anda tidak mendukung geolocation.');
@@ -133,9 +245,14 @@ const HeroSearch = () => {
             />
             <button
               onClick={handleDetectLocation}
-              className="w-full mb-4 px-4 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition text-sm font-medium"
+              disabled={isDetecting}
+              className={`w-full mb-4 px-4 py-2 rounded-lg transition text-sm font-medium ${
+                isDetecting 
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                  : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+              }`}
             >
-              📍 Deteksi Lokasi Saya
+              {isDetecting ? '🔄 Mendeteksi...' : '📍 Deteksi Lokasi Saya'}
             </button>
             <div className="flex gap-3">
               <button

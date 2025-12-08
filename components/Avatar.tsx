@@ -14,6 +14,15 @@ const Avatar: React.FC<AvatarProps> = ({ src, size = "small" }) => {
   };
 
   const dimension = sizeMap[size];
+  
+  // More robust image source handling
+  let imageSrc = "/images/placeholder.jpg";
+  if (src) {
+    const trimmedSrc = src.trim();
+    if (trimmedSrc && trimmedSrc !== "" && trimmedSrc !== "null" && trimmedSrc !== "undefined") {
+      imageSrc = trimmedSrc;
+    }
+  }
 
   return (
     <Image
@@ -21,8 +30,12 @@ const Avatar: React.FC<AvatarProps> = ({ src, size = "small" }) => {
       height={dimension}
       width={dimension}
       alt="Avatar"
-      src={src || "/images/placeholder.jpg"}
+      src={imageSrc}
       unoptimized
+      onError={(e) => {
+        const target = e.target as HTMLImageElement;
+        target.src = "/images/placeholder.jpg";
+      }}
       style={{ width: `${dimension}px`, height: `${dimension}px`, objectFit: "cover" }}
     />
   );

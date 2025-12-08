@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import { differenceInDays } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -15,6 +15,7 @@ const SearchModal = dynamic(() => import("@/components/modals/SearchModal"), {
 const Search = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const [searchInput, setSearchInput] = useState(searchParams?.get("search") || "");
 
   const country = searchParams?.get("country");
 
@@ -39,6 +40,18 @@ const Search = () => {
   }, [endDate, startDate]);
 
   const guestLabel = guestCount ? `${guestCount} Tamu` : "Tambah Tamu";
+
+  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      const params = new URLSearchParams(searchParams?.toString());
+      if (searchInput.trim()) {
+        params.set("search", searchInput.trim());
+      } else {
+        params.delete("search");
+      }
+      router.push(`/?${params.toString()}`);
+    }
+  };
 
   const onNearMe = () => {
     if (!navigator?.geolocation) return;
@@ -66,6 +79,9 @@ const Search = () => {
           className="flex-1 outline-none bg-transparent text-sm"
           placeholder="Cari barang yang ingin disewa..."
           aria-label="Search items"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          onKeyDown={handleSearch}
         />
       </div>
       <Modal>

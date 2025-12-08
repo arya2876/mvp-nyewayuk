@@ -121,7 +121,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
   return (
     <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
       <div className="p-6">
-        <h3 className="text-2xl font-bold mb-6">Select rental period</h3>
+        <h3 className="text-2xl font-bold mb-6">Pilih Tanggal Sewa</h3>
         
         {/* Calendar */}
         <div className="mb-6">
@@ -143,7 +143,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
               {dateRange.startDate?.toLocaleDateString("id-ID", {
                 day: "numeric",
                 month: "short",
-              }) || "Select date"}
+              }) || "Pilih tanggal"}
             </div>
           </div>
           <div>
@@ -152,7 +152,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
               {dateRange.endDate?.toLocaleDateString("id-ID", {
                 day: "numeric",
                 month: "short",
-              }) || "Select date"}
+              }) || "Pilih tanggal"}
             </div>
           </div>
         </div>
@@ -243,7 +243,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
             <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
           </svg>
           <span>
-            No strings attached when you send a request and you can ask questions to the owner
+           Klik untuk lanjut ke WhatsApp. Pembayaran & Verifikasi KTP dilakukan setelah Admin mengonfirmasi pesanan.
           </span>
         </div>
       </div>
@@ -251,24 +251,6 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
       {/* Map */}
       <div className="h-[300px] relative">
         <Map center={locationValue} />
-      </div>
-
-      {/* Pricing Reference */}
-      <div className="p-6 border-t">
-        <div className="text-sm text-gray-600 mb-4 text-center">
-          BASE RENTAL PRICES<br />
-          (Service fee, logistics & deposit will be added)
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="border rounded-lg p-4 text-center hover:border-purple-600 transition">
-            <div className="text-2xl font-bold text-gray-900">Rp {formatRupiah(price)}</div>
-            <div className="text-sm text-gray-600 mt-1">per day</div>
-          </div>
-          <div className="border rounded-lg p-4 text-center hover:border-purple-600 transition">
-            <div className="text-2xl font-bold text-gray-900">Rp {formatRupiah(price * 7)}</div>
-            <div className="text-sm text-gray-600 mt-1">7 days</div>
-          </div>
-        </div>
       </div>
     </div>
   );

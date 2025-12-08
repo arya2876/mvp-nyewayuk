@@ -15,6 +15,7 @@ interface LoadMoreProps {
   }>;
   queryKey: any[];
   favorites: string[];
+  userLocation?: { lat: number; lng: number };
 }
 
 const LoadMore: FC<LoadMoreProps> = ({
@@ -23,6 +24,7 @@ const LoadMore: FC<LoadMoreProps> = ({
   queryFn,
   queryKey,
   favorites,
+  userLocation,
 }) => {
   const { data, isFetchingNextPage, hasNextPage, status, fetchNextPage } =
     useInfiniteQuery({
@@ -61,6 +63,7 @@ const LoadMore: FC<LoadMoreProps> = ({
                   data={listing}
                   hasFavorited={hasFavorited}
                   reservation={listing?.reservation}
+                  userLocation={userLocation}
                 />
               );
             }

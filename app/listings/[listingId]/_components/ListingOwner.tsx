@@ -49,10 +49,6 @@ const ListingOwner: React.FC<ListingOwnerProps> = ({ user }) => {
         </div>
         <div className="flex items-start gap-3 text-sm text-gray-700">
           <Shield className="w-5 h-5 text-gray-600 flex-shrink-0 mt-0.5" />
-          <div>
-            <span>Kerusakan ditanggung tanpa biaya tambahan. </span>
-            <button className="text-purple-600 hover:underline font-medium">Baca selengkapnya</button>
-          </div>
         </div>
       </div>
 

@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   title: "NyewaYuk - Sewa Aman, Hidup Hemat",
   description:
     "Platform peer-to-peer rental terpercaya di Indonesia. Sewa barang yang Anda butuhkan atau sewakan barang yang Anda miliki dengan aman menggunakan NyewaGuard AI.",
+  icons: {
+    icon: "/images/Logo Ny.png",
+    apple: "/images/Logo Ny.png",
+  },
 };
 
 export default function RootLayout({

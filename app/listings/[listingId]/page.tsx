@@ -25,6 +25,9 @@ const ListingPage = async ({ params: { listingId } }: { params: IParams }) => {
   const {
     title,
     imageSrc,
+    province,
+    city,
+    district,
     country,
     region,
     id,
@@ -40,6 +43,15 @@ const ListingPage = async ({ params: { listingId } }: { params: IParams }) => {
     userId,
     depositAmount,
   } = listing;
+
+  // Format location display - prioritize new format (district, city, province)
+  const locationText = district && city && province 
+    ? `${district}, ${city}, ${province}`
+    : (region && country ? `${region}, ${country}` : country || "Lokasi tidak tersedia");
+  
+  const locationShort = district && city 
+    ? `${district}, ${city}`
+    : (region && country ? `${region}, ${country}` : country || "Indonesia");
 
   const category = categories.find((cate) => cate.label === categoryLabel);
 
@@ -59,8 +71,7 @@ const ListingPage = async ({ params: { listingId } }: { params: IParams }) => {
           <ListingHead
             title={title}
             image={imageSrc}
-            country={country}
-            region={region}
+            locationText={locationText}
             id={id}
             currentUser={currentUser}
             isNyewaGuardVerified={listing.isNyewaGuardVerified === true}
@@ -80,14 +91,14 @@ const ListingPage = async ({ params: { listingId } }: { params: IParams }) => {
             latlng={latlng}
           />
 
-          {/* Cancellation Terms */}
-          <div className="border-t pt-8">
-            <h3 className="text-xl font-semibold mb-4">CANCELLATION TERMS</h3>
+          {/* Cancellation Terms - Disabled for MVP */}
+          {/* <div className="border-t pt-8">
+            <h3 className="text-xl font-semibold mb-4">KETENTUAN PEMBATALAN</h3>
             <p className="text-gray-600">
-              Free cancellation until 2 days before your rental starts. After that, you&apos;ll get half your money back until the day before.{" "}
-              <button className="text-purple-600 hover:underline">Read more</button>
+              Pembatalan gratis hingga 2 hari sebelum masa sewa dimulai. Setelah itu, Anda akan mendapatkan setengah uang kembali hingga hari sebelumnya.{" "} 
+              <button className="text-purple-600 hover:underline">Baca selengkapnya</button>
             </p>
-          </div>
+          </div> */}
 
           {/* Reviews */}
           <ListingReviews />

@@ -3,6 +3,19 @@ import { db } from "@/lib/db";
 import { LISTINGS_BATCH } from "@/utils/constants";
 import { getCurrentUser } from "./user";
 
+// Fungsi Haversine untuk menghitung jarak
+const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
+  const R = 6371; // Radius bumi dalam km
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c;
+};
+
 export const getListings = async (query?: {
   [key: string]: string | string[] | undefined | null;
 }) => {
@@ -14,6 +27,9 @@ export const getListings = async (query?: {
       endDate,
       category,
       cursor,
+      search, // Add search parameter
+      lat, // Koordinat latitude user
+      lng, // Koordinat longitude user
     } = query || {};
 
     let where: any = {};
@@ -22,12 +38,24 @@ export const getListings = async (query?: {
       where.userId = userId;
     }
 
-    if (category) {
-      where.category = category;
-    }
-
     if (country) {
       where.country = country;
+    }
+
+    // Search filter - search in title, description, brand, model, category
+    if (search && typeof search === 'string') {
+      where.OR = [
+        { title: { contains: search, mode: 'insensitive' } },
+        { description: { contains: search, mode: 'insensitive' } },
+        { brand: { contains: search, mode: 'insensitive' } },
+        { model: { contains: search, mode: 'insensitive' } },
+        { category: { contains: search, mode: 'insensitive' } },
+      ];
+    }
+
+    // Category filter (only apply if no search or search is applied)
+    if (category && !search) {
+      where.category = category;
     }
 
     if (startDate && endDate) {
@@ -60,7 +88,34 @@ export const getListings = async (query?: {
       filterQuery.skip = 1;
     }
 
-    const listings = await db.item.findMany(filterQuery);
+    let listings = await db.item.findMany(filterQuery);
+
+    // Filter berdasarkan jarak maksimal 10km jika koordinat user tersedia
+    if (lat && lng) {
+      const userLat = parseFloat(lat as string);
+      const userLng = parseFloat(lng as string);
+      
+      if (!isNaN(userLat) && !isNaN(userLng)) {
+        console.log(`🔍 Filtering by location: User at [${userLat}, ${userLng}]`);
+        
+        listings = listings.filter(listing => {
+          if (!listing.latlng || listing.latlng.length < 2) {
+            console.log(`⚠️ Listing "${listing.title}" has no coordinates`);
+            return false; // Skip listing tanpa koordinat
+          }
+          
+          const listingLat = listing.latlng[0];
+          const listingLng = listing.latlng[1];
+          const distance = calculateDistance(userLat, userLng, listingLat, listingLng);
+          
+          console.log(`📍 Listing "${listing.title}": [${listingLat}, ${listingLng}] = ${distance.toFixed(2)}km dari user`);
+          
+          return distance <= 10; // Hanya tampilkan dalam radius 10km
+        });
+        
+        console.log(`✅ Found ${listings.length} listings within 10km`);
+      }
+    }
 
     const nextCursor =
       listings.length === LISTINGS_BATCH
@@ -107,23 +162,37 @@ export const getListingById = async (id: string) => {
 export const createListing = async (data: { [x: string]: any }) => {
   const {
     category,
-    location: { region, label: country, latlng },
+    location,
     image: imageSrc,
     price,
     title,
     description,
+    brand,
+    model,
+    condition,
   } = data;
 
-  // Validate required fields only
+  // Extract location data
+  const province = location?.province;
+  const city = location?.city;
+  const district = location?.district;
+  const latlng = location?.latlng;
+  const fullAddress = location?.label;
+
+  // Validate required fields
   const requiredFields = {
     category,
-    region,
-    country,
+    province,
+    city,
+    district,
     latlng,
     imageSrc,
     price,
     title,
     description,
+    brand,
+    model,
+    condition,
   };
 
   Object.entries(requiredFields).forEach(([key, value]) => {
@@ -141,12 +210,15 @@ export const createListing = async (data: { [x: string]: any }) => {
       description,
       imageSrc,
       category,
-      brand: "-",
-      model: "-",
-      condition: "-",
+      brand,
+      model,
+      condition,
       nyewaGuardImageSrc: "",
-      country,
-      region,
+      province,
+      city,
+      district,
+      country: fullAddress, // Store full address for backward compatibility
+      region: city, // Store city as region for backward compatibility
       latlng,
       price: parseInt(price, 10),
       userId: user.id,
@@ -159,23 +231,37 @@ export const createListing = async (data: { [x: string]: any }) => {
 export const updateListing = async (listingId: string, data: { [x: string]: any }) => {
   const {
     category,
-    location: { region, label: country, latlng },
+    location,
     image: imageSrc,
     price,
     title,
     description,
+    brand,
+    model,
+    condition,
   } = data;
+
+  // Extract location data
+  const province = location?.province;
+  const city = location?.city;
+  const district = location?.district;
+  const latlng = location?.latlng;
+  const fullAddress = location?.label;
 
   // Validate required fields
   const requiredFields = {
     category,
-    region,
-    country,
+    province,
+    city,
+    district,
     latlng,
     imageSrc,
     price,
     title,
     description,
+    brand,
+    model,
+    condition,
   };
 
   Object.entries(requiredFields).forEach(([key, value]) => {
@@ -203,8 +289,14 @@ export const updateListing = async (listingId: string, data: { [x: string]: any 
       description,
       imageSrc,
       category,
-      country,
-      region,
+      brand,
+      model,
+      condition,
+      province,
+      city,
+      district,
+      country: fullAddress,
+      region: city,
       latlng,
       price: parseInt(price, 10),
     },

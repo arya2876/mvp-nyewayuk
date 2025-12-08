@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { ArrowLeft, MessageCircle } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -36,20 +36,12 @@ export default function FAQPage() {
   ];
 
   // WhatsApp number - ganti dengan nomor admin yang sebenarnya
-  const waNumber = "6281234567890"; // Ganti dengan nomor WA admin
+  const waNumber = "6282137541389"; // Ganti dengan nomor WA admin
   const waMessage = encodeURIComponent("Halo, saya ingin bertanya lebih lanjut tentang NyewaYuk");
 
   return (
     <div className="min-h-screen bg-gray-50 pt-[80px]">
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <Link
-          href="/profile"
-          className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6"
-        >
-          <ArrowLeft className="w-5 h-5" />
-          <span>Kembali ke Profil</span>
-        </Link>
-
         <h1 className="text-4xl font-bold text-gray-900 mb-2">
           Frequently Asked Questions (FAQ)
         </h1>
@@ -101,6 +93,15 @@ export default function FAQPage() {
           <p className="text-sm text-gray-600 mt-4">
             Respon cepat • Senin - Minggu • 08:00 - 22:00 WIB
           </p>
+        </div>
+
+        <div className="mt-8 text-center">
+          <Link
+            href="/"
+            className="text-gray-600 hover:text-gray-900 underline"
+          >
+            Kembali ke Beranda
+          </Link>
         </div>
       </div>
     </div>

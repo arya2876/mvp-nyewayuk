@@ -7,8 +7,7 @@ import { getFavorites } from "@/services/favorite";
 
 interface ListingHeadProps {
   title: string;
-  country: string | null;
-  region: string | null;
+  locationText: string; // Changed from country/region to single locationText
   image: string;
   id: string;
   isNyewaGuardVerified?: boolean;
@@ -17,8 +16,7 @@ interface ListingHeadProps {
 
 const ListingHead: React.FC<ListingHeadProps> = async ({
   title,
-  country = "",
-  region = "",
+  locationText,
   image,
   id,
   isNyewaGuardVerified = false,
@@ -29,7 +27,7 @@ const ListingHead: React.FC<ListingHeadProps> = async ({
 
   return (
     <div>
-      <Heading title={title} subtitle={`${region}, ${country}`} />
+      <Heading title={title} subtitle={locationText} />
       {isNyewaGuardVerified && (
         <div className="mt-3 mb-4 inline-flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 px-3 py-2">
           <ShieldCheck className="h-4 w-4 text-green-600" />
