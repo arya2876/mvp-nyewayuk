@@ -92,7 +92,7 @@ const EditListingModalContent: React.FC<EditListingModalContentProps> = ({ listi
       dynamic(() => import("./Map"), {
         ssr: false,
       }),
-    [country]
+    []
   );
 
   const setCustomValue = (id: string, value: any) => {

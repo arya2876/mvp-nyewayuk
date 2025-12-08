@@ -86,7 +86,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
       logisticsOption,
       depositAmount: actualDepositAmount,
     });
-  }, [price, startDateTimestamp, endDateTimestamp, logisticsOption, actualDepositAmount]);
+  }, [price, dateRange?.startDate, dateRange?.endDate, logisticsOption, actualDepositAmount]);
 
   const onCreateReservation = useCallback(() => {
     if (!currentUser) {

@@ -89,6 +89,7 @@ export const getListingById = async (id: string) => {
         select: {
           name: true,
           image: true,
+          email: true,
         },
       },
       reservations: {
@@ -204,7 +205,7 @@ export const updateListing = async (listingId: string, data: { [x: string]: any 
       category,
       country,
       region,
-      locationValue: latlng,
+      latlng,
       price: parseInt(price, 10),
     },
   });

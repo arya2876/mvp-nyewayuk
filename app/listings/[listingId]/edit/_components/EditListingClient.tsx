@@ -56,7 +56,7 @@ const EditListingClient: React.FC<EditListingClientProps> = ({ listing }) => {
       location: listing.country
         ? {
             label: listing.country,
-            latlng: listing.locationValue,
+            latlng: listing.latlng,
             region: listing.region,
             value: listing.country,
           }

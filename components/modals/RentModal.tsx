@@ -48,8 +48,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
       dynamic(() => import("../Map"), {
         ssr: false,
       }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [country]
+    []
   );
 
   const setCustomValue = (id: string, value: any) => {
