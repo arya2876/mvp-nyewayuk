@@ -3,11 +3,17 @@
 import React, { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import "leaflet.markercluster/dist/MarkerCluster.css";
-import "leaflet.markercluster/dist/MarkerCluster.Default.css";
-import "leaflet.markercluster";
 import { Item } from "@prisma/client";
 import { formatPrice } from "@/utils/helper";
+
+// Import markercluster dynamically to avoid SSR issues
+let MarkerClusterGroup: any = null;
+if (typeof window !== "undefined") {
+  require("leaflet.markercluster/dist/MarkerCluster.css");
+  require("leaflet.markercluster/dist/MarkerCluster.Default.css");
+  require("leaflet.markercluster");
+  MarkerClusterGroup = (L as any).MarkerClusterGroup;
+}
 
 interface CategoryMapProps {
   listings: Item[];
@@ -48,22 +54,24 @@ const CategoryMap: React.FC<CategoryMapProps> = ({
       ).addTo(mapRef.current);
 
       // Initialize marker cluster group
-      markersRef.current = L.markerClusterGroup({
-        chunkedLoading: true,
-        spiderfyOnMaxZoom: true,
-        showCoverageOnHover: false,
-        maxClusterRadius: 60,
-        iconCreateFunction: (cluster) => {
-          const count = cluster.getChildCount();
-          return L.divIcon({
-            html: `<div class="cluster-marker">${count}</div>`,
-            className: "custom-cluster-icon",
-            iconSize: L.point(40, 40),
-          });
-        },
-      });
+      if (MarkerClusterGroup) {
+        markersRef.current = new MarkerClusterGroup({
+          chunkedLoading: true,
+          spiderfyOnMaxZoom: true,
+          showCoverageOnHover: false,
+          maxClusterRadius: 60,
+          iconCreateFunction: (cluster: any) => {
+            const count = cluster.getChildCount();
+            return L.divIcon({
+              html: `<div class="cluster-marker">${count}</div>`,
+              className: "custom-cluster-icon",
+              iconSize: L.point(40, 40),
+            });
+          },
+        });
 
-      mapRef.current.addLayer(markersRef.current);
+        mapRef.current.addLayer(markersRef.current);
+      }
     }
 
     // Clear existing markers
