@@ -8,6 +8,7 @@ export const getProperties = async (args?: Record<string, string>) => {
   try {
     const { userId, cursor } = args || {};
 
+    const user = await getCurrentUser();
     if (!user) {
       throw new Error("Tidak diizinkan");
     }
