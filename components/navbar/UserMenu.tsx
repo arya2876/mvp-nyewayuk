@@ -71,7 +71,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
               )}
             </button>
           </Menu.Toggle>
-          <Menu.List className="shadow-[0_0_36px_4px_rgba(0,0,0,0.075)] rounded-xl bg-white text-sm">
+          <Menu.List className="shadow-[0_0_36px_4px_rgba(0,0,0,0.075)] dark:shadow-[0_0_36px_4px_rgba(0,0,0,0.3)] rounded-xl bg-white dark:bg-neutral-800 text-sm">
             {user ? (
               <>
                 {menuItems.map((item) => (
@@ -81,7 +81,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
                     key={item.label}
                   />
                 ))}
-                <hr />
+                <hr className="dark:border-neutral-700" />
                 <MenuItem label="Keluar" onClick={signOut} />
               </>
             ) : (

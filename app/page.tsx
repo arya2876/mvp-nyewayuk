@@ -174,15 +174,15 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
 
       {/* Separator / Divider */}
       <div className="mx-auto max-w-6xl px-6">
-        <hr className="border-t-2 border-gray-200" />
+        <hr className="border-t-2 border-gray-200 dark:border-neutral-700" />
       </div>
 
       {/* Section Testimonial - 3 Kolom */}
-      <section className="bg-white py-16">
+      <section className="bg-white dark:bg-neutral-900 py-16">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {/* Testimonial 1 */}
-            <div className="rounded-2xl bg-gray-50 p-8 shadow-sm hover:shadow-md transition">
+            <div className="rounded-2xl bg-gray-50 dark:bg-neutral-800 p-8 shadow-sm hover:shadow-md dark:shadow-neutral-950/50 transition">
               <div className="mb-6 flex justify-center">
                 <div className="h-32 w-32 rounded-full overflow-hidden flex items-center justify-center">
                   <Image 
@@ -195,16 +195,16 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                   />
                 </div>
               </div>
-              <h3 className="mb-3 text-center text-xl font-bold text-neutral-800">
+              <h3 className="mb-3 text-center text-xl font-bold text-neutral-800 dark:text-white">
                 Daftar Teratas 2024
               </h3>
-              <p className="text-center text-sm text-neutral-600 leading-relaxed">
+              <p className="text-center text-sm text-neutral-600 dark:text-gray-300 leading-relaxed">
                 Apakah Anda tidak yakin tentang apa yang sebenarnya dapat Anda sewakan di platform tempat Anda dapat menyewa (hampir) apa saja? Biarkan diri Anda terinspirasi oleh daftar produk yang paling banyak disewa di NyewaYuk tahun lalu.
               </p>
             </div>
 
             {/* Testimonial 2 */}
-            <div className="rounded-2xl bg-gray-50 p-8 shadow-sm hover:shadow-md transition">
+            <div className="rounded-2xl bg-gray-50 dark:bg-neutral-800 p-8 shadow-sm hover:shadow-md dark:shadow-neutral-950/50 transition">
               <div className="mb-6 flex justify-center">
                 <div className="h-32 w-32 rounded-full bg-gradient-to-br from-blue-400 to-cyan-500 overflow-hidden">
                   <Image 
@@ -216,16 +216,16 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                   />
                 </div>
               </div>
-              <h3 className="mb-3 text-center text-xl font-bold text-neutral-800">
+              <h3 className="mb-3 text-center text-xl font-bold text-neutral-800 dark:text-white">
                 Agung : Panitia Event Kampus
               </h3>
-              <p className="text-center text-sm text-neutral-600 leading-relaxed">
+              <p className="text-center text-sm text-neutral-600 dark:text-gray-300 leading-relaxed">
                 Nyari proyektor dadakan H-1 acara susah banget, untung nemu di NyewaYuk. Respon admin cepet, barang bisa langsung COD di kampus.
               </p>
             </div>
 
             {/* Testimonial 3 */}
-            <div className="rounded-2xl bg-gray-50 p-8 shadow-sm hover:shadow-md transition">
+            <div className="rounded-2xl bg-gray-50 dark:bg-neutral-800 p-8 shadow-sm hover:shadow-md dark:shadow-neutral-950/50 transition">
               <div className="mb-6 flex justify-center">
                 <div className="h-32 w-32 rounded-full overflow-hidden flex items-center justify-center">
                   <Image 
@@ -238,10 +238,10 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                   />
                 </div>
               </div>
-                    <h3 className="mb-3 text-center text-xl font-bold text-neutral-800">
+                    <h3 className="mb-3 text-center text-xl font-bold text-neutral-800 dark:text-white">
                     Mahasiswa Cerdas Berbagi, Bukan Membeli
                     </h3>
-              <p className="text-center text-sm text-neutral-600 leading-relaxed">
+              <p className="text-center text-sm text-neutral-600 dark:text-gray-300 leading-relaxed">
                 Kami percaya mahasiswa tidak perlu membeli segalanya. Misi NyewaYuk adalah menghubungkan barang nganggur di kost temanmu menjadi solusi hemat untuk kebutuhanmu, kapan saja, di mana saja.
               </p>
             </div>
@@ -250,7 +250,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
       </section>
 
       {/* Section Value Proposition - Grid 6 dengan Icon Ungu */}
-      <section className="bg-gradient-to-b from-gray-50 to-white py-20">
+      <section className="bg-gradient-to-b from-gray-50 to-white dark:from-neutral-800 dark:to-neutral-900 py-20">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-2">
             {/* Row 1 */}
@@ -264,8 +264,8 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                   className="object-contain w-auto h-auto"
                 />
               </div>
-              <h3 className="text-xl font-bold text-neutral-800">Semuanya terjamin</h3>
-              <p className="text-sm text-neutral-600 max-w-xs">
+              <h3 className="text-xl font-bold text-neutral-800 dark:text-white">Semuanya terjamin</h3>
+              <p className="text-sm text-neutral-600 dark:text-gray-300 max-w-xs">
                 Perlindungan bagi penyewa dan penyewa luar
               </p>
             </div>
@@ -280,8 +280,8 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                   className="object-contain w-auto h-auto"
                 />
               </div>
-              <h3 className="text-xl font-bold text-neutral-800">Semua orang terverifikasi</h3>
-              <p className="text-sm text-neutral-600 max-w-xs">
+              <h3 className="text-xl font-bold text-neutral-800 dark:text-white">Semua orang terverifikasi</h3>
+              <p className="text-sm text-neutral-600 dark:text-gray-300 max-w-xs">
                 NyewaYuk aman. Semua orang terverifikasi.
               </p>
             </div>
@@ -297,8 +297,8 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                   className="object-contain w-auto h-auto"
                 />
               </div>
-              <h3 className="text-xl font-bold text-neutral-800">Lebih murah daripada membeli</h3>
-              <p className="text-sm text-neutral-600 max-w-xs">
+              <h3 className="text-xl font-bold text-neutral-800 dark:text-white">Lebih murah daripada membeli</h3>
+              <p className="text-sm text-neutral-600 dark:text-gray-300 max-w-xs">
                 Seringkali 60% lebih murah menyewa melalui NyewaYuk di banding beli baru.
               </p>
             </div>
@@ -313,8 +313,8 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                   className="object-contain w-auto h-auto"
                 />
               </div>
-              <h3 className="text-xl font-bold text-neutral-800">Sewa di daerah Anda</h3>
-              <p className="text-sm text-neutral-600 max-w-xs">
+              <h3 className="text-xl font-bold text-neutral-800 dark:text-white">Sewa di daerah Anda</h3>
+              <p className="text-sm text-neutral-600 dark:text-gray-300 max-w-xs">
                 Anda biasanya dapat menyewa sesuatu yang lebih dekat dengan Anda daripada toko terdekat.
               </p>
             </div>
@@ -330,8 +330,8 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                   className="object-contain w-auto h-auto"
                 />
               </div>
-              <h3 className="text-xl font-bold text-neutral-800">Jam yang sesuai untuk Anda</h3>
-              <p className="text-sm text-neutral-600 max-w-xs">
+              <h3 className="text-xl font-bold text-neutral-800 dark:text-white">Jam yang sesuai untuk Anda</h3>
+              <p className="text-sm text-neutral-600 dark:text-gray-300 max-w-xs">
                 Sewa kapan saja yang cocok untuk Anda
               </p>
             </div>
@@ -346,8 +346,8 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                   className="object-contain w-auto h-auto"
                 />
               </div>
-              <h3 className="text-xl font-bold text-neutral-800">Baik untuk Lingkungan</h3>
-              <p className="text-sm text-neutral-600 max-w-xs">
+              <h3 className="text-xl font-bold text-neutral-800 dark:text-white">Baik untuk Lingkungan</h3>
+              <p className="text-sm text-neutral-600 dark:text-gray-300 max-w-xs">
                 Berbagi lebih baik untuk planet kita
               </p>
             </div>

@@ -82,83 +82,83 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ user }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-[80px]">
+    <div className="min-h-screen bg-gray-50 dark:bg-neutral-900 pt-[80px]">
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Header */}
-        <h1 className="text-4xl font-bold text-gray-900 mb-8">My profile</h1>
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-8">Profil Saya</h1>
 
         {/* Profile Section */}
-        <div className="bg-white rounded-xl shadow-sm mb-6">
+        <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-sm dark:shadow-neutral-950/50 mb-6">
           {profileMenuItems.map((item, index) => (
             <div key={index}>
               <button
                 onClick={item.onClick}
-                className="w-full flex items-center justify-between p-6 hover:bg-gray-50 transition-colors"
+                className="w-full flex items-center justify-between p-6 hover:bg-gray-50 dark:hover:bg-neutral-700 transition-colors"
               >
                 <div className="flex items-center gap-4">
-                  <item.icon className="w-6 h-6 text-gray-700" />
+                  <item.icon className="w-6 h-6 text-gray-700 dark:text-gray-300" />
                   <div className="text-left">
-                    <p className="font-medium text-gray-900">{item.title}</p>
+                    <p className="font-medium text-gray-900 dark:text-white">{item.title}</p>
                     {item.subtitle && (
-                      <p className="text-sm text-gray-500">{item.subtitle}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{item.subtitle}</p>
                     )}
                   </div>
                 </div>
-                <ChevronRight className="w-5 h-5 text-gray-400" />
+                <ChevronRight className="w-5 h-5 text-gray-400 dark:text-gray-500" />
               </button>
               {index < profileMenuItems.length - 1 && (
-                <div className="border-b border-gray-100 mx-6" />
+                <div className="border-b border-gray-100 dark:border-neutral-700 mx-6" />
               )}
             </div>
           ))}
         </div>
 
         {/* Help Section */}
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Help</h2>
-        <div className="bg-white rounded-xl shadow-sm mb-6">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Bantuan</h2>
+        <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-sm dark:shadow-neutral-950/50 mb-6">
           {helpMenuItems.map((item, index) => (
             <div key={index}>
               <button
                 onClick={item.onClick}
-                className="w-full flex items-center justify-between p-6 hover:bg-gray-50 transition-colors"
+                className="w-full flex items-center justify-between p-6 hover:bg-gray-50 dark:hover:bg-neutral-700 transition-colors"
               >
                 <div className="flex items-center gap-4">
-                  <item.icon className="w-6 h-6 text-gray-700" />
+                  <item.icon className="w-6 h-6 text-gray-700 dark:text-gray-300" />
                   <div className="text-left">
-                    <p className="font-medium text-gray-900">{item.title}</p>
+                    <p className="font-medium text-gray-900 dark:text-white">{item.title}</p>
                     {item.subtitle && (
-                      <p className="text-sm text-gray-500">{item.subtitle}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{item.subtitle}</p>
                     )}
                   </div>
                 </div>
-                <ChevronRight className="w-5 h-5 text-gray-400" />
+                <ChevronRight className="w-5 h-5 text-gray-400 dark:text-gray-500" />
               </button>
               {index < helpMenuItems.length - 1 && (
-                <div className="border-b border-gray-100 mx-6" />
+                <div className="border-b border-gray-100 dark:border-neutral-700 mx-6" />
               )}
             </div>
           ))}
         </div>
 
         {/* Beta Section */}
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Beta</h2>
-        <div className="bg-white rounded-xl shadow-sm">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Beta</h2>
+        <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-sm dark:shadow-neutral-950/50">
           {betaMenuItems.map((item, index) => (
             <div key={index}>
               <button
                 onClick={item.onClick}
-                className="w-full flex items-center justify-between p-6 hover:bg-gray-50 transition-colors"
+                className="w-full flex items-center justify-between p-6 hover:bg-gray-50 dark:hover:bg-neutral-700 transition-colors"
               >
                 <div className="flex items-center gap-4">
-                  <item.icon className="w-6 h-6 text-gray-700" />
+                  <item.icon className="w-6 h-6 text-gray-700 dark:text-gray-300" />
                   <div className="text-left">
-                    <p className="font-medium text-gray-900">{item.title}</p>
+                    <p className="font-medium text-gray-900 dark:text-white">{item.title}</p>
                     {item.subtitle && (
-                      <p className="text-sm text-gray-500">{item.subtitle}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{item.subtitle}</p>
                     )}
                   </div>
                 </div>
-                <ChevronRight className="w-5 h-5 text-gray-400" />
+                <ChevronRight className="w-5 h-5 text-gray-400 dark:text-gray-500" />
               </button>
             </div>
           ))}

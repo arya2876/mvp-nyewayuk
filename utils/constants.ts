@@ -39,18 +39,19 @@ export const categories = [
 ];
 
 export const LISTINGS_BATCH = 16;
+export const HOMEPAGE_LISTINGS_LIMIT = 10; // Max barang di homepage
 
 export const menuItems = [
   {
-    label: "Booking",
+    label: "Pemesanan",
     path: "/trips",
   },
   {
-    label: "My Properties",
+    label: "Barang Saya",
     path: "/properties",
   },
   {
-    label: "My Profile",
+    label: "Profil Saya",
     path: "/profile",
   },
 ];

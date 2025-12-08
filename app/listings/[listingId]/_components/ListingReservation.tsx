@@ -133,9 +133,9 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
   }, [priceBreakdown.totalPrice, dateRange, listingId, router, currentUser, priceBreakdown.dayCount, logisticsOption, actualDepositAmount]);
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+    <div className="bg-white dark:bg-neutral-800 rounded-xl border border-gray-200 dark:border-neutral-700 overflow-hidden shadow-sm">
       <div className="p-6">
-        <h3 className="text-2xl font-bold mb-6">Pilih Tanggal Sewa</h3>
+        <h3 className="text-2xl font-bold mb-6 text-neutral-800 dark:text-white">Pilih Tanggal Sewa</h3>
         
         {/* Calendar */}
         <div className="mb-6">
@@ -152,8 +152,8 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         {/* Pickup/Drop off */}
         <div className="grid grid-cols-2 gap-4 mb-6">
           <div>
-            <div className="text-sm font-semibold mb-2">Pickup</div>
-            <div className="text-sm text-gray-600">
+            <div className="text-sm font-semibold mb-2 text-neutral-800 dark:text-white">Pickup</div>
+            <div className="text-sm text-gray-600 dark:text-gray-300">
               {dateRange?.startDate?.toLocaleDateString("id-ID", {
                 day: "numeric",
                 month: "short",
@@ -161,8 +161,8 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
             </div>
           </div>
           <div>
-            <div className="text-sm font-semibold mb-2">Drop off</div>
-            <div className="text-sm text-gray-600">
+            <div className="text-sm font-semibold mb-2 text-neutral-800 dark:text-white">Drop off</div>
+            <div className="text-sm text-gray-600 dark:text-gray-300">
               {dateRange?.endDate?.toLocaleDateString("id-ID", {
                 day: "numeric",
                 month: "short",
@@ -173,49 +173,49 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
 
         {/* Logistics Option */}
         <div className="mb-6">
-          <div className="text-sm font-semibold mb-3">Logistics Option</div>
+          <div className="text-sm font-semibold mb-3 text-neutral-800 dark:text-white">Opsi Pengambilan</div>
           <div className="space-y-2">
-            <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50 transition">
+            <label className="flex items-center gap-3 p-3 border border-gray-200 dark:border-neutral-600 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-neutral-700 transition">
               <input
                 type="radio"
                 name="logistics"
                 value="self-pickup"
                 checked={logisticsOption === "self-pickup"}
                 onChange={(e) => setLogisticsOption(e.target.value as LogisticsOption)}
-                className="w-4 h-4 text-purple-600"
+                className="w-4 h-4 text-emerald-600"
               />
               <div className="flex-1">
-                <div className="font-medium">Self Pickup</div>
-                <div className="text-xs text-gray-500">Deposit: KTP/Identitas Asli</div>
+                <div className="font-medium text-neutral-800 dark:text-white">Ambil Sendiri</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">Deposit: KTP/Identitas Asli</div>
               </div>
-              <div className="text-sm font-semibold text-green-600">FREE</div>
+              <div className="text-sm font-semibold text-green-600">GRATIS</div>
             </label>
-            <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50 transition">
+            <label className="flex items-center gap-3 p-3 border border-gray-200 dark:border-neutral-600 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-neutral-700 transition">
               <input
                 type="radio"
                 name="logistics"
                 value="nyewa-express"
                 checked={logisticsOption === "nyewa-express"}
                 onChange={(e) => setLogisticsOption(e.target.value as LogisticsOption)}
-                className="w-4 h-4 text-purple-600"
+                className="w-4 h-4 text-emerald-600"
               />
               <div className="flex-1">
-                <div className="font-medium">Nyewa Express</div>
-                <div className="text-xs text-gray-500">Deposit: Rp 200.000 (Refundable)</div>
+                <div className="font-medium text-neutral-800 dark:text-white">Nyewa Express</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">Deposit: Rp 200.000 (Refundable)</div>
               </div>
-              <div className="text-sm font-semibold">Rp 25,000</div>
+              <div className="text-sm font-semibold text-neutral-800 dark:text-white">Rp 25,000</div>
             </label>
           </div>
         </div>
 
         {/* Warning untuk Self Pickup */}
         {logisticsOption === "self-pickup" && (
-          <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+          <div className="mb-6 p-4 bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-700 rounded-lg">
             <div className="flex items-start gap-3">
               <span className="text-2xl">⚠️</span>
               <div>
-                <div className="font-semibold text-yellow-800 mb-1">PENTING: Deposit Identitas</div>
-                <div className="text-sm text-yellow-700">
+                <div className="font-semibold text-yellow-800 dark:text-yellow-200 mb-1">PENTING: Deposit Identitas</div>
+                <div className="text-sm text-yellow-700 dark:text-yellow-300">
                   Anda memilih <strong>Ambil Sendiri</strong>. Anda WAJIB meninggalkan <strong>KTP/Identitas Asli</strong> kepada pemilik barang saat pengambilan sebagai jaminan keamanan.
                 </div>
               </div>
@@ -225,12 +225,12 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
 
         {/* Price Breakdown */}
         {priceBreakdown.dayCount > 0 && (
-          <div className="mb-6 p-4 bg-gray-50 rounded-lg space-y-2 text-sm">
+          <div className="mb-6 p-4 bg-gray-50 dark:bg-neutral-700 rounded-lg space-y-2 text-sm">
             <div className="flex justify-between">
-              <span className="text-gray-600">
+              <span className="text-gray-600 dark:text-gray-300">
                 Rp {formatRupiah(price)} × {priceBreakdown.dayCount} {priceBreakdown.dayCount === 1 ? "hari" : "hari"}
               </span>
-              <span className="font-medium">Rp {formatRupiah(priceBreakdown.basePrice)}</span>
+              <span className="font-medium text-neutral-800 dark:text-white">Rp {formatRupiah(priceBreakdown.basePrice)}</span>
             </div>
             {/* Service fee disabled untuk MVP launch */}
             {/* <div className="flex justify-between">
@@ -239,22 +239,22 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
             </div> */}
             {priceBreakdown.logisticsFee > 0 && (
               <div className="flex justify-between">
-                <span className="text-gray-600">Nyewa Express</span>
-                <span className="font-medium">Rp {formatRupiah(priceBreakdown.logisticsFee)}</span>
+                <span className="text-gray-600 dark:text-gray-300">Nyewa Express</span>
+                <span className="font-medium text-neutral-800 dark:text-white">Rp {formatRupiah(priceBreakdown.logisticsFee)}</span>
               </div>
             )}
             {/* Deposit - Always show based on logistics option */}
             <div className="flex justify-between">
-              <span className="text-gray-600">
+              <span className="text-gray-600 dark:text-gray-300">
                 Deposit Keamanan {logisticsOption === 'self-pickup' ? '(KTP/Identitas)' : '(Refundable)'}
               </span>
-              <span className="font-medium">
+              <span className="font-medium text-neutral-800 dark:text-white">
                 {logisticsOption === 'self-pickup' ? 'Rp 0' : `Rp ${formatRupiah(priceBreakdown.depositAmount)}`}
               </span>
             </div>
-            <div className="pt-2 border-t border-gray-300 flex justify-between">
-              <span className="font-bold">Total</span>
-              <span className="font-bold text-lg text-purple-600">
+            <div className="pt-2 border-t border-gray-300 dark:border-neutral-600 flex justify-between">
+              <span className="font-bold text-neutral-800 dark:text-white">Total</span>
+              <span className="font-bold text-lg text-emerald-600">
                 Rp {formatRupiah(priceBreakdown.totalPrice)}
               </span>
             </div>
@@ -265,13 +265,13 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         <button
           disabled={isLoading}
           onClick={onCreateReservation}
-          className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-4 px-6 rounded-full transition disabled:opacity-70 disabled:cursor-not-allowed"
+          className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-4 px-6 rounded-full transition disabled:opacity-70 disabled:cursor-not-allowed"
         >
           {isLoading ? "Memproses..." : "Ajukan Sewa"}
         </button>
 
         {/* Info Text */}
-        <div className="mt-4 flex items-start gap-2 text-sm text-blue-600">
+        <div className="mt-4 flex items-start gap-2 text-sm text-blue-600 dark:text-blue-400">
           <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
           </svg>

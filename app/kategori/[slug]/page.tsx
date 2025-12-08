@@ -250,7 +250,10 @@ const CategoryPage = () => {
             <Map
               listings={listings}
               userLocation={userLocation}
-              onMarkerClick={(id) => window.open(`/listings/${id}`, "_blank")}
+              onMarkerClick={(id) => {
+                // Navigate dalam tab yang sama, bukan buka tab baru
+                window.location.href = `/listings/${id}`;
+              }}
             />
           </div>
         )}

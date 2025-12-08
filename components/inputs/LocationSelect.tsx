@@ -142,18 +142,19 @@ const LocationSelect: React.FC<LocationSelectProps> = ({ value, onChange }) => {
           setSelectedDistrict(districtOption);
 
           // Trigger onChange with the detected location
+          // PENTING: Simpan koordinat GPS REAL pengguna, bukan koordinat kecamatan!
           const locationValue: LocationValue = {
             province: nearestProvince.province,
             city: nearestCity.name,
             district: nearestDistrict.name,
-            latlng: nearestDistrict.latlng,
+            latlng: [latitude, longitude], // Gunakan GPS real pengguna!
             label: `${nearestDistrict.name}, ${nearestCity.name}, ${nearestProvince.province}`,
           };
           
           console.log(`📍 UPLOAD FORM: Detected GPS [${latitude}, ${longitude}]`);
           console.log(`📍 UPLOAD FORM: Nearest district "${nearestDistrict.name}" at [${nearestDistrict.latlng[0]}, ${nearestDistrict.latlng[1]}]`);
           console.log(`📍 UPLOAD FORM: Distance ${distance.toFixed(2)}km`);
-          console.log(`📍 UPLOAD FORM: Will save coordinates:`, nearestDistrict.latlng);
+          console.log(`📍 UPLOAD FORM: Saving REAL GPS coordinates:`, [latitude, longitude]);
           
           onChange("location", locationValue);
 

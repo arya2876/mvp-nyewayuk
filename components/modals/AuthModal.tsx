@@ -157,7 +157,7 @@ const AuthModal = ({
         </Button>
       </form>
       <div className="flex flex-col gap-4 mt-3 p-6 pt-0">
-        <hr />
+        <hr className="border-neutral-200 dark:border-neutral-700" />
         <Button
           outline
           onClick={() => signIn("google", { callbackUrl: "/" })}
@@ -176,7 +176,7 @@ const AuthModal = ({
         </Button>
         <div
           className="
-            text-neutral-500 
+            text-neutral-500 dark:text-gray-400
           text-center 
           mt-2 
           font-light
@@ -192,7 +192,7 @@ const AuthModal = ({
               type="button"
               onClick={onToggle}
               className="
-              text-neutral-800
+              text-neutral-800 dark:text-white
               cursor-pointer 
               hover:underline
               ml-1

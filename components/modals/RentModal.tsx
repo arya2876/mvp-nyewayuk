@@ -109,7 +109,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
           </div>
         </div>
 
-        <hr />
+        <hr className="border-neutral-200 dark:border-neutral-700" />
 
         {/* Description Section */}
         <div>
@@ -142,7 +142,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
           </div>
         </div>
 
-        <hr />
+        <hr className="border-neutral-200 dark:border-neutral-700" />
 
         {/* Specifications Section */}
         <div>
@@ -172,14 +172,14 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
               watch={watch}
             />
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Kondisi
               </label>
               <select
                 id="condition"
                 {...register("condition", { required: true })}
                 disabled={isLoading}
-                className="w-full p-4 font-light bg-white border-2 rounded-md outline-none transition disabled:opacity-70 disabled:cursor-not-allowed border-neutral-300 focus:border-black"
+                className="w-full p-4 font-light bg-white dark:bg-neutral-700 border-2 rounded-md outline-none transition disabled:opacity-70 disabled:cursor-not-allowed border-neutral-300 dark:border-neutral-600 focus:border-black dark:focus:border-emerald-400 text-neutral-800 dark:text-white"
               >
                 <option value="Baru">Baru</option>
                 <option value="Seperti Baru">Seperti Baru</option>
@@ -190,7 +190,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
           </div>
         </div>
 
-        <hr />
+        <hr className="border-neutral-200 dark:border-neutral-700" />
 
         {/* Images Section */}
         <div>
@@ -208,13 +208,13 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
           </div>
         </div>
 
-        <hr />
+        <hr className="border-neutral-200 dark:border-neutral-700" />
 
         {/* Price Section */}
         <div>
           <Heading title="Tentukan Harga Sewa" subtitle="Berapa harga sewa per hari?" />
           <div className="relative mt-4">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-700 font-semibold z-10">
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-700 dark:text-gray-300 font-semibold z-10">
               Rp
             </span>
             <input
@@ -223,15 +223,15 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
               placeholder="50000"
               disabled={isLoading}
               {...register("price", { required: true, valueAsNumber: true })}
-              className="w-full p-4 pl-14 font-light bg-white border-2 rounded-md outline-none transition disabled:opacity-70 disabled:cursor-not-allowed border-neutral-300 focus:border-black"
+              className="w-full p-4 pl-14 font-light bg-white dark:bg-neutral-700 border-2 rounded-md outline-none transition disabled:opacity-70 disabled:cursor-not-allowed border-neutral-300 dark:border-neutral-600 focus:border-black dark:focus:border-emerald-400 text-neutral-800 dark:text-white"
             />
           </div>
-          <p className="text-sm text-neutral-500 mt-2">
+          <p className="text-sm text-neutral-500 dark:text-gray-400 mt-2">
             Masukkan hanya angka. Contoh: 50000 untuk Rp 50.000/hari
           </p>
         </div>
 
-        <hr />
+        <hr className="border-neutral-200 dark:border-neutral-700" />
 
         {/* Location Section */}
         <div>
@@ -254,11 +254,11 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
     <div className="w-full h-full flex flex-col max-h-[90vh]">
       <Modal.WindowHeader title="Sewakan Barang Anda" />
       <form
-        className="flex-1 overflow-y-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"
+        className="flex-1 overflow-y-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white dark:bg-neutral-800 outline-none focus:outline-none"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="p-6">{body()}</div>
-        <div className="sticky bottom-0 bg-white px-6 pb-6 pt-3 border-t">
+        <div className="sticky bottom-0 bg-white dark:bg-neutral-800 px-6 pb-6 pt-3 border-t border-neutral-200 dark:border-neutral-700">
           <Button
             type="submit"
             className="w-full flex items-center gap-2 justify-center"

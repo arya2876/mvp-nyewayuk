@@ -42,13 +42,13 @@ const CategoryButton: React.FC<CategoryButtonProps> = ({
         type="submit"
         onClick={handleChange}
         className={cn(
-          `rounded-xl  border-2 p-2 flex flex-col gap-3  hover:border-black cursor-pointer transition duration-200 w-full`,
-          isSelected ? "border-black" : "border-neutral-200"
+          `rounded-xl border-2 p-2 flex flex-col gap-3 hover:border-black dark:hover:border-emerald-400 cursor-pointer transition duration-200 w-full bg-white dark:bg-neutral-700`,
+          isSelected ? "border-black dark:border-emerald-400" : "border-neutral-200 dark:border-neutral-600"
         )}
         onFocus={handleChange}
       >
-        <Icon size={24} />
-        <span className="font-semibold text-sm select-none text-start">{label}</span>
+        <Icon size={24} className="text-neutral-800 dark:text-white" />
+        <span className="font-semibold text-sm select-none text-start text-neutral-800 dark:text-white">{label}</span>
       </button>
     </div>
   );

@@ -43,13 +43,12 @@ const CategoryMap: React.FC<CategoryMapProps> = ({
         zoomControl: true,
       });
 
-      // Dark mode tile layer
+      // Use OpenStreetMap tiles (free and reliable)
       L.tileLayer(
-        "https://api.mapbox.com/styles/v1/mapbox/dark-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw",
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         {
-          attribution: '© <a href="https://www.mapbox.com/">Mapbox</a> © <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
-          tileSize: 512,
-          zoomOffset: -1,
+          attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          maxZoom: 19,
         }
       ).addTo(mapRef.current);
 
@@ -123,16 +122,19 @@ const CategoryMap: React.FC<CategoryMapProps> = ({
 
       const marker = L.marker([lat, lng], { icon: priceIcon });
 
-      // Popup content
+      // Popup content - clickable to navigate
       const popupContent = `
-        <div class="listing-popup">
-          <img src="${listing.imageSrc}" alt="${listing.title}" class="popup-image" />
-          <div class="popup-content">
-            <h3 class="popup-title">${listing.title}</h3>
-            <p class="popup-location">${listing.district || ""}, ${listing.city || ""}</p>
-            <p class="popup-price">Rp ${formatPrice(listing.price)}/hari</p>
+        <a href="/listings/${listing.id}" class="listing-popup-link" style="text-decoration: none; color: inherit; display: block;">
+          <div class="listing-popup">
+            <img src="${listing.imageSrc}" alt="${listing.title}" class="popup-image" />
+            <div class="popup-content">
+              <h3 class="popup-title">${listing.title}</h3>
+              <p class="popup-location">${listing.district || ""}, ${listing.city || ""}</p>
+              <p class="popup-price">Rp ${formatPrice(listing.price)}/hari</p>
+              <p class="popup-cta">Klik untuk lihat detail →</p>
+            </div>
           </div>
-        </div>
+        </a>
       `;
 
       marker.bindPopup(popupContent, {
@@ -140,7 +142,8 @@ const CategoryMap: React.FC<CategoryMapProps> = ({
         className: "custom-popup",
       });
 
-      marker.on("click", () => {
+      // Double click on marker navigates directly
+      marker.on("dblclick", () => {
         if (onMarkerClick) {
           onMarkerClick(listing.id);
         }
@@ -273,6 +276,17 @@ const CategoryMap: React.FC<CategoryMapProps> = ({
           font-weight: 700;
           font-size: 14px;
           color: #10b981;
+        }
+
+        .popup-cta {
+          font-size: 11px;
+          color: #a855f7;
+          margin-top: 8px;
+          font-weight: 500;
+        }
+
+        .listing-popup-link:hover .popup-cta {
+          text-decoration: underline;
         }
 
         .custom-popup .leaflet-popup-content-wrapper {

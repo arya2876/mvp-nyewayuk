@@ -1,6 +1,6 @@
 "use server";
 import { db } from "@/lib/db";
-import { LISTINGS_BATCH } from "@/utils/constants";
+import { LISTINGS_BATCH, HOMEPAGE_LISTINGS_LIMIT } from "@/utils/constants";
 import { getCurrentUser } from "./user";
 
 // Fungsi Haversine untuk menghitung jarak
@@ -79,7 +79,7 @@ export const getListings = async (query?: {
 
     const filterQuery: any = {
       where,
-      take: LISTINGS_BATCH,
+      take: cursor ? LISTINGS_BATCH : HOMEPAGE_LISTINGS_LIMIT, // Homepage: 10, LoadMore: 16
       orderBy: { createdAt: "desc" },
     };
 
