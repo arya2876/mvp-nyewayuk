@@ -22,8 +22,8 @@ const PropertiesPage = async () => {
   if (!listings || listings.length === 0) {
     return (
       <EmptyState
-        title="No properties found"
-        subtitle="Looks like you have no properties."
+        title="Belum Ada Barang"
+        subtitle="Anda belum menambahkan barang untuk disewakan."
       />
     );
   }

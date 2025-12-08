@@ -133,7 +133,7 @@ export const createListing = async (data: { [x: string]: any }) => {
   });
 
   const user = await getCurrentUser();
-  if (!user) throw new Error("Unauthorized!");
+  if (!user) throw new Error("Tidak diizinkan!");
 
   const listing = await db.item.create({
     data: {
@@ -185,7 +185,7 @@ export const updateListing = async (listingId: string, data: { [x: string]: any 
   });
 
   const user = await getCurrentUser();
-  if (!user) throw new Error("Unauthorized!");
+  if (!user) throw new Error("Tidak diizinkan!");
 
   // Check if user owns this listing
   const existingListing = await db.item.findUnique({
@@ -193,7 +193,7 @@ export const updateListing = async (listingId: string, data: { [x: string]: any 
   });
 
   if (!existingListing || existingListing.userId !== user.id) {
-    throw new Error("Unauthorized to update this listing");
+    throw new Error("Tidak diizinkan mengupdate listing ini");
   }
 
   const listing = await db.item.update({

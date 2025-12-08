@@ -22,14 +22,14 @@ const ReservationPage = async () => {
   if (listings.length === 0)
     return (
       <EmptyState
-        title="No reservations found"
-        subtitle="Looks like you have no reservations on your properties."
+        title="Belum Ada Pemesanan"
+        subtitle="Belum ada yang memesan barang Anda."
       />
     );
 
   return (
     <section className="main-container">
-      <Heading title="Reservations" subtitle="Bookings on your properties" backBtn/>
+      <Heading title="Pemesanan" subtitle="Orang yang memesan barang Anda" backBtn/>
       <div className=" mt-8 md:mt-10 grid  grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-8">
         {listings.map((listing) => {
           const { reservation, ...data } = listing;

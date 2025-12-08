@@ -8,8 +8,8 @@ export const getProperties = async (args?: Record<string, string>) => {
   try {
     const { userId, cursor } = args || {};
 
-    if (!userId) {
-      throw new Error("Unauthorized");
+    if (!user) {
+      throw new Error("Tidak diizinkan");
     }
     const filterQuery: any = {
       where: {

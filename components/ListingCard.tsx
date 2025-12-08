@@ -74,7 +74,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
             {data.nyewaGuardImageSrc && (
               <div className="absolute bottom-2 right-2 flex items-center gap-1 bg-emerald-500 text-white text-xs font-semibold px-2 py-1 rounded-full shadow-md">
                 <ShieldCheck className="h-3 w-3" />
-                <span>Verified</span>
+                <span>Terverifikasi</span>
               </div>
             )}
           </div>

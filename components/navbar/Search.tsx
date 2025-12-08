@@ -32,13 +32,13 @@ const Search = () => {
         diff = 1;
       }
 
-      return `${diff} Days`;
+      return `${diff} Hari`;
     }
 
-    return "Any week";
+    return "Kapan saja";
   }, [endDate, startDate]);
 
-  const guestLabel = guestCount ? `${guestCount} Guests` : "Add Guests";
+  const guestLabel = guestCount ? `${guestCount} Tamu` : "Tambah Tamu";
 
   const onNearMe = () => {
     if (!navigator?.geolocation) return;

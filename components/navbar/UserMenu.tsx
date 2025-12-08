@@ -87,11 +87,11 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
             ) : (
               <>
                 <Modal.Trigger name="Login">
-                  <MenuItem label="Log in" />
+                  <MenuItem label="Masuk" />
                 </Modal.Trigger>
 
                 <Modal.Trigger name="Sign up">
-                  <MenuItem label="Sign up" />
+                  <MenuItem label="Daftar" />
                 </Modal.Trigger>
               </>
             )}

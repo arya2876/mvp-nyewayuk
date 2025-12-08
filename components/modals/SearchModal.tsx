@@ -152,7 +152,7 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
                 onClick={onBack}
                 outline
               >
-                Back
+                Kembali
               </Button>
             ) : null}
             <Button
@@ -160,7 +160,7 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
               className="flex items-center gap-2 justify-center"
               disabled={!isFieldFilled}
             >
-              {step === STEPS.DATE ? "Search" : "Next"}
+              {step === STEPS.DATE ? "Cari" : "Lanjut"}
             </Button>
           </div>
         </div>

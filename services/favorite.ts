@@ -33,14 +33,14 @@ export const updateFavorite = async ({
 }) => {
   try {
     if (!listingId || typeof listingId !== "string") {
-      throw new Error("Invalid ID");
+      throw new Error("ID tidak valid");
     }
 
     const favorites = await getFavorites();
     const currentUser = await getCurrentUser();
 
     if (!currentUser) {
-      throw new Error("Please sign in to favorite the listing!");
+      throw new Error("Silakan masuk untuk menandai favorit!");
     }
 
     let newFavorites;

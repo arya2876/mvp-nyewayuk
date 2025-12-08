@@ -11,7 +11,7 @@ const FavoritesPage = async () => {
   const user = await getCurrentUser();
 
   if (!user) {
-    return <EmptyState title="Unauthorized" subtitle="Please login" />;
+    return <EmptyState title="Tidak Diizinkan" subtitle="Silakan masuk" />;
   }
 
   const favorites = await getFavoriteListings();
@@ -19,15 +19,15 @@ const FavoritesPage = async () => {
   if (favorites.length === 0) {
     return (
       <EmptyState
-        title="No Favorites found"
-        subtitle="Looks like you have no favorite listings."
+        title="Tidak Ada Favorit"
+        subtitle="Anda belum menandai barang apapun sebagai favorit."
       />
     );
   }
 
   return (
     <section className="main-container">
-      <Heading title="Favorites" subtitle="List of places you favorited!" />
+      <Heading title="Favorit" subtitle="Daftar barang yang Anda sukai!" />
       <div className=" mt-8 md:mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-8">
         {favorites.map((item) => {
           return <ListingCard key={item.id} data={item} hasFavorited/>;

@@ -110,10 +110,10 @@ const EditListingModalContent: React.FC<EditListingModalContentProps> = ({ listi
           ...data,
           image: data.images[0] || "", // Use first image as main image
         });
-        toast.success("Listing updated successfully!");
+        toast.success("Listing berhasil diperbarui!");
         router.refresh();
       } catch (error: any) {
-        toast.error("Failed to update listing!");
+        toast.error("Gagal memperbarui listing!");
       }
     });
   };
@@ -242,7 +242,7 @@ const EditListingModalContent: React.FC<EditListingModalContentProps> = ({ listi
             className="w-full flex items-center gap-2 justify-center"
             disabled={isLoading}
           >
-            {isLoading ? <SpinnerMini /> : "Update Listing"}
+            {isLoading ? <SpinnerMini /> : "Perbarui Listing"}
           </Button>
         </div>
       </form>

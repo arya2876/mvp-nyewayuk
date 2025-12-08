@@ -72,7 +72,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
           ...data,
           image: data.images[0] || "", // Use first image as main image
         });
-        toast.success(`${data.title} added successfully!`);
+        toast.success(`${data.title} berhasil ditambahkan!`);
         queryClient.invalidateQueries({
           queryKey: ["listings"],
         });
@@ -81,7 +81,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
         router.refresh();
         router.push(`/listings/${newListing.id}`);
       } catch (error: any) {
-        toast.error("Failed to create listing!");
+        toast.error("Gagal membuat listing!");
         console.log(error?.message);
       }
     });

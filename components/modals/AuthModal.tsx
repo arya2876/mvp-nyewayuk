@@ -82,7 +82,7 @@ const AuthModal = ({
         } else {
           await registerUser({ email, password, name });
           setTitle("Login");
-          toast.success("You've successfully registered.");
+          toast.success("Anda berhasil mendaftar.");
           reset();
         }
       } catch (error: any) {
@@ -108,11 +108,11 @@ const AuthModal = ({
         onSubmit={handleSubmit(onSubmit)}
       >
         <Heading
-          title={!isLoginModal ? "Welcome to NyewaYuk" : "Welcome back"}
+          title={!isLoginModal ? "Selamat Datang di NyewaYuk" : "Selamat Datang Kembali"}
           subtitle={
             title === "Sign up"
-              ? "Create an account!"
-              : "Login to your account!"
+              ? "Buat akun untuk memulai!"
+              : "Masuk ke akun Anda!"
           }
         />
 
@@ -140,7 +140,7 @@ const AuthModal = ({
 
         <Input
           id="password"
-          label="Password"
+          label="Kata Sandi"
           type="password"
           disabled={isLoading}
           register={register}
@@ -153,7 +153,7 @@ const AuthModal = ({
           type="submit"
           className="flex items-center justify-center h-[42px]"
         >
-          {isLoading ? <SpinnerMini className="w-5 h-5" /> : "Continue"}
+          {isLoading ? <SpinnerMini className="w-5 h-5" /> : "Lanjutkan"}
         </Button>
       </form>
       <div className="flex flex-col gap-4 mt-3 p-6 pt-0">
@@ -164,7 +164,7 @@ const AuthModal = ({
           className="flex flex-row justify-center gap-2 items-center px-3 py-2"
         >
           <FcGoogle className="w-6 h-6" />
-          <span className="text-[14px]">Continue with Google</span>
+          <span className="text-[14px]">Lanjutkan dengan Google</span>
         </Button>
         <Button
           outline
@@ -172,7 +172,7 @@ const AuthModal = ({
           className="flex flex-row justify-center gap-2 items-center px-3 py-2"
         >
           <AiFillGithub className="w-6 h-6" />
-          <span className="text-[14px]">Continue with Github</span>
+          <span className="text-[14px]">Lanjutkan dengan Github</span>
         </Button>
         <div
           className="
@@ -185,8 +185,8 @@ const AuthModal = ({
           <div className="text-[15px]">
             <small className="text-[15px]">
               {!isLoginModal
-                ? "Already have an account?"
-                : "First time using NyewaYuk?"}
+                ? "Sudah punya akun?"
+                : "Pertama kali menggunakan NyewaYuk?"}
             </small>
             <button
               type="button"
@@ -199,7 +199,7 @@ const AuthModal = ({
               font-medium
               "
             >
-              {!isLoginModal ? "Log in" : "Create an account"}
+              {!isLoginModal ? "Masuk" : "Buat akun"}
             </button>
           </div>
         </div>
