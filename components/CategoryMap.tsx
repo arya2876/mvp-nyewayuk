@@ -70,7 +70,9 @@ const CategoryMap: React.FC<CategoryMapProps> = ({
           },
         });
 
-        mapRef.current.addLayer(markersRef.current);
+        if (markersRef.current) {
+          mapRef.current.addLayer(markersRef.current);
+        }
       }
     }
 
