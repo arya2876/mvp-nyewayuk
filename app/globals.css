@@ -6,20 +6,35 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --nyewa-primary: #0A2E46;
+  --nyewa-secondary: #10b981;
+  --nyewa-accent: #a855f7;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+/* Dark mode variables */
+.dark {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 15, 23, 42;
+  --background-end-rgb: 15, 23, 42;
 }
 
+/* Light mode body */
 body {
   overflow-x: hidden;
   overflow-y: scroll;
   scroll-behavior: smooth;
+  @apply bg-white text-gray-900;
+}
+
+/* Dark mode body */
+.dark body,
+body.dark {
+  @apply bg-neutral-900 text-gray-100;
+}
+
+/* Dark mode global styles */
+.dark {
+  color-scheme: dark;
 }
 
 .no-scroll {
@@ -57,15 +72,23 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-rose-400 transition-all duration-300 rounded-[25px];
+  @apply bg-emerald-400 transition-all duration-300 rounded-[25px];
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-rose-500;
+  @apply bg-emerald-500;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-rose-100 rounded-[25px];
+  @apply bg-emerald-100 rounded-[25px];
+}
+
+.dark ::-webkit-scrollbar-track {
+  @apply bg-neutral-800;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  @apply bg-emerald-600;
 }
 
 ::-webkit-scrollbar-corner {

@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -13,6 +14,16 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      colors: {
+        // NyewaYuk brand colors
+        'nyewa': {
+          'primary': '#0A2E46',
+          'secondary': '#10b981',
+          'accent': '#a855f7',
+          'dark': '#0f172a',
+          'light': '#f8fafc',
+        }
+      }
     },
   },
   plugins: [],

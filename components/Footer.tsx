@@ -2,10 +2,14 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTheme } from './ThemeProvider';
 
 const Footer = () => {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   return (
-    <footer className="bg-[#0A2E46] pt-16 pb-8 text-white">
+    <footer className={`pt-16 pb-8 text-white ${isDark ? 'bg-black' : 'bg-[#0A2E46]'}`}>
       <div className="mx-auto max-w-6xl px-6">
         {/* Grid 4 kolom */}
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">

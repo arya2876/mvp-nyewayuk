@@ -74,26 +74,23 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
       </section>
 
       {/* Popular Categories dengan Icon */}
-      <section className="mx-auto max-w-6xl px-6 py-6">
-        <h3 className="text-sm font-medium text-neutral-600 mb-3">Atau telusuri kategori kami yang paling populer...</h3>
+      <section className="mx-auto max-w-6xl px-6 py-6 dark:bg-neutral-900">
+        <h3 className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-3">Atau telusuri kategori kami yang paling populer...</h3>
         <div className="flex flex-wrap gap-3">
           {categories.map((category) => {
             const Icon = category.icon;
             const isSelected = searchParams?.category === category.label;
-            // Preserve location coordinates when filtering by category
-            const categoryParams = new URLSearchParams();
-            categoryParams.set('category', category.label);
-            if (searchParams?.lat) categoryParams.set('lat', searchParams.lat);
-            if (searchParams?.lng) categoryParams.set('lng', searchParams.lng);
+            // Link ke halaman kategori terpisah
+            const categorySlug = category.label.toLowerCase().replace(/\s+/g, "-");
             
             return (
               <a
                 key={category.label}
-                href={`/?${categoryParams.toString()}`}
+                href={`/kategori/${categorySlug}`}
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition shadow-sm ${
                   isSelected
-                    ? 'bg-[#0A2E46] text-white border-2 border-[#0A2E46]'
-                    : 'bg-white text-neutral-700 border border-neutral-300 hover:bg-gray-50 hover:border-neutral-400'
+                    ? 'bg-emerald-500 text-white border-2 border-emerald-500'
+                    : 'bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-600 hover:bg-gray-50 dark:hover:bg-neutral-700 hover:border-neutral-400'
                 }`}
               >
                 <Icon className="w-5 h-5" />
@@ -105,19 +102,19 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
       </section>
 
       {/* Section Item yang baru-baru ini aktif - DI BAGIAN ATAS */}
-      <section className="mx-auto max-w-6xl px-6 py-8">
+      <section className="mx-auto max-w-6xl px-6 py-8 dark:bg-neutral-900">
         <div className="mb-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-neutral-800">
+          <h2 className="text-2xl md:text-3xl font-bold text-neutral-800 dark:text-white">
             Item yang baru-baru ini aktif
           </h2>
           {/* Info banner jika filter lokasi aktif */}
           {lat && lng && (
-            <div className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 border border-emerald-200 rounded-lg">
-              <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700 rounded-lg">
+              <svg className="w-5 h-5 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              <span className="text-sm text-emerald-800">
+              <span className="text-sm text-emerald-800 dark:text-emerald-300">
                 Menampilkan <strong>{listings.length}</strong> barang dalam radius <strong>10km</strong> dari lokasi Anda
               </span>
             </div>
@@ -128,13 +125,13 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
         {!listings || listings.length === 0 ? (
           <div className="min-h-[400px] flex items-center justify-center">
             <div className="text-center space-y-4">
-              <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
+              <div className="mx-auto w-16 h-16 bg-gray-100 dark:bg-neutral-800 rounded-full flex items-center justify-center">
                 <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-800">Belum ada barang yang di-upload</h3>
-              <p className="text-gray-600 max-w-md mx-auto">
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Belum ada barang yang di-upload</h3>
+              <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
                 Saat ini belum ada barang tersedia. Jadilah yang pertama menyewakan barang Anda!
               </p>
             </div>

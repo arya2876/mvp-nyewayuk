@@ -97,7 +97,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
       <Link href={`/listings/${data.id}`} className="col-span-1 cursor-pointer">
         <div className="flex flex-col gap-1 w-full">
           <div className=" overflow-hidden md:rounded-xl rounded-md relative">
-            <div className="aspect-[1/0.95] relative bg-gray-100">
+            <div className="aspect-[1/0.95] relative bg-gray-100 dark:bg-neutral-800">
               <Image
                 imageSrc={data.imageSrc}
                 fill
@@ -115,30 +115,30 @@ const ListingCard: React.FC<ListingCardProps> = ({
               </div>
             )}
           </div>
-          <span className="font-semibold text-[16px] mt-[4px] truncate">
+          <span className="font-semibold text-[16px] mt-[4px] truncate text-gray-900 dark:text-white">
             {data.title}
           </span>
           {/* Brand & Model */}
           {(data.brand || data.model) && (
-            <span className="text-xs text-gray-500 truncate">
+            <span className="text-xs text-gray-500 dark:text-gray-400 truncate">
               {data.brand} {data.model}
             </span>
           )}
-          <span className="font-light text-neutral-500 text-sm truncate">
+          <span className="font-light text-neutral-500 dark:text-neutral-400 text-sm truncate">
             {reservationDate || locationDisplay}
           </span>
           {/* Distance from user */}
           {distanceText && !reservation && (
-            <span className="text-xs text-emerald-600 font-medium">
+            <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
               📍 {distanceText}
             </span>
           )}
 
           <div className="flex flex-row items-baseline gap-1">
-            <span className="font-bold text-[#444] text-[14px]">
+            <span className="font-bold text-[#444] dark:text-emerald-400 text-[14px]">
               Rp {formatPrice(price)}
             </span>
-            {!reservation && <span className="font-light">/ hari</span>}
+            {!reservation && <span className="font-light dark:text-gray-400">/ hari</span>}
           </div>
         </div>
       </Link>
