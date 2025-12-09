@@ -6,16 +6,19 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --nyewa-primary: #0A2E46;
-  --nyewa-secondary: #10b981;
-  --nyewa-accent: #a855f7;
+  /* NyewaYuk Brand Colors from Logo */
+  --nyewa-teal: #00A99D;
+  --nyewa-blue: #0054A6;
+  --nyewa-orange: #F15A24;
+  --nyewa-dark: #1E293B;
+  --nyewa-darker: #121212;
 }
 
 /* Dark mode variables */
 .dark {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 15, 23, 42;
-  --background-end-rgb: 15, 23, 42;
+  --background-start-rgb: 30, 41, 59;
+  --background-end-rgb: 18, 18, 18;
 }
 
 /* Light mode body */
@@ -29,7 +32,7 @@ body {
 /* Dark mode body */
 .dark body,
 body.dark {
-  @apply bg-neutral-900 text-gray-100;
+  @apply bg-[#1E293B] text-gray-100;
 }
 
 /* Dark mode global styles */
@@ -72,7 +75,7 @@ body.dark {
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-emerald-400 transition-all duration-300 rounded-[25px];
+  @apply bg-[#00A99D] transition-all duration-300 rounded-[25px];
 }
 
 ::-webkit-scrollbar-thumb:hover {

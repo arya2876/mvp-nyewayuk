@@ -90,7 +90,7 @@ const CountrySelect = ({
         type="button"
         onClick={detectCurrentLocation}
         disabled={isDetecting}
-        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-[#00A99D] hover:bg-[#008F85] text-white rounded-lg font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isDetecting ? (
           <>

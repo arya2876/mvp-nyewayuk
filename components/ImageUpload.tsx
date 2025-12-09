@@ -124,7 +124,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
                 unoptimized
               />
               {index === 0 && (
-                <div className="absolute top-2 left-2 bg-emerald-500 text-white text-xs px-2 py-1 rounded-full font-semibold">
+                <div className="absolute top-2 left-2 bg-[#00A99D] text-white text-xs px-2 py-1 rounded-full font-semibold">
                   Foto Utama
                 </div>
               )}
@@ -147,11 +147,11 @@ const ImageUpload: FC<ImageUploadProps> = ({
               className={cn(
                 "relative cursor-pointer hover:opacity-70 transition border-dashed border-2 border-neutral-300 aspect-square flex flex-col justify-center items-center text-neutral-600 rounded-lg",
                 isLoading && "opacity-70",
-                isDragging && "border-emerald-500 bg-emerald-50"
+                isDragging && "border-[#00A99D] bg-[#00A99D]/10"
               )}
             >
               {isLoading ? (
-                <SpinnerMini className="w-8 h-8 text-emerald-600" />
+                <SpinnerMini className="w-8 h-8 text-[#00A99D]" />
               ) : (
                 <>
                   <TbPhotoPlus className="w-12 h-12 mb-2" />

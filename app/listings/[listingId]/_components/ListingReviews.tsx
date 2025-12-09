@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Heart } from "lucide-react";
+import { Star } from "lucide-react";
 import Avatar from "@/components/Avatar";
 
 interface Review {
@@ -71,11 +71,11 @@ const ListingReviews: React.FC<ListingReviewsProps> = ({ reviews = MOCK_REVIEWS 
           <span className="text-3xl font-bold">{averageRating}</span>
           <div className="flex gap-1">
             {[1, 2, 3, 4, 5].map((star) => (
-              <Heart
+              <Star
                 key={star}
                 className={`w-5 h-5 ${
                   star <= Math.round(Number(averageRating))
-                    ? "fill-purple-600 text-purple-600"
+                    ? "fill-yellow-400 text-yellow-400"
                     : "fill-gray-200 text-gray-200"
                 }`}
               />
@@ -103,11 +103,11 @@ const ListingReviews: React.FC<ListingReviewsProps> = ({ reviews = MOCK_REVIEWS 
                 
                 <div className="flex gap-1 mb-3">
                   {[1, 2, 3, 4, 5].map((star) => (
-                    <Heart
+                    <Star
                       key={star}
                       className={`w-4 h-4 ${
                         star <= review.rating
-                          ? "fill-purple-600 text-purple-600"
+                          ? "fill-yellow-400 text-yellow-400"
                           : "fill-gray-200 text-gray-200"
                       }`}
                     />

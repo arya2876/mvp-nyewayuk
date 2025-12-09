@@ -18,13 +18,18 @@ const config: Config = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       colors: {
-        // NyewaYuk brand colors
+        // NyewaYuk brand colors (from Logo DNA)
         'nyewa': {
-          'primary': '#0A2E46',
-          'secondary': '#10b981',
-          'accent': '#a855f7',
-          'dark': '#0f172a',
+          'teal': '#00A99D',      // Primary - buttons, icons, highlights
+          'blue': '#0054A6',      // Secondary - headers, footers, titles
+          'orange': '#F15A24',    // Accent/CTA - action buttons, notifications
+          'dark': '#1E293B',      // Dark mode background
+          'darker': '#121212',    // Darker background option
           'light': '#f8fafc',
+          // Legacy colors (for backward compatibility)
+          'primary': '#00A99D',
+          'secondary': '#0054A6',
+          'accent': '#F15A24',
         }
       }
     },

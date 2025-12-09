@@ -158,29 +158,29 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         <div className="mb-6">
           <div className="text-sm font-semibold mb-3 text-neutral-800 dark:text-white">Opsi Pengambilan</div>
           <div className="space-y-2">
-            <label className="flex items-center gap-3 p-3 border border-gray-200 dark:border-neutral-600 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-neutral-700 transition">
+            <label className="flex items-center gap-3 p-3 border border-gray-200 dark:border-white/10 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-[#1E293B]/80 transition">
               <input
                 type="radio"
                 name="logistics"
                 value="self-pickup"
                 checked={logisticsOption === "self-pickup"}
                 onChange={(e) => setLogisticsOption(e.target.value as LogisticsOption)}
-                className="w-4 h-4 text-emerald-600"
+                className="w-4 h-4 text-[#00A99D]"
               />
               <div className="flex-1">
                 <div className="font-medium text-neutral-800 dark:text-white">Ambil Sendiri</div>
                 <div className="text-xs text-gray-500 dark:text-gray-400">Deposit: KTP/Identitas Asli</div>
               </div>
-              <div className="text-sm font-semibold text-green-600">GRATIS</div>
+              <div className="text-sm font-semibold text-[#00A99D]">GRATIS</div>
             </label>
-            <label className="flex items-center gap-3 p-3 border border-gray-200 dark:border-neutral-600 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-neutral-700 transition">
+            <label className="flex items-center gap-3 p-3 border border-gray-200 dark:border-white/10 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-[#1E293B]/80 transition">
               <input
                 type="radio"
                 name="logistics"
                 value="nyewa-express"
                 checked={logisticsOption === "nyewa-express"}
                 onChange={(e) => setLogisticsOption(e.target.value as LogisticsOption)}
-                className="w-4 h-4 text-emerald-600"
+                className="w-4 h-4 text-[#00A99D]"
               />
               <div className="flex-1">
                 <div className="font-medium text-neutral-800 dark:text-white">Nyewa Express</div>
@@ -237,7 +237,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
             </div>
             <div className="pt-2 border-t border-gray-300 dark:border-neutral-600 flex justify-between">
               <span className="font-bold text-neutral-800 dark:text-white">Total</span>
-              <span className="font-bold text-lg text-emerald-600">
+              <span className="font-bold text-lg text-[#00A99D]">
                 Rp {formatRupiah(priceBreakdown.totalPrice)}
               </span>
             </div>
@@ -248,7 +248,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         <button
           disabled={isLoading}
           onClick={onCreateReservation}
-          className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-4 px-6 rounded-full transition disabled:opacity-70 disabled:cursor-not-allowed"
+          className="w-full bg-[#F15A24] hover:bg-[#d94d1a] text-white font-semibold py-4 px-6 rounded-[50px] transition disabled:opacity-70 disabled:cursor-not-allowed"
         >
           {isLoading ? "Memproses..." : "Ajukan Sewa"}
         </button>

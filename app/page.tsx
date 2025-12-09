@@ -46,14 +46,14 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
         {/* Background Image dengan Overlay */}
         <div className="absolute inset-0">
           <Image 
-            src="/images/hero-bg.jpg" 
+            src="/images/Gemini_Generated_Image_etircvetircvetir.png" 
             fill
             className="object-cover" 
             alt="Drone Flying Background"
             priority
           />
           {/* Dark Overlay untuk readability */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0A2E46]/80 via-[#1e3a5f]/70 to-[#0A2E46]/80"></div>
+            <div className="absolute inset-0 bg-black/30"></div>
         </div>
         
         {/* Konten Hero */}
@@ -87,10 +87,10 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
               <a
                 key={category.label}
                 href={`/kategori/${categorySlug}`}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition shadow-sm ${
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-[50px] text-sm font-medium transition shadow-sm ${
                   isSelected
-                    ? 'bg-emerald-500 text-white border-2 border-emerald-500'
-                    : 'bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-600 hover:bg-gray-50 dark:hover:bg-neutral-700 hover:border-neutral-400'
+                    ? 'bg-[#00A99D] text-white border-2 border-[#00A99D]'
+                    : 'bg-white dark:bg-[#1E293B] text-neutral-700 dark:text-neutral-200 border border-neutral-300 dark:border-white/10 hover:bg-gray-50 dark:hover:bg-[#1E293B]/80 hover:border-[#00A99D]'
                 }`}
               >
                 <Icon className="w-5 h-5" />
@@ -109,12 +109,12 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
           </h2>
           {/* Info banner jika filter lokasi aktif */}
           {lat && lng && (
-            <div className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700 rounded-lg">
-              <svg className="w-5 h-5 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-[#00A99D]/10 dark:bg-[#00A99D]/20 border border-[#00A99D]/30 rounded-lg">
+              <svg className="w-5 h-5 text-[#00A99D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              <span className="text-sm text-emerald-800 dark:text-emerald-300">
+              <span className="text-sm text-[#00A99D] dark:text-[#00A99D]">
                 Menampilkan <strong>{listings.length}</strong> barang dalam radius <strong>10km</strong> dari lokasi Anda
               </span>
             </div>
@@ -178,15 +178,15 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
       </div>
 
       {/* Section Testimonial - 3 Kolom */}
-      <section className="bg-white dark:bg-neutral-900 py-16">
+      <section className="bg-white dark:bg-[#1E293B] py-16">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {/* Testimonial 1 */}
-            <div className="rounded-2xl bg-gray-50 dark:bg-neutral-800 p-8 shadow-sm hover:shadow-md dark:shadow-neutral-950/50 transition">
+            <div className="rounded-2xl bg-gray-50 dark:bg-[#121212] border border-transparent dark:border-white/10 p-8 shadow-sm hover:shadow-md dark:shadow-neutral-950/50 transition">
               <div className="mb-6 flex justify-center">
                 <div className="h-32 w-32 rounded-full overflow-hidden flex items-center justify-center">
                   <Image 
-                    src="/images/Croods - Mobile.png" 
+                    src="/images/agenda.gif" 
                     alt="Daftar Teratas 2024"
                     width={128}
                     height={128}
@@ -204,7 +204,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
             </div>
 
             {/* Testimonial 2 */}
-            <div className="rounded-2xl bg-gray-50 dark:bg-neutral-800 p-8 shadow-sm hover:shadow-md dark:shadow-neutral-950/50 transition">
+            <div className="rounded-2xl bg-gray-50 dark:bg-[#121212] border border-transparent dark:border-white/10 p-8 shadow-sm hover:shadow-md dark:shadow-neutral-950/50 transition">
               <div className="mb-6 flex justify-center">
                 <div className="h-32 w-32 rounded-full bg-gradient-to-br from-blue-400 to-cyan-500 overflow-hidden">
                   <Image 
@@ -225,11 +225,11 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
             </div>
 
             {/* Testimonial 3 */}
-            <div className="rounded-2xl bg-gray-50 dark:bg-neutral-800 p-8 shadow-sm hover:shadow-md dark:shadow-neutral-950/50 transition">
+            <div className="rounded-2xl bg-gray-50 dark:bg-[#121212] border border-transparent dark:border-white/10 p-8 shadow-sm hover:shadow-md dark:shadow-neutral-950/50 transition">
               <div className="mb-6 flex justify-center">
                 <div className="h-32 w-32 rounded-full overflow-hidden flex items-center justify-center">
                   <Image 
-                    src="/images/Croods - Lightbulb.png" 
+                    src="/images//brainstorm.png" 
                     alt="Mahasiswa Cerdas Berbagi"
                     width={128}
                     height={128}
@@ -250,14 +250,14 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
       </section>
 
       {/* Section Value Proposition - Grid 6 dengan Icon Ungu */}
-      <section className="bg-gradient-to-b from-gray-50 to-white dark:from-neutral-800 dark:to-neutral-900 py-20">
+      <section className="bg-gradient-to-b from-gray-50 to-white dark:from-[#1E293B] dark:to-[#121212] py-20">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-2">
             {/* Row 1 */}
             <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-28 w-28 items-center justify-center rounded-full overflow-hidden">
+              <div className="flex h-28 w-28 items-center justify-center rounded-full p-2">
                 <Image 
-                  src="/images/Cool Kids - Together.png" 
+                  src="/images/shield.png" 
                   alt="Semuanya terjamin"
                   width={112}
                   height={112}
@@ -271,9 +271,9 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
             </div>
 
             <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-28 w-28 items-center justify-center rounded-full overflow-hidden">
+              <div className="flex h-28 w-28 items-center justify-center rounded-full p-2">
                 <Image 
-                  src="/images/Lifesavers - Card ID.png" 
+                  src="/images/authentication (1).png" 
                   alt="Semua orang terverifikasi"
                   width={112}
                   height={112}
@@ -290,7 +290,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
             <div className="flex flex-col items-center text-center space-y-4">
               <div className="flex h-28 w-28 items-center justify-center rounded-full overflow-hidden">
                 <Image 
-                  src="/images/Moneyverse - Money.png" 
+                  src="/images/profit.png" 
                   alt="Lebih murah daripada membeli"
                   width={112}
                   height={112}
@@ -306,7 +306,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
             <div className="flex flex-col items-center text-center space-y-4">
               <div className="flex h-28 w-28 items-center justify-center rounded-full overflow-hidden">
                 <Image 
-                  src="/images/Pebble People - Location Pin.png" 
+                  src="/images/google-maps.png" 
                   alt="Sewa di daerah Anda"
                   width={112}
                   height={112}
@@ -321,9 +321,9 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
 
             {/* Row 3 */}
             <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-28 w-28 items-center justify-center rounded-full overflow-hidden">
+              <div className="flex h-28 w-28 items-center justify-center rounded-full p-2">
                 <Image 
-                  src="/images/Cool Kids - Clock.png" 
+                  src="/images/schedule.png" 
                   alt="Jam yang sesuai untuk Anda"
                   width={112}
                   height={112}
@@ -337,9 +337,9 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
             </div>
 
             <div className="flex flex-col items-center text-center space-y-4">
-              <div className="flex h-28 w-28 items-center justify-center rounded-full overflow-hidden">
+              <div className="flex h-28 w-28 items-center justify-center rounded-full p-2">
                 <Image 
-                  src="/images/People of Brooklyn - The Borough.png" 
+                  src="/images/ecologism.png" 
                   alt="Baik untuk Lingkungan"
                   width={112}
                   height={112}

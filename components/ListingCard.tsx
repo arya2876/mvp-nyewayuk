@@ -95,8 +95,8 @@ const ListingCard: React.FC<ListingCardProps> = ({
         </div>
       </div>
       <Link href={`/listings/${data.id}`} className="col-span-1 cursor-pointer">
-        <div className="flex flex-col gap-1 w-full">
-          <div className=" overflow-hidden md:rounded-xl rounded-md relative">
+        <div className="flex flex-col gap-1 w-full dark:bg-[#1E293B] dark:border dark:border-white/10 dark:rounded-xl dark:overflow-hidden transition h-full">
+          <div className=" overflow-hidden md:rounded-xl rounded-md relative dark:rounded-none">
             <div className="aspect-[1/0.95] relative bg-gray-100 dark:bg-neutral-800">
               <Image
                 imageSrc={data.imageSrc}
@@ -109,36 +109,38 @@ const ListingCard: React.FC<ListingCardProps> = ({
             </div>
             {/* NyewaGuard AI Badge */}
             {data.nyewaGuardImageSrc && (
-              <div className="absolute bottom-2 right-2 flex items-center gap-1 bg-emerald-500 text-white text-xs font-semibold px-2 py-1 rounded-full shadow-md">
+              <div className="absolute bottom-2 right-2 flex items-center gap-1 bg-[#00A99D] text-white text-xs font-semibold px-2 py-1 rounded-[50px] shadow-md">
                 <ShieldCheck className="h-3 w-3" />
                 <span>Terverifikasi</span>
               </div>
             )}
           </div>
-          <span className="font-semibold text-[16px] mt-[4px] truncate text-gray-900 dark:text-white">
-            {data.title}
-          </span>
-          {/* Brand & Model */}
-          {(data.brand || data.model) && (
-            <span className="text-xs text-gray-500 dark:text-gray-400 truncate">
-              {data.brand} {data.model}
+          <div className="flex flex-col gap-1 dark:p-3">
+            <span className="font-semibold text-[16px] mt-[4px] truncate text-gray-900 dark:text-white">
+              {data.title}
             </span>
-          )}
-          <span className="font-light text-neutral-500 dark:text-neutral-400 text-sm truncate">
-            {reservationDate || locationDisplay}
-          </span>
-          {/* Distance from user */}
-          {distanceText && !reservation && (
-            <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
-              📍 {distanceText}
+            {/* Brand & Model */}
+            {(data.brand || data.model) && (
+              <span className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                {data.brand} {data.model}
+              </span>
+            )}
+            <span className="font-light text-neutral-500 dark:text-neutral-400 text-sm truncate">
+              {reservationDate || locationDisplay}
             </span>
-          )}
+            {/* Distance from user */}
+            {distanceText && !reservation && (
+              <span className="text-xs text-[#00A99D] font-medium">
+                📍 {distanceText}
+              </span>
+            )}
 
-          <div className="flex flex-row items-baseline gap-1">
-            <span className="font-bold text-[#444] dark:text-emerald-400 text-[14px]">
-              Rp {formatPrice(price)}
-            </span>
-            {!reservation && <span className="font-light dark:text-gray-400">/ hari</span>}
+            <div className="flex flex-row items-baseline gap-1">
+              <span className="font-bold text-[#444] dark:text-[#00A99D] text-[14px]">
+                Rp {formatPrice(price)}
+              </span>
+              {!reservation && <span className="font-light dark:text-gray-400">/ hari</span>}
+            </div>
           </div>
         </div>
       </Link>

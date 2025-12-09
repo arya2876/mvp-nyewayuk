@@ -9,7 +9,7 @@ const Footer = () => {
   const isDark = theme === 'dark';
 
   return (
-    <footer className={`pt-16 pb-8 text-white ${isDark ? 'bg-black' : 'bg-[#0A2E46]'}`}>
+    <footer className={`pt-16 pb-8 text-white ${isDark ? 'bg-[#121212]' : 'bg-[#0054A6]'}`}>
       <div className="mx-auto max-w-6xl px-6">
         {/* Grid 4 kolom */}
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -20,7 +20,7 @@ const Footer = () => {
                 src="/images/Logo Ny.png"
                 alt="NyewaYuk Logo"
                 fill
-                className="object-contain object-left"
+                className="object-contain object-left brightness-0 invert"
                 unoptimized
               />
             </Link>

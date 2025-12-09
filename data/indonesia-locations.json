@@ -144,6 +144,49 @@
           { "name": "Jebres", "latlng": [-7.5606, 110.8385] },
           { "name": "Banjarsari", "latlng": [-7.5517, 110.8168] }
         ]
+      },
+      {
+        "name": "Jepara",
+        "latlng": [-6.5889, 110.6684],
+        "districts": [
+          { "name": "Jepara", "latlng": [-6.5889, 110.6684] },
+          { "name": "Kedung", "latlng": [-6.5627, 110.7158] },
+          { "name": "Pecangaan", "latlng": [-6.6789, 110.7258] },
+          { "name": "Welahan", "latlng": [-6.7456, 110.7523] },
+          { "name": "Mayong", "latlng": [-6.7189, 110.6758] },
+          { "name": "Batealit", "latlng": [-6.8012, 110.7389] },
+          { "name": "Tahunan", "latlng": [-6.5456, 110.6389] },
+          { "name": "Mlonggo", "latlng": [-6.5234, 110.6989] },
+          { "name": "Bangsri", "latlng": [-6.5389, 110.7523] },
+          { "name": "Keling", "latlng": [-6.7089, 110.7889] },
+          { "name": "Karimunjawa", "latlng": [-5.8417, 110.4167] },
+          { "name": "Kembang", "latlng": [-6.6189, 110.6523] },
+          { "name": "Pakis Aji", "latlng": [-6.6489, 110.6858] },
+          { "name": "Nalumsari", "latlng": [-6.6789, 110.6389] },
+          { "name": "Kalinyamatan", "latlng": [-6.6089, 110.7189] },
+          { "name": "Donorojo", "latlng": [-6.8389, 110.7689] }
+        ]
+      },
+      {
+        "name": "Demak",
+        "latlng": [-6.8908, 110.6396],
+        "districts": [
+          { "name": "Demak", "latlng": [-6.8908, 110.6396] },
+          { "name": "Bonang", "latlng": [-6.8156, 110.7523] },
+          { "name": "Sayung", "latlng": [-6.8789, 110.5258] },
+          { "name": "Karangtengah", "latlng": [-6.9389, 110.6789] },
+          { "name": "Wonosalam", "latlng": [-6.9689, 110.6189] },
+          { "name": "Dempet", "latlng": [-6.9089, 110.5689] },
+          { "name": "Gajah", "latlng": [-6.8589, 110.5889] },
+          { "name": "Guntur", "latlng": [-6.9789, 110.6523] },
+          { "name": "Karanganyar", "latlng": [-6.9189, 110.7089] },
+          { "name": "Karangawen", "latlng": [-6.8289, 110.6789] },
+          { "name": "Kebonagung", "latlng": [-6.9489, 110.5389] },
+          { "name": "Mijen", "latlng": [-6.8489, 110.6089] },
+          { "name": "Mranggen", "latlng": [-6.9889, 110.5789] },
+          { "name": "Wedung", "latlng": [-6.7989, 110.5523] },
+          { "name": "Karangtengah", "latlng": [-6.9289, 110.7389] }
+        ]
       }
     ]
   },

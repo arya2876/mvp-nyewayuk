@@ -195,11 +195,11 @@ const HeroSearch = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-            className="w-full px-6 py-4 pr-32 rounded-full text-gray-800 text-base shadow-2xl outline-none focus:ring-4 focus:ring-emerald-400/50 transition"
+            className="w-full px-6 py-4 pr-32 rounded-[50px] text-gray-800 text-base shadow-2xl outline-none focus:ring-4 focus:ring-[#00A99D]/50 transition"
           />
           <button 
             onClick={handleSearch}
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-6 py-2.5 rounded-full transition shadow-lg"
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#F15A24] hover:bg-[#d94d1a] text-white font-semibold px-6 py-2.5 rounded-[50px] transition shadow-lg"
           >
             Cari
           </button>
@@ -216,7 +216,7 @@ const HeroSearch = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
             <span>Dekat {location}</span>
-            <span className="text-emerald-400 text-xs font-medium cursor-pointer hover:text-emerald-300">(ganti)</span>
+            <span className="text-[#00A99D] text-xs font-medium cursor-pointer hover:text-[#00A99D]/80">(ganti)</span>
           </button>
           <button 
             onClick={() => setShowDateModal(true)}
@@ -226,7 +226,7 @@ const HeroSearch = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
             <span>Periode sewa {date}</span>
-            <span className="text-emerald-400 text-xs font-medium cursor-pointer hover:text-emerald-300">(perubahan)</span>
+            <span className="text-[#00A99D] text-xs font-medium cursor-pointer hover:text-[#00A99D]/80">(perubahan)</span>
           </button>
         </div>
       </div>
@@ -241,7 +241,7 @@ const HeroSearch = () => {
               value={tempLocation}
               onChange={(e) => setTempLocation(e.target.value)}
               placeholder="Masukkan lokasi Anda"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-800 outline-none focus:ring-2 focus:ring-emerald-400 mb-3"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-800 outline-none focus:ring-2 focus:ring-[#00A99D] mb-3"
             />
             <button
               onClick={handleDetectLocation}
@@ -263,7 +263,7 @@ const HeroSearch = () => {
               </button>
               <button
                 onClick={handleLocationChange}
-                className="flex-1 px-4 py-2.5 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition font-medium"
+                className="flex-1 px-4 py-2.5 bg-[#00A99D] text-white rounded-lg hover:bg-[#008F85] transition font-medium"
               >
                 Simpan
               </button>
@@ -281,7 +281,7 @@ const HeroSearch = () => {
               type="date"
               value={tempDate}
               onChange={(e) => setTempDate(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-800 outline-none focus:ring-2 focus:ring-emerald-400 mb-4"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-800 outline-none focus:ring-2 focus:ring-[#00A99D] mb-4"
             />
             <div className="flex gap-3">
               <button
@@ -292,7 +292,7 @@ const HeroSearch = () => {
               </button>
               <button
                 onClick={handleDateChange}
-                className="flex-1 px-4 py-2.5 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition font-medium"
+                className="flex-1 px-4 py-2.5 bg-[#00A99D] text-white rounded-lg hover:bg-[#008F85] transition font-medium"
               >
                 Simpan
               </button>

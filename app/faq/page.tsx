@@ -54,7 +54,7 @@ export default function FAQPage() {
             href={`https://wa.me/${waNumber}?text=${waMessage}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-emerald-600 font-semibold hover:text-emerald-700 underline decoration-2 underline-offset-2"
+            className="text-[#00A99D] font-semibold hover:text-[#008F85] underline decoration-2 underline-offset-2"
           >
             hubungi admin
           </a>{" "}
@@ -65,7 +65,7 @@ export default function FAQPage() {
           {faqs.map((faq, index) => (
             <div key={index} className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition">
               <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                <span className="text-emerald-600">Q{index + 1}.</span>
+                <span className="text-[#00A99D]">Q{index + 1}.</span>
                 {faq.question}
               </h3>
               <p className="text-gray-600 leading-relaxed pl-8">{faq.answer}</p>
@@ -73,8 +73,8 @@ export default function FAQPage() {
           ))}
         </div>
 
-        <div className="mt-10 bg-gradient-to-br from-emerald-50 to-blue-50 border-2 border-emerald-200 rounded-xl p-8 text-center">
-          <MessageCircle className="w-12 h-12 text-emerald-600 mx-auto mb-4" />
+        <div className="mt-10 bg-gradient-to-br from-[#00A99D]/10 to-blue-50 border-2 border-[#00A99D]/30 rounded-xl p-8 text-center">
+          <MessageCircle className="w-12 h-12 text-[#00A99D] mx-auto mb-4" />
           <h3 className="text-2xl font-bold text-gray-900 mb-2">
             Masih Ada Pertanyaan?
           </h3>
@@ -85,7 +85,7 @@ export default function FAQPage() {
             href={`https://wa.me/${waNumber}?text=${waMessage}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-full transition font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
+            className="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#1DA851] text-white px-8 py-4 rounded-[50px] transition font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
           >
             <MessageCircle className="w-6 h-6" />
             Chat dengan Admin di WhatsApp

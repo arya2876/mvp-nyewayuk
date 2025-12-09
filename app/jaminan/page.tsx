@@ -13,8 +13,8 @@ export default function JaminanPage() {
       <div className="max-w-6xl mx-auto px-4 py-12">
         {/* Header */}
         <div className="mb-12 text-center">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-emerald-100 rounded-full mb-6">
-            <ShieldCheck className="w-10 h-10 text-emerald-600" />
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-[#00A99D]/20 rounded-full mb-6">
+            <ShieldCheck className="w-10 h-10 text-[#00A99D]" />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Jaminan Keamanan NyewaYuk
@@ -77,15 +77,15 @@ export default function JaminanPage() {
             </div>
 
             {/* Untuk Pemilik */}
-            <div className="bg-white rounded-xl p-8 shadow-sm border-2 border-emerald-100">
-              <h3 className="text-2xl font-bold text-emerald-600 mb-6 flex items-center gap-2">
+            <div className="bg-white rounded-xl p-8 shadow-sm border-2 border-[#00A99D]/20">
+              <h3 className="text-2xl font-bold text-[#00A99D] mb-6 flex items-center gap-2">
                 <ShieldCheck className="w-6 h-6" />
                 Untuk Pemilik Barang
               </h3>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <FileCheck className="w-5 h-5 text-emerald-600" />
+                  <div className="w-10 h-10 bg-[#00A99D]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <FileCheck className="w-5 h-5 text-[#00A99D]" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-2">Verifikasi Penyewa</h4>
@@ -96,8 +96,8 @@ export default function JaminanPage() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Lock className="w-5 h-5 text-emerald-600" />
+                  <div className="w-10 h-10 bg-[#00A99D]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Lock className="w-5 h-5 text-[#00A99D]" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-2">Jaminan KTP/Deposit</h4>
@@ -108,8 +108,8 @@ export default function JaminanPage() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <ShieldCheck className="w-5 h-5 text-emerald-600" />
+                  <div className="w-10 h-10 bg-[#00A99D]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <ShieldCheck className="w-5 h-5 text-[#00A99D]" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-2">Koordinasi via WhatsApp</h4>
@@ -124,9 +124,9 @@ export default function JaminanPage() {
         </div>
 
         {/* NyewaGuard AI */}
-        <div className="bg-gradient-to-br from-emerald-50 to-blue-50 rounded-2xl p-8 md:p-12 mb-16">
+        <div className="bg-gradient-to-br from-[#00A99D]/10 to-[#0054A6]/10 rounded-2xl p-8 md:p-12 mb-16">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-500 rounded-full mb-4">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-[#00A99D] rounded-full mb-4">
               <ShieldCheck className="w-8 h-8 text-white" />
             </div>
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
@@ -176,7 +176,7 @@ export default function JaminanPage() {
         <div className="text-center">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 bg-emerald-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-emerald-700 transition"
+            className="inline-flex items-center gap-2 bg-[#00A99D] text-white px-8 py-4 rounded-[50px] font-semibold hover:bg-[#008F85] transition"
           >
             Mulai Sewa Aman Sekarang
           </Link>

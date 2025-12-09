@@ -41,10 +41,10 @@ const Input: React.FC<InputProps> = ({
         disabled={disabled}
         {...register(id, { required: true })}
         className={cn(
-          `text-[15px] peer w-full px-2 py-3 font-light bg-white dark:bg-neutral-700 border-[1px] border-gray-400 dark:border-neutral-600 rounded outline-none transition disabled:opacity-70 disabled:cursor-not-allowed text-neutral-800 dark:text-white`,
+          `text-[15px] peer w-full px-2 py-3 font-light bg-white dark:bg-[#1E293B] border-[1px] border-gray-400 dark:border-white/10 rounded outline-none transition disabled:opacity-70 disabled:cursor-not-allowed text-neutral-800 dark:text-white`,
           errors[id]
             ? "border-rose-500 focus:border-rose-500"
-            : "border-neutral-300 dark:border-neutral-600 focus:border-black dark:focus:border-emerald-400",
+            : "border-neutral-300 dark:border-white/10 focus:border-black dark:focus:border-[#00A99D]",
           Icon ? "pl-9" : "pl-4"
         )}
         autoFocus={autoFocus}

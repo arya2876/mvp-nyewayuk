@@ -82,9 +82,9 @@ Apakah barang tersedia?`;
       />
 
       {/* Modal */}
-      <div className="relative bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
+      <div className="relative bg-white dark:bg-[#1E293B] rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
         {/* Header */}
-        <div className="sticky top-0 bg-white dark:bg-neutral-800 px-6 py-4 border-b border-gray-200 dark:border-neutral-700 flex items-center justify-between">
+        <div className="sticky top-0 bg-white dark:bg-[#1E293B] px-6 py-4 border-b border-gray-200 dark:border-white/10 flex items-center justify-between">
           <h2 className="text-xl font-bold text-neutral-800 dark:text-white">Konfirmasi Pesanan</h2>
           <button 
             onClick={onClose}
@@ -99,11 +99,11 @@ Apakah barang tersedia?`;
         {/* Content */}
         <div className="p-6 space-y-6">
           {/* Item Name */}
-          <div className="flex items-start gap-3 p-4 bg-emerald-50 dark:bg-emerald-900/30 rounded-xl">
-            <Package className="w-6 h-6 text-emerald-600 flex-shrink-0 mt-0.5" />
+          <div className="flex items-start gap-3 p-4 bg-[#00A99D]/10 dark:bg-[#00A99D]/20 rounded-xl">
+            <Package className="w-6 h-6 text-[#00A99D] flex-shrink-0 mt-0.5" />
             <div>
-              <div className="text-sm text-emerald-700 dark:text-emerald-400 font-medium">Barang yang disewa</div>
-              <div className="text-lg font-bold text-emerald-900 dark:text-emerald-100">{itemName}</div>
+              <div className="text-sm text-[#00A99D] font-medium">Barang yang disewa</div>
+              <div className="text-lg font-bold text-[#0054A6] dark:text-white">{itemName}</div>
             </div>
           </div>
 
@@ -117,7 +117,7 @@ Apakah barang tersedia?`;
                 <div className="font-semibold text-neutral-800 dark:text-white">
                   {formatDate(startDate)} - {formatDate(endDate)}
                 </div>
-                <div className="text-sm text-emerald-600 font-medium">{dayCount} Hari</div>
+                <div className="text-sm text-[#00A99D] font-medium">{dayCount} Hari</div>
               </div>
             </div>
 
@@ -153,7 +153,7 @@ Apakah barang tersedia?`;
             </div>
             <div className="pt-3 border-t border-gray-200 dark:border-neutral-600 flex justify-between">
               <span className="font-bold text-neutral-800 dark:text-white">Total Estimasi</span>
-              <span className="font-bold text-xl text-emerald-600">Rp {formatRupiah(totalPrice)}</span>
+              <span className="font-bold text-xl text-[#00A99D]">Rp {formatRupiah(totalPrice)}</span>
             </div>
           </div>
 
@@ -170,15 +170,15 @@ Apakah barang tersedia?`;
           )}
 
           {/* Agreement Checkbox */}
-          <label className="flex items-start gap-3 p-4 border border-gray-200 dark:border-neutral-700 rounded-xl cursor-pointer hover:bg-gray-50 dark:hover:bg-neutral-700/50 transition">
+          <label className="flex items-start gap-3 p-4 border border-gray-200 dark:border-white/10 rounded-xl cursor-pointer hover:bg-gray-50 dark:hover:bg-[#1E293B]/50 transition">
             <input
               type="checkbox"
               checked={isAgreed}
               onChange={(e) => setIsAgreed(e.target.checked)}
-              className="w-5 h-5 mt-0.5 text-emerald-600 rounded border-gray-300 focus:ring-emerald-500"
+              className="w-5 h-5 mt-0.5 text-[#00A99D] rounded border-gray-300 focus:ring-[#00A99D]"
             />
             <div className="text-sm text-gray-700 dark:text-gray-300">
-              Saya setuju dengan <button type="button" onClick={(e) => { e.preventDefault(); setIsTermsOpen(true); }} className="text-emerald-600 underline font-medium hover:text-emerald-700">Syarat & Ketentuan</button> NyewaYuk termasuk kewajiban menyerahkan <strong>KTP Asli/Deposit</strong> sebagai jaminan keamanan.
+              Saya setuju dengan <button type="button" onClick={(e) => { e.preventDefault(); setIsTermsOpen(true); }} className="text-[#00A99D] underline font-medium hover:text-[#008F85]">Syarat & Ketentuan</button> NyewaYuk termasuk kewajiban menyerahkan <strong>KTP Asli/Deposit</strong> sebagai jaminan keamanan.
             </div>
           </label>
 
@@ -186,9 +186,9 @@ Apakah barang tersedia?`;
           <button
             onClick={handleWhatsAppRedirect}
             disabled={!isAgreed}
-            className={`w-full flex items-center justify-center gap-3 py-4 px-6 rounded-full font-bold text-lg transition ${
+            className={`w-full flex items-center justify-center gap-3 py-4 px-6 rounded-[50px] font-bold text-lg transition ${
               isAgreed
-                ? "bg-green-500 hover:bg-green-600 text-white shadow-lg hover:shadow-xl"
+                ? "bg-[#25D366] hover:bg-[#1DA851] text-white shadow-lg hover:shadow-xl"
                 : "bg-gray-300 dark:bg-neutral-600 text-gray-500 dark:text-neutral-400 cursor-not-allowed"
             }`}
           >
@@ -210,8 +210,8 @@ Apakah barang tersedia?`;
             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             onClick={() => setIsTermsOpen(false)}
           />
-          <div className="relative bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white dark:bg-neutral-800 px-6 py-4 border-b border-gray-200 dark:border-neutral-700 flex items-center justify-between">
+          <div className="relative bg-white dark:bg-[#1E293B] rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white dark:bg-[#1E293B] px-6 py-4 border-b border-gray-200 dark:border-white/10 flex items-center justify-between">
               <h2 className="text-xl font-bold text-neutral-800 dark:text-white">Syarat & Ketentuan NyewaYuk</h2>
               <button 
                 onClick={() => setIsTermsOpen(false)}
@@ -283,16 +283,16 @@ Apakah barang tersedia?`;
                 </ul>
               </section>
 
-              <div className="mt-6 p-4 bg-emerald-50 dark:bg-emerald-900/30 rounded-lg">
-                <p className="text-emerald-800 dark:text-emerald-200 font-medium">
+              <div className="mt-6 p-4 bg-[#00A99D]/10 dark:bg-[#00A99D]/20 rounded-lg">
+                <p className="text-[#00A99D] font-medium">
                   Dengan melanjutkan, Anda menyetujui semua syarat dan ketentuan di atas.
                 </p>
               </div>
             </div>
-            <div className="sticky bottom-0 bg-white dark:bg-neutral-800 px-6 py-4 border-t border-gray-200 dark:border-neutral-700">
+            <div className="sticky bottom-0 bg-white dark:bg-[#1E293B] px-6 py-4 border-t border-gray-200 dark:border-white/10">
               <button
                 onClick={() => setIsTermsOpen(false)}
-                className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-6 rounded-full transition"
+                className="w-full bg-[#00A99D] hover:bg-[#008F85] text-white font-semibold py-3 px-6 rounded-[50px] transition"
               >
                 Saya Mengerti
               </button>

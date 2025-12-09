@@ -15,8 +15,8 @@ export const NavbarClient: React.FC<NavbarClientProps> = ({ children }) => {
   return (
     <header className={`fixed top-0 left-0 w-full z-50 shadow-md transition-all duration-300 ${
       isDark 
-        ? "bg-neutral-900 border-neutral-700" 
-        : "bg-[#0A2E46] border-white/10"
+        ? "bg-[#121212] border-white/10" 
+        : "bg-[#0054A6] border-white/10"
     } border-b`}>
       <nav className="py-3">
         <div className="flex main-container flex-row justify-between items-center gap-6">
@@ -35,7 +35,7 @@ export const NavLinks: React.FC = () => {
     <div className="hidden md:flex items-center gap-8 flex-1 justify-center">
       <Link 
         href="/cara-kerja" 
-        className={`hover:text-emerald-300 transition font-medium text-sm ${
+        className={`hover:text-[#00A99D] transition font-medium text-sm ${
           isDark ? "text-gray-300" : "text-white"
         }`}
       >
@@ -43,7 +43,7 @@ export const NavLinks: React.FC = () => {
       </Link>
       <Link 
         href="/jaminan" 
-        className={`hover:text-emerald-300 transition font-medium text-sm ${
+        className={`hover:text-[#00A99D] transition font-medium text-sm ${
           isDark ? "text-gray-300" : "text-white"
         }`}
       >
@@ -51,7 +51,7 @@ export const NavLinks: React.FC = () => {
       </Link>
       <Link 
         href="/faq" 
-        className={`hover:text-emerald-300 transition font-medium text-sm ${
+        className={`hover:text-[#00A99D] transition font-medium text-sm ${
           isDark ? "text-gray-300" : "text-white"
         }`}
       >

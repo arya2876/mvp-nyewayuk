@@ -76,8 +76,8 @@ export default function CaraKerjaPage() {
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white rounded-xl p-6 shadow-sm">
-              <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mb-4">
-                <Package className="w-6 h-6 text-emerald-600" />
+              <div className="w-12 h-12 bg-[#00A99D]/20 rounded-full flex items-center justify-center mb-4">
+                <Package className="w-6 h-6 text-[#00A99D]" />
               </div>
               <h3 className="text-xl font-semibold mb-3">1. Upload Barang</h3>
               <p className="text-gray-600">
@@ -86,8 +86,8 @@ export default function CaraKerjaPage() {
             </div>
 
             <div className="bg-white rounded-xl p-6 shadow-sm">
-              <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mb-4">
-                <MessageSquare className="w-6 h-6 text-emerald-600" />
+              <div className="w-12 h-12 bg-[#00A99D]/20 rounded-full flex items-center justify-center mb-4">
+                <MessageSquare className="w-6 h-6 text-[#00A99D]" />
               </div>
               <h3 className="text-xl font-semibold mb-3">2. Terima Pesanan</h3>
               <p className="text-gray-600">
@@ -96,8 +96,8 @@ export default function CaraKerjaPage() {
             </div>
 
             <div className="bg-white rounded-xl p-6 shadow-sm">
-              <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mb-4">
-                <ShieldCheck className="w-6 h-6 text-emerald-600" />
+              <div className="w-12 h-12 bg-[#00A99D]/20 rounded-full flex items-center justify-center mb-4">
+                <ShieldCheck className="w-6 h-6 text-[#00A99D]" />
               </div>
               <h3 className="text-xl font-semibold mb-3">3. Serahkan Barang</h3>
               <p className="text-gray-600">
