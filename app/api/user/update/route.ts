@@ -31,10 +31,10 @@ export async function PATCH(req: NextRequest) {
     });
 
     return NextResponse.json(updatedUser);
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error updating user:", error);
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: "Internal server error", details: error.message },
       { status: 500 }
     );
   }

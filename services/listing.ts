@@ -135,28 +135,49 @@ export const getListings = async (query?: {
 };
 
 export const getListingById = async (id: string) => {
-  const listing = await db.item.findUnique({
-    where: {
-      id,
-    },
-    include: {
-      user: {
-        select: {
-          name: true,
-          image: true,
-          email: true,
+  try {
+    const listing = await db.item.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        user: {
+          select: {
+            name: true,
+            image: true,
+            email: true,
+            phone: true,
+            address: true,
+          },
+        },
+        reservations: {
+          select: {
+            startDate: true,
+            endDate: true,
+          },
         },
       },
-      reservations: {
-        select: {
-          startDate: true,
-          endDate: true,
-        },
-      },
-    },
-  });
+    });
 
-  return listing;
+    // Handle case where user was deleted but item still exists
+    if (listing && !listing.user) {
+      return {
+        ...listing,
+        user: {
+          name: "Pengguna Dihapus",
+          image: null,
+          email: null,
+          phone: null,
+          address: null,
+        },
+      };
+    }
+
+    return listing;
+  } catch (error) {
+    console.error("Error fetching listing by ID:", error);
+    return null;
+  }
 };
 
 export const createListing = async (data: { [x: string]: any }) => {

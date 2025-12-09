@@ -1,13 +1,13 @@
 "use client";
 import React, { useState, useCallback, useRef } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { toast } from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
 import debounce from "lodash.debounce";
 import { useSession } from "next-auth/react";
 
 import { cn } from "@/utils/helper";
 import { updateFavorite } from "@/services/favorite";
+import { useToast } from "@/components/ToastProvider";
 
 interface HeartButtonProps {
   listingId: string;
@@ -19,6 +19,7 @@ const HeartButton: React.FC<HeartButtonProps> = ({
   hasFavorited: initialValue,
 }) => {
   const { status } = useSession();
+  const { showToast } = useToast();
   const [hasFavorited, setHasFavorited] = useState(initialValue);
   const hasFavoritedRef = useRef(initialValue);
   const { mutate } = useMutation({
@@ -26,7 +27,15 @@ const HeartButton: React.FC<HeartButtonProps> = ({
     onError: () => {
       hasFavoritedRef.current = !hasFavoritedRef.current;
       setHasFavorited(hasFavoritedRef.current);
-      toast.error("Failed to favorite");
+      showToast("Gagal memperbarui favorit", "error");
+    },
+    onSuccess: () => {
+      showToast(
+        hasFavoritedRef.current 
+          ? "Ditambahkan ke favorit" 
+          : "Dihapus dari favorit",
+        "success"
+      );
     }
   });
 
@@ -47,7 +56,7 @@ const HeartButton: React.FC<HeartButtonProps> = ({
     e.preventDefault();
 
     if (status !== "authenticated") {
-      toast.error("Please sign in to favorite the listing!");
+      showToast("Silakan masuk untuk menambahkan favorit", "error");
       return;
     }
 

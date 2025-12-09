@@ -31,7 +31,7 @@ const ListingPage = async ({ params: { listingId } }: { params: IParams }) => {
     country,
     region,
     id,
-    user: owner,
+    user: ownerData,
     price,
     description,
     brand,
@@ -43,6 +43,15 @@ const ListingPage = async ({ params: { listingId } }: { params: IParams }) => {
     userId,
     depositAmount,
   } = listing;
+
+  // Handle case where user was deleted
+  const owner = ownerData || {
+    name: "Pengguna Tidak Tersedia",
+    image: null,
+    email: null,
+    phone: null,
+    address: null,
+  };
 
   // Format location display - prioritize new format (district, city, province)
   const locationText = district && city && province 
@@ -78,7 +87,7 @@ const ListingPage = async ({ params: { listingId } }: { params: IParams }) => {
           />
 
           {/* Owner Info */}
-          <ListingOwner user={owner} />
+          <ListingOwner user={owner} itemLocation={locationShort} />
 
           {/* Description & Info */}
           <ListingInfo

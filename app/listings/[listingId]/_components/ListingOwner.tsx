@@ -8,11 +8,16 @@ interface ListingOwnerProps {
     name: string | null;
     image: string | null;
     email: string | null;
+    address: string | null;
   };
+  itemLocation?: string;
 }
 
-const ListingOwner: React.FC<ListingOwnerProps> = ({ user }) => {
+const ListingOwner: React.FC<ListingOwnerProps> = ({ user, itemLocation }) => {
   const rating = 5; // Placeholder - bisa ditambahkan ke database nanti
+  
+  // Display location from user's address or item location
+  const displayLocation = user.address || itemLocation || "Lokasi tidak tersedia";
 
   return (
     <div className="border rounded-xl p-6 bg-gray-50 dark:bg-[#1E293B] dark:border-white/10">
@@ -45,7 +50,7 @@ const ListingOwner: React.FC<ListingOwnerProps> = ({ user }) => {
         </div>
         <div className="flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300">
           <MapPin className="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0" />
-          <span>Jakarta Area</span>
+          <span>{displayLocation}</span>
         </div>
       </div>
 

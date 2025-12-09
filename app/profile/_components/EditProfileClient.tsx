@@ -7,6 +7,7 @@ import { ArrowLeft, Camera } from "lucide-react";
 import Avatar from "@/components/Avatar";
 import Button from "@/components/Button";
 import { useEdgeStore } from "@/lib/edgestore";
+import { useToast } from "@/components/ToastProvider";
 
 interface UserDetails {
   id: string;
@@ -25,6 +26,7 @@ interface EditProfileClientProps {
 
 const EditProfileClient: React.FC<EditProfileClientProps> = ({ user, userDetails }) => {
   const router = useRouter();
+  const { showToast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -46,7 +48,7 @@ const EditProfileClient: React.FC<EditProfileClientProps> = ({ user, userDetails
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
-      alert("Please select an image file");
+      showToast("Silakan pilih file gambar", "error");
       return;
     }
 
@@ -54,9 +56,10 @@ const EditProfileClient: React.FC<EditProfileClientProps> = ({ user, userDetails
     try {
       const res = await edgestore.publicFiles.upload({ file });
       setFormData({ ...formData, image: res.url });
+      showToast("Foto profil berhasil diunggah", "success");
     } catch (error) {
       console.error("Error uploading image:", error);
-      alert("Failed to upload image");
+      showToast("Gagal mengunggah foto profil", "error");
     } finally {
       setIsUploadingImage(false);
     }
@@ -76,11 +79,16 @@ const EditProfileClient: React.FC<EditProfileClientProps> = ({ user, userDetails
       });
 
       if (response.ok) {
+        showToast("Profil berhasil diperbarui", "success");
         router.push("/profile");
         router.refresh();
+      } else {
+        const data = await response.json();
+        showToast(data.error || "Gagal memperbarui profil", "error");
       }
     } catch (error) {
       console.error("Error updating profile:", error);
+      showToast("Terjadi kesalahan saat memperbarui profil", "error");
     } finally {
       setIsLoading(false);
     }

@@ -8,15 +8,18 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  password      String?
-  phone         String?
-  address       String?
-  favoriteIds   String[]  @db.ObjectId
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  name            String?
+  email           String?   @unique
+  emailVerified   DateTime?
+  image           String?
+  password        String?
+  phone           String?
+  phoneVerified   Boolean   @default(false)
+  phoneVerifyCode String?
+  phoneVerifyExp  DateTime?
+  address         String?
+  favoriteIds     String[]  @db.ObjectId
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -52,7 +55,7 @@ model Item {
   imageSrc             String
   createdAt            DateTime @default(now())
   category             String
-  userId               String   @db.ObjectId
+  userId               String?  @db.ObjectId
   price                Int      // price per day
   // Location fields (Indonesia specific)
   province             String?  // Provinsi
@@ -69,7 +72,7 @@ model Item {
   isNyewaGuardVerified Boolean  @default(false)
   nyewaGuardImageSrc   String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   reservations Reservation[]
 }
