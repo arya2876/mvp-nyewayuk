@@ -17,6 +17,7 @@ interface WhatsAppCheckoutModalProps {
   depositAmount: number;
   totalPrice: number;
   ownerPhone?: string;
+  ownerName?: string;
 }
 
 const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
@@ -32,6 +33,7 @@ const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
   depositAmount,
   totalPrice,
   ownerPhone = "6282137541389", // Default phone number - replace with actual owner's phone
+  ownerName = "Admin",
 }) => {
   const [isAgreed, setIsAgreed] = useState(false);
   const [isTermsOpen, setIsTermsOpen] = useState(false);
@@ -51,7 +53,7 @@ const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
 
   // Generate WhatsApp message
   const generateWhatsAppMessage = () => {
-    const message = `Halo Admin, saya ingin sewa:
+    const message = `Halo ${ownerName}, saya ingin sewa:
 📦 *${itemName}*
 📅 Tanggal: ${formatDate(startDate)} s/d ${formatDate(endDate)} (${dayCount} Hari)
 🚚 Pengambilan: ${logisticsLabel}

@@ -24,6 +24,7 @@ interface ListingReservationProps {
   title: string;
   depositAmount?: number;
   ownerPhone?: string;
+  ownerName?: string;
 }
 
 const initialDateRange = {
@@ -41,6 +42,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
   title,
   depositAmount = 0,
   ownerPhone,
+  ownerName,
 }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -282,6 +284,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
           depositAmount={actualDepositAmount}
           totalPrice={priceBreakdown.totalPrice}
           ownerPhone={ownerPhone}
+          ownerName={ownerName}
         />
       )}
     </div>

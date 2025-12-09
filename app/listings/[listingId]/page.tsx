@@ -124,6 +124,7 @@ const ListingPage = async ({ params: { listingId } }: { params: IParams }) => {
               locationValue={latlng}
               title={title}
               depositAmount={depositAmount || 0}
+              ownerName={owner?.name || "Admin"}
             />
           </div>
         </div>
