@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Nunito } from "next/font/google";
+import { Inter } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 import "./globals.css";
@@ -8,10 +8,10 @@ import Navbar from "@/components/navbar";
 import Providers from "@/components/Provider";
 import Footer from "@/components/Footer";
 
-const nunito = Nunito({ 
+const inter = Inter({ 
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
   display: "swap",
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -43,14 +43,14 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/images/Logo Ny.png" type="image/png" />
         <link rel="apple-touch-icon" href="/images/Logo Ny.png" />
       </head>
-      <body className={`${nunito.className} antialiased`} suppressHydrationWarning>
+      <body className={`${inter.variable} antialiased`} suppressHydrationWarning>
         <Providers>
           <Navbar />
           <main className="pb-16 pt-[80px]">{children}</main>
           <Footer />
         </Providers>
       </body>
-      <GoogleAnalytics gaId={process.env.GA_MEASUREMENT_ID || ""} />
+      {process.env.GA_MEASUREMENT_ID && <GoogleAnalytics gaId={process.env.GA_MEASUREMENT_ID} />}
     </html>
   );
 }

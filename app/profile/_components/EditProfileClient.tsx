@@ -1,11 +1,12 @@
 "use client";
 
 import { User } from "next-auth";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Camera } from "lucide-react";
 import Avatar from "@/components/Avatar";
 import Button from "@/components/Button";
+import { useEdgeStore } from "@/lib/edgestore";
 
 interface UserDetails {
   id: string;
@@ -25,12 +26,41 @@ interface EditProfileClientProps {
 const EditProfileClient: React.FC<EditProfileClientProps> = ({ user, userDetails }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { edgestore } = useEdgeStore();
   const [formData, setFormData] = useState({
     name: userDetails?.name || user.name || "",
     email: userDetails?.email || user.email || "",
     phone: userDetails?.phone || "",
     address: userDetails?.address || "",
+    image: userDetails?.image || user.image || "",
   });
+
+  const handleImageClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      alert("Please select an image file");
+      return;
+    }
+
+    setIsUploadingImage(true);
+    try {
+      const res = await edgestore.publicFiles.upload({ file });
+      setFormData({ ...formData, image: res.url });
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      alert("Failed to upload image");
+    } finally {
+      setIsUploadingImage(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,15 +104,26 @@ const EditProfileClient: React.FC<EditProfileClientProps> = ({ user, userDetails
         {/* Profile Photo */}
         <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
           <div className="flex items-center gap-6">
-            <div className="relative">
-              <Avatar src={user.image} size="large" />
-              <button className="absolute bottom-0 right-0 bg-emerald-500 text-white p-2 rounded-full hover:bg-emerald-600 transition">
-                <Camera className="w-4 h-4" />
-              </button>
+            <div className="relative group cursor-pointer" onClick={handleImageClick}>
+              <Avatar src={formData.image} size="large" />
+              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 rounded-full transition-all flex items-center justify-center">
+                {isUploadingImage ? (
+                  <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <Camera className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                )}
+              </div>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                className="hidden"
+              />
             </div>
             <div>
               <h3 className="font-semibold text-gray-900 mb-1">Profile Photo</h3>
-              <p className="text-sm text-gray-600">Upload a new profile picture</p>
+              <p className="text-sm text-gray-600">Click on the photo to upload a new picture</p>
             </div>
           </div>
         </div>

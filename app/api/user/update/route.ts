@@ -16,7 +16,7 @@ export async function PATCH(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { name, phone, address } = body;
+    const { name, phone, address, image } = body;
 
     const updatedUser = await db.user.update({
       where: {
@@ -26,6 +26,7 @@ export async function PATCH(req: NextRequest) {
         name,
         phone,
         address,
+        ...(image && { image }),
       },
     });
 

@@ -186,7 +186,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
               <div className="mb-6 flex justify-center">
                 <div className="h-32 w-32 rounded-full overflow-hidden flex items-center justify-center">
                   <Image 
-                    src="/images/Allura - Trophy.png" 
+                    src="/images/Croods - Mobile.png" 
                     alt="Daftar Teratas 2024"
                     width={128}
                     height={128}
@@ -196,10 +196,10 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                 </div>
               </div>
               <h3 className="mb-3 text-center text-xl font-bold text-neutral-800 dark:text-white">
-                Daftar Teratas 2024
+                Apapun Agendamu, Alatnya Ada.
               </h3>
               <p className="text-center text-sm text-neutral-600 dark:text-gray-300 leading-relaxed">
-                Apakah Anda tidak yakin tentang apa yang sebenarnya dapat Anda sewakan di platform tempat Anda dapat menyewa (hampir) apa saja? Biarkan diri Anda terinspirasi oleh daftar produk yang paling banyak disewa di NyewaYuk tahun lalu.
+                Mau nugas fotografi, healing ke gunung, atau mabar PS5 di kosan? Gak perlu beli mahal-mahal. Cukup sewa alat pendukung hobimu di sini, sisa uangnya bisa buat jajan.Apakah Anda tidak yakin tentang apa yang sebenarnya dapat Anda sewakan di platform tempat Anda dapat menyewa (hampir) apa saja? Biarkan diri Anda terinspirasi oleh daftar produk yang paling banyak disewa di NyewaYuk tahun lalu.
               </p>
             </div>
 

@@ -8,6 +8,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import dynamic from "next/dynamic";
 import Calender from "@/components/Calender";
+import WhatsAppCheckoutModal from "./WhatsAppCheckoutModal";
 import {
   calculateRentalPrice,
   formatRupiah,
@@ -22,6 +23,7 @@ interface ListingReservationProps {
   locationValue: number[];
   title: string;
   depositAmount?: number;
+  ownerPhone?: string;
 }
 
 const initialDateRange = {
@@ -38,9 +40,11 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
   locationValue,
   title,
   depositAmount = 0,
+  ownerPhone,
 }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
   const [logisticsOption, setLogisticsOption] = useState<LogisticsOption>("self-pickup");
 
@@ -105,32 +109,9 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
       return;
     }
 
-    setIsLoading(true);
-
-    axios
-      .post("/api/reservations", {
-        totalPrice: priceBreakdown.totalPrice,
-        startDate: dateRange.startDate,
-        endDate: dateRange.endDate,
-        listingId: listingId,
-        logistics_method: logisticsOption,
-        deposit_included: logisticsOption === 'nyewa-express',
-        deposit_amount: actualDepositAmount,
-        id_card_url: currentUser?.idCardUrl || currentUser?.image || '',
-      })
-      .then(() => {
-        toast.success("Permintaan sewa berhasil dikirim!");
-        setDateRange(initialDateRange);
-        router.push("/trips");
-        router.refresh();
-      })
-      .catch(() => {
-        toast.error("Terjadi kesalahan. Silakan coba lagi.");
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [priceBreakdown.totalPrice, dateRange, listingId, router, currentUser, priceBreakdown.dayCount, logisticsOption, actualDepositAmount]);
+    // Open WhatsApp checkout modal instead of directly creating reservation
+    setIsModalOpen(true);
+  }, [dateRange, router, currentUser, priceBreakdown.dayCount]);
 
   return (
     <div className="bg-white dark:bg-neutral-800 rounded-xl border border-gray-200 dark:border-neutral-700 overflow-hidden shadow-sm">
@@ -285,6 +266,24 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
       <div className="h-[300px] relative">
         <Map center={locationValue} />
       </div>
+
+      {/* WhatsApp Checkout Modal */}
+      {dateRange.startDate && dateRange.endDate && (
+        <WhatsAppCheckoutModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          itemName={title}
+          startDate={dateRange.startDate}
+          endDate={dateRange.endDate}
+          dayCount={priceBreakdown.dayCount}
+          logisticsOption={logisticsOption}
+          basePrice={priceBreakdown.basePrice}
+          logisticsFee={priceBreakdown.logisticsFee}
+          depositAmount={actualDepositAmount}
+          totalPrice={priceBreakdown.totalPrice}
+          ownerPhone={ownerPhone}
+        />
+      )}
     </div>
   );
 };

@@ -47,9 +47,6 @@ const ListingOwner: React.FC<ListingOwnerProps> = ({ user }) => {
           <MapPin className="w-5 h-5 text-gray-600 flex-shrink-0" />
           <span>Jakarta Area</span>
         </div>
-        <div className="flex items-start gap-3 text-sm text-gray-700">
-          <Shield className="w-5 h-5 text-gray-600 flex-shrink-0 mt-0.5" />
-        </div>
       </div>
 
       <button className="w-full px-6 py-3 border-2 border-purple-600 text-purple-600 rounded-full hover:bg-purple-50 font-semibold transition">
