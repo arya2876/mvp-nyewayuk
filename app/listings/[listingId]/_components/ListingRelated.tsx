@@ -28,7 +28,7 @@ interface Listing {
 
 interface ListingRelatedProps {
   currentListingId: string;
-  ownerId: string;
+  ownerId: string | null;
   ownerName: string;
   category: string;
   currentUser?: any;
@@ -50,12 +50,14 @@ const ListingRelated: React.FC<ListingRelatedProps> = ({
       try {
         setLoading(true);
 
-        // Fetch owner's other listings
-        const ownerResponse = await axios.get(`/api/listings?userId=${ownerId}`);
-        const filteredOwnerListings = ownerResponse.data.filter(
-          (listing: Listing) => listing.id !== currentListingId
-        );
-        setOwnerListings(filteredOwnerListings.slice(0, 4)); // Max 4 items
+        // Fetch owner's other listings (only if ownerId exists)
+        if (ownerId) {
+          const ownerResponse = await axios.get(`/api/listings?userId=${ownerId}`);
+          const filteredOwnerListings = ownerResponse.data.filter(
+            (listing: Listing) => listing.id !== currentListingId
+          );
+          setOwnerListings(filteredOwnerListings.slice(0, 4)); // Max 4 items
+        }
 
         // Fetch same category listings
         const categoryResponse = await axios.get(`/api/listings?category=${category}`);
