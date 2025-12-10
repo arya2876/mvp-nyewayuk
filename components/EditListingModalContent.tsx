@@ -173,16 +173,22 @@ const EditListingModalContent: React.FC<EditListingModalContentProps> = ({ listi
               required
               watch={watch}
             />
-            <Input
-              id="description"
-              label="Deskripsi Detail"
-              placeholder="Jelaskan kondisi, kelengkapan, dan hal penting lainnya..."
-              disabled={isLoading}
-              register={register}
-              errors={errors}
-              required
-              watch={watch}
-            />
+            <div className="w-full relative">
+              <textarea
+                id="description"
+                placeholder="Jelaskan kondisi, kelengkapan, dan hal penting lainnya..."
+                disabled={isLoading}
+                {...register("description", { required: true })}
+                rows={6}
+                className="text-[15px] peer w-full px-4 pt-6 pb-3 font-light bg-white dark:bg-[#1E293B] border-[1px] rounded outline-none transition disabled:opacity-70 disabled:cursor-not-allowed text-neutral-800 dark:text-white resize-y min-h-[120px] border-neutral-300 dark:border-white/10 focus:border-black dark:focus:border-[#00A99D]"
+              />
+              <label
+                className="absolute text-[14px] duration-150 transform top-[28px] scale-80 -translate-y-4 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-80 peer-focus:-translate-y-[40px] peer-focus:bg-white dark:peer-focus:bg-neutral-700 z-[20] px-1 left-4 text-zinc-400 dark:text-gray-400"
+                htmlFor="description"
+              >
+                Deskripsi Detail
+              </label>
+            </div>
           </div>
         </div>
 
@@ -266,7 +272,10 @@ const EditListingModalContent: React.FC<EditListingModalContentProps> = ({ listi
               type="number"
               placeholder="50000"
               disabled={isLoading}
-              {...register("price", { required: true, valueAsNumber: true })}
+              {...register("price", { 
+                required: true,
+                setValueAs: (value) => value === "" ? "" : parseInt(value, 10)
+              })}
               className="w-full p-4 pl-14 font-light bg-white border-2 rounded-md outline-none transition disabled:opacity-70 disabled:cursor-not-allowed border-neutral-300 focus:border-black"
             />
           </div>
