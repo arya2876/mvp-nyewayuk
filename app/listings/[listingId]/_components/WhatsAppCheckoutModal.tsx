@@ -32,7 +32,7 @@ const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
   logisticsFee,
   depositAmount,
   totalPrice,
-  ownerPhone = "6282137541389", // Default phone number - replace with actual owner's phone
+  ownerPhone = "6281215276475", // Default phone number - replace with actual owner's phone
   ownerName = "Admin",
 }) => {
   const [isAgreed, setIsAgreed] = useState(false);
