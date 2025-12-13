@@ -220,7 +220,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                 </div>
               </div>
               <h3 className="mb-3 text-center text-xl font-bold text-neutral-800 dark:text-white">
-                Agung : Kamera Nganggur Jadi "passive income" 
+                Agung : Kamera Nganggur Jadi &ldquo;passive income&rdquo; 
               </h3>
               <p className="text-center text-sm text-neutral-600 dark:text-gray-300 leading-relaxed">
                 Dulu kamera saya cuma diam di lemari dan harganya terus turun. Sekarang? Justru jadi sumber pemasukan. Lewat RENLE, aset tidur saya berubah jadi passive income aman yang bisa membiayai uang kuliah dan upgrade alat baru, tanpa rasa was-was.

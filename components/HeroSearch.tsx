@@ -133,7 +133,7 @@ export default function HeroSearch() {
         { enableHighAccuracy: true, timeout: 5000, maximumAge: 60000 }
       );
     }
-  }, []);
+  }, [districtName]);
 
   const handleDetectLocation = useCallback(() => {
     setIsDetecting(true);
