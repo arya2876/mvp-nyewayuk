@@ -1,8 +1,8 @@
 import React from "react";
-import { IconType } from "react-icons";
+import { LucideIcon } from "lucide-react";
 
 interface ListingCategoryProps {
-  icon: IconType;
+  icon: LucideIcon;
   label: string;
   description: string;
 }
@@ -15,7 +15,7 @@ const ListingCategory: React.FC<ListingCategoryProps> = ({
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-row items-center gap-4">
-        <Icon size={40} className="text-neutral-600 dark:text-gray-300" />
+        <Icon size={40} className="text-neutral-600 dark:text-gray-300" strokeWidth={1.5} />
         <div className="flex flex-col">
           <span className="text-lg font-semibold text-neutral-800 dark:text-white">{label}</span>
           <p className="text-neutral-500 dark:text-gray-400 font-light">{description}</p>
