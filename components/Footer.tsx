@@ -9,7 +9,7 @@ const Footer = () => {
   const isDark = theme === 'dark';
 
   return (
-    <footer className={`pt-16 pb-8 text-white ${isDark ? 'bg-[#121212]' : 'bg-[#0054A6]'}`}>
+    <footer className={`pt-16 pb-8 border-t border-neutral-800 ${isDark ? 'bg-neutral-900 text-gray-400' : 'bg-neutral-900 text-gray-400'}`}>
       <div className="mx-auto max-w-6xl px-6">
         {/* Grid 4 kolom */}
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -17,43 +17,43 @@ const Footer = () => {
           <div className="space-y-4">
             <Link href="/" className="inline-block relative h-[60px] w-[160px]">
               <Image
-                src="/images/Logo Ny.png"
-                alt="NyewaYuk Logo"
+                src="/images/logo-renle-white__2_-removebg-preview.png"
+                alt="RENLE Logo"
                 fill
-                className="object-contain object-left brightness-0 invert"
+                className="object-contain object-left"
                 unoptimized
               />
             </Link>
-            <p className="text-sm text-white/80 leading-relaxed">
-              Sewa aman, hidup hemat. Platform peer-to-peer rental terpercaya di Indonesia.
+            <p className="text-sm text-gray-400 leading-relaxed">
+              RENLE adalah ekosistem marketplace sewa berbasis teknologi. Kami mendigitalkan akses terhadap aset berkualitas dengan keamanan terjamin, menghubungkan pemilik dan penyewa dalam satu aplikasi cerdas.
             </p>
           </div>
 
           {/* Kolom 2: Tentang Kami */}
           <div>
-            <h4 className="mb-4 text-base font-bold">Tentang Kami</h4>
+            <h4 className="mb-4 text-base font-bold text-white">Tentang Kami</h4>
             <ul className="space-y-3 text-sm">
-              <li><Link href="/tentang" className="text-white/80 hover:text-white transition">Tentang</Link></li>
-              <li><Link href="/jaminan" className="text-white/80 hover:text-white transition">Jaminan</Link></li>
-              <li><Link href="/faq" className="text-white/80 hover:text-white transition">FAQ</Link></li>
-              <li><Link href="/syarat-ketentuan" className="text-white/80 hover:text-white transition">Syarat & Ketentuan</Link></li>
+              <li><Link href="/tentang" className="text-gray-400 hover:text-white transition">Tentang</Link></li>
+              <li><Link href="/jaminan" className="text-gray-400 hover:text-white transition">Jaminan</Link></li>
+              <li><Link href="/faq" className="text-gray-400 hover:text-white transition">FAQ</Link></li>
+              <li><Link href="/syarat-ketentuan" className="text-gray-400 hover:text-white transition">Syarat & Ketentuan</Link></li>
             </ul>
           </div>
 
           {/* Kolom 3: Lokasi/Kategori */}
           <div>
-            <h4 className="mb-4 text-base font-bold">Jelajahi</h4>
+            <h4 className="mb-4 text-base font-bold text-white">Jelajahi</h4>
             <ul className="space-y-3 text-sm">
-              <li><Link href="/area" className="text-white/80 hover:text-white transition">Area Layanan</Link></li>
-              <li><Link href="/blog" className="text-white/80 hover:text-white transition">Blog</Link></li>
-              <li><Link href="/kategori" className="text-white/80 hover:text-white transition">Semua Kategori</Link></li>
-              <li><Link href="/cara-kerja" className="text-white/80 hover:text-white transition">Cara Kerja</Link></li>
+              <li><Link href="/area" className="text-gray-400 hover:text-white transition">Area Layanan</Link></li>
+              <li><Link href="/blog" className="text-gray-400 hover:text-white transition">Blog</Link></li>
+              <li><Link href="/kategori" className="text-gray-400 hover:text-white transition">Semua Kategori</Link></li>
+              <li><Link href="/cara-kerja" className="text-gray-400 hover:text-white transition">Cara Kerja</Link></li>
             </ul>
           </div>
 
           {/* Kolom 4: App Store & Sosmed */}
           <div>
-            <h4 className="mb-4 text-base font-bold">Download Aplikasi</h4>
+            <h4 className="mb-4 text-base font-bold text-white">Download Aplikasi</h4>
             <div className="space-y-3">
               {/* App Store Button */}
               <a 
@@ -120,12 +120,12 @@ const Footer = () => {
         </div>
 
         {/* Copyright Bar */}
-        <div className="mt-12 border-t border-white/10 pt-6 text-sm text-white/70">
+        <div className="mt-12 border-t border-neutral-800 pt-6 text-sm text-gray-500">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <p>© {new Date().getFullYear()} NyewaYuk. Semua hak dilindungi.</p>
+            <p>© {new Date().getFullYear()} RENLE. Semua hak dilindungi.</p>
             <div className="flex items-center gap-6">
-              <Link href="/privacy" className="hover:text-white transition">Kebijakan Privasi</Link>
-              <Link href="/syarat-ketentuan" className="hover:text-white transition">Syarat</Link>
+              <Link href="/privacy" className="text-gray-500 hover:text-white transition">Kebijakan Privasi</Link>
+              <Link href="/syarat-ketentuan" className="text-gray-500 hover:text-white transition">Syarat</Link>
             </div>
           </div>
         </div>

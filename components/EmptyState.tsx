@@ -20,7 +20,7 @@ const EmptyState: React.FC<EmptyProps> = ({
         {showReset && (
           <Link
             href="/"
-            className="bg-white dark:bg-neutral-700 border-[1px] border-gray-500 dark:border-neutral-600 text-[#4e4e4e] dark:text-white rounded hover:opacity-80 transition px-4 py-2 inline-block"
+            className="bg-neutral-700 border-[1px] border-white/20 text-white rounded hover:opacity-80 transition px-4 py-2 inline-block"
           >
             Hapus semua filter
           </Link>

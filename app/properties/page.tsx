@@ -17,7 +17,7 @@ const PropertiesPage = async () => {
     return <EmptyState title="Unauthorized" subtitle="Please login" />;
   }
 
-  const { listings, nextCursor } = await getProperties({ userId: user.id });
+  const { listings, nextCursor } = await getProperties();
 
   if (!listings || listings.length === 0) {
     return (
@@ -46,7 +46,7 @@ const PropertiesPage = async () => {
           <Suspense fallback={<></>}>
             <LoadMore
               nextCursor={nextCursor}
-              fnArgs={{ userId: user.id }}
+              fnArgs={{}}
               queryFn={getProperties}
               queryKey={["properties", user.id]}
               favorites={favorites}

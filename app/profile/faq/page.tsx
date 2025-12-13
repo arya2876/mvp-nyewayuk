@@ -3,8 +3,8 @@ import { ArrowLeft, MessageCircle } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "FAQ - NyewaYuk",
-  description: "Pertanyaan yang sering ditanyakan tentang NyewaYuk",
+  title: "FAQ - RENLE",
+  description: "Pertanyaan yang sering ditanyakan tentang RENLE",
 };
 
 export default function FAQPage() {
@@ -19,7 +19,7 @@ export default function FAQPage() {
     },
     {
       question: "Apa yang terjadi jika barang rusak?",
-      answer: "Penyewa bertanggung jawab atas kerusakan barang selama masa sewa. Untuk self pickup, KTP ditahan sebagai jaminan. Untuk Nyewa Express, deposit Rp 200.000 dijaminkan.",
+      answer: "Penyewa bertanggung jawab atas kerusakan barang selama masa sewa. Untuk self pickup, KTP ditahan sebagai jaminan. Untuk RenleExpress, deposit Rp 200.000 dijaminkan.",
     },
     {
       question: "Bagaimana sistem pembayaran?",
@@ -37,7 +37,7 @@ export default function FAQPage() {
 
   // WhatsApp number - ganti dengan nomor admin yang sebenarnya
   const waNumber = "6281234567890"; // Ganti dengan nomor WA admin
-  const waMessage = encodeURIComponent("Halo, saya ingin bertanya lebih lanjut tentang NyewaYuk");
+  const waMessage = encodeURIComponent("Halo, saya ingin bertanya lebih lanjut tentang RENLE");
 
   return (
     <div className="min-h-screen bg-gray-50 pt-[80px]">
@@ -54,7 +54,7 @@ export default function FAQPage() {
           Frequently Asked Questions (FAQ)
         </h1>
         <p className="text-gray-600 mb-3">
-          Temukan informasi tentang NyewaYuk dan layanan kami. Berikut adalah pertanyaan yang sering ditanyakan beserta jawabannya.
+          Temukan informasi tentang RENLE dan layanan kami. Berikut adalah pertanyaan yang sering ditanyakan beserta jawabannya.
         </p>
         <p className="text-gray-700 mb-8">
           Jika ada pertanyaan lebih lanjut yang belum terjawab di bawah ini, silakan{" "}
@@ -87,7 +87,7 @@ export default function FAQPage() {
             Masih Ada Pertanyaan?
           </h3>
           <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
-            Tim support NyewaYuk siap membantu Anda! Hubungi kami via WhatsApp untuk mendapatkan jawaban cepat dan akurat.
+            Tim support RENLE siap membantu Anda! Hubungi kami via WhatsApp untuk mendapatkan jawaban cepat dan akurat.
           </p>
           <a
             href={`https://wa.me/${waNumber}?text=${waMessage}`}

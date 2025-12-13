@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 
 export const getProperties = async (args?: Record<string, string>) => {
   try {
-    const { userId, cursor } = args || {};
+    const { cursor } = args || {};
 
     const user = await getCurrentUser();
     if (!user) {
@@ -14,7 +14,7 @@ export const getProperties = async (args?: Record<string, string>) => {
     }
     const filterQuery: any = {
       where: {
-        userId,
+        userId: user.id,
       },
       take: LISTINGS_BATCH,
       orderBy: { createdAt: "desc" },

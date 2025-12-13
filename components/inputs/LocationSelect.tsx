@@ -317,7 +317,7 @@ const LocationSelect: React.FC<LocationSelectProps> = ({ value, onChange }) => {
 
       {/* Province Select */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-gray-200 mb-2">
           Provinsi <span className="text-red-500">*</span>
         </label>
         <Select
@@ -341,16 +341,53 @@ const LocationSelect: React.FC<LocationSelectProps> = ({ value, onChange }) => {
             borderRadius: 6,
             colors: {
               ...theme.colors,
-              primary: "black",
-              primary25: "#ffe4e6",
+              primary: "#00A99D",
+              primary25: "#1e293b",
+              neutral0: "#262626",
+              neutral5: "#404040",
+              neutral10: "#525252",
+              neutral20: "#737373",
+              neutral30: "#a3a3a3",
+              neutral40: "#d4d4d4",
+              neutral50: "#e5e5e5",
+              neutral60: "#f5f5f5",
+              neutral70: "#fafafa",
+              neutral80: "#ffffff",
+              neutral90: "#ffffff",
             },
           })}
+          styles={{
+            control: (base) => ({
+              ...base,
+              backgroundColor: '#262626',
+              borderColor: 'rgba(255, 255, 255, 0.2)',
+              color: '#ffffff',
+            }),
+            singleValue: (base) => ({
+              ...base,
+              color: '#ffffff',
+            }),
+            input: (base) => ({
+              ...base,
+              color: '#ffffff',
+            }),
+            menu: (base) => ({
+              ...base,
+              backgroundColor: '#262626',
+            }),
+            option: (base, state) => ({
+              ...base,
+              backgroundColor: state.isFocused ? '#1e293b' : '#262626',
+              color: '#ffffff',
+              cursor: 'pointer',
+            }),
+          }}
         />
       </div>
 
       {/* City/Kabupaten Select */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-gray-200 mb-2">
           Kota/Kabupaten <span className="text-red-500">*</span>
         </label>
         <Select
@@ -375,16 +412,53 @@ const LocationSelect: React.FC<LocationSelectProps> = ({ value, onChange }) => {
             borderRadius: 6,
             colors: {
               ...theme.colors,
-              primary: "black",
-              primary25: "#ffe4e6",
+              primary: "#00A99D",
+              primary25: "#1e293b",
+              neutral0: "#262626",
+              neutral5: "#404040",
+              neutral10: "#525252",
+              neutral20: "#737373",
+              neutral30: "#a3a3a3",
+              neutral40: "#d4d4d4",
+              neutral50: "#e5e5e5",
+              neutral60: "#f5f5f5",
+              neutral70: "#fafafa",
+              neutral80: "#ffffff",
+              neutral90: "#ffffff",
             },
           })}
+          styles={{
+            control: (base) => ({
+              ...base,
+              backgroundColor: '#262626',
+              borderColor: 'rgba(255, 255, 255, 0.2)',
+              color: '#ffffff',
+            }),
+            singleValue: (base) => ({
+              ...base,
+              color: '#ffffff',
+            }),
+            input: (base) => ({
+              ...base,
+              color: '#ffffff',
+            }),
+            menu: (base) => ({
+              ...base,
+              backgroundColor: '#262626',
+            }),
+            option: (base, state) => ({
+              ...base,
+              backgroundColor: state.isFocused ? '#1e293b' : '#262626',
+              color: '#ffffff',
+              cursor: 'pointer',
+            }),
+          }}
         />
       </div>
 
       {/* District/Kecamatan Select */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-gray-200 mb-2">
           Kecamatan <span className="text-red-500">*</span>
         </label>
         <Select
@@ -409,20 +483,57 @@ const LocationSelect: React.FC<LocationSelectProps> = ({ value, onChange }) => {
             borderRadius: 6,
             colors: {
               ...theme.colors,
-              primary: "black",
-              primary25: "#ffe4e6",
+              primary: "#00A99D",
+              primary25: "#1e293b",
+              neutral0: "#262626",
+              neutral5: "#404040",
+              neutral10: "#525252",
+              neutral20: "#737373",
+              neutral30: "#a3a3a3",
+              neutral40: "#d4d4d4",
+              neutral50: "#e5e5e5",
+              neutral60: "#f5f5f5",
+              neutral70: "#fafafa",
+              neutral80: "#ffffff",
+              neutral90: "#ffffff",
             },
           })}
+          styles={{
+            control: (base) => ({
+              ...base,
+              backgroundColor: '#262626',
+              borderColor: 'rgba(255, 255, 255, 0.2)',
+              color: '#ffffff',
+            }),
+            singleValue: (base) => ({
+              ...base,
+              color: '#ffffff',
+            }),
+            input: (base) => ({
+              ...base,
+              color: '#ffffff',
+            }),
+            menu: (base) => ({
+              ...base,
+              backgroundColor: '#262626',
+            }),
+            option: (base, state) => ({
+              ...base,
+              backgroundColor: state.isFocused ? '#1e293b' : '#262626',
+              color: '#ffffff',
+              cursor: 'pointer',
+            }),
+          }}
         />
       </div>
 
       {/* Display selected location */}
       {selectedProvince && selectedCity && selectedDistrict && (
-        <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
-          <p className="text-sm text-blue-800">
+        <div className="p-3 bg-blue-900/30 border border-blue-700 rounded-lg">
+          <p className="text-sm text-blue-200">
             <strong>Lokasi dipilih:</strong>
           </p>
-          <p className="text-sm text-blue-900 mt-1">
+          <p className="text-sm text-blue-100 mt-1">
             📍 {selectedDistrict.value}, {selectedCity.value},{" "}
             {selectedProvince.value}
           </p>

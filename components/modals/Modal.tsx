@@ -126,7 +126,7 @@ const Window: FC<WindowProps> = ({ children, name }) => {
               initial="hidden"
               animate="show"
               exit="hidden"
-              className="md:h-auto h-screen md:max-h-screen overflow-y-auto rounded-lg shadow-lg w-screen bg-white dark:bg-neutral-800 md:w-[900px] md:max-w-4xl"
+              className="md:h-auto h-screen md:max-h-screen overflow-y-auto rounded-lg shadow-lg w-screen bg-neutral-800 md:w-[900px] md:max-w-4xl"
               ref={ref}
             >
               {cloneElement(children, { onCloseModal: close })}
@@ -142,15 +142,15 @@ const Window: FC<WindowProps> = ({ children, name }) => {
 const WindowHeader: FC<WindowHeaderProps> = ({ title }) => {
   const { close } = useContext(ModalContext);
   return (
-    <header className="flex items-center px-6 py-3 rounded-t justify-center relative border-b-[1px] border-neutral-200 dark:border-neutral-700">
+    <header className="flex items-center px-6 py-3 rounded-t justify-center relative border-b-[1px] border-neutral-700">
       <button
         type="button"
-        className="p-1 border-0 hover:opacity-70 transition absolute left-6 text-neutral-800 dark:text-white"
+        className="p-1 border-0 hover:opacity-70 transition absolute left-6 text-white"
         onClick={close}
       >
         <IoMdClose size={18} />
       </button>
-      <h4 className="text-[18px] font-semibold text-neutral-800 dark:text-white">{title}</h4>
+      <h4 className="text-[18px] font-semibold text-white">{title}</h4>
     </header>
   );
 };

@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import Logo from "./Logo";
 import UserMenu from "./UserMenu";
 import { getCurrentUser } from "@/services/user";
-import { NavbarClient, NavLinks, ThemeToggleNav } from "./NavbarClient";
+import { NavbarClient, NavLinks } from "./NavbarClient";
 
 interface NavbarProps {}
 
@@ -17,9 +17,8 @@ const Navbar: React.FC<NavbarProps> = async () => {
       {/* Menu Tengah */}
       <NavLinks />
       
-      {/* Menu Kanan - Theme Toggle + User Menu */}
+      {/* Menu Kanan - User Menu */}
       <div className="flex items-center gap-3">
-        <ThemeToggleNav />
         <UserMenu user={user} />
       </div>
     </NavbarClient>

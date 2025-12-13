@@ -64,8 +64,40 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     // Validate all required fields
-    if (!data.category || !data.title || !data.description || !data.brand || !data.model || !data.condition || !data.images || data.images.length === 0 || !data.price || !data.location) {
-      toast.error("Mohon lengkapi semua field!");
+    if (!data.category) {
+      toast.error("Mohon pilih kategori!");
+      return;
+    }
+    if (!data.title || data.title.trim() === "") {
+      toast.error("Mohon isi judul!");
+      return;
+    }
+    if (!data.description || data.description.trim() === "") {
+      toast.error("Mohon isi deskripsi!");
+      return;
+    }
+    if (!data.brand || data.brand.trim() === "") {
+      toast.error("Mohon isi brand/merek!");
+      return;
+    }
+    if (!data.model || data.model.trim() === "") {
+      toast.error("Mohon isi model/tipe!");
+      return;
+    }
+    if (!data.condition) {
+      toast.error("Mohon pilih kondisi!");
+      return;
+    }
+    if (!data.images || data.images.length === 0) {
+      toast.error("Mohon upload minimal 1 foto!");
+      return;
+    }
+    if (!data.price || data.price === "" || data.price <= 0) {
+      toast.error("Mohon isi harga sewa yang valid!");
+      return;
+    }
+    if (!data.location) {
+      toast.error("Mohon pilih lokasi!");
       return;
     }
 
@@ -130,20 +162,23 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
               autoFocus
             />
             <div className="w-full relative">
+              <label className="block text-sm font-medium text-gray-200 mb-2">
+                Deskripsi Detail
+              </label>
               <textarea
                 id="description"
                 placeholder="Jelaskan kondisi, kelengkapan, dan hal penting lainnya..."
                 disabled={isLoading}
                 {...register("description", { required: true })}
                 rows={6}
-                className="text-[15px] peer w-full px-4 pt-6 pb-3 font-light bg-white dark:bg-[#1E293B] border-[1px] rounded outline-none transition disabled:opacity-70 disabled:cursor-not-allowed text-neutral-800 dark:text-white resize-y min-h-[120px] border-neutral-300 dark:border-white/10 focus:border-black dark:focus:border-[#00A99D]"
+                className="text-[15px] w-full px-4 py-3 font-light bg-neutral-800 border-[1px] rounded outline-none transition disabled:opacity-70 disabled:cursor-not-allowed text-white placeholder:text-gray-400 resize-y min-h-[120px] border-white/20 focus:border-[#00A99D]"
               />
-              <label
-                className="absolute text-[14px] duration-150 transform top-[28px] scale-80 -translate-y-4 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-80 peer-focus:-translate-y-[40px] peer-focus:bg-white dark:peer-focus:bg-neutral-700 z-[20] px-1 left-4 text-zinc-400 dark:text-gray-400"
-                htmlFor="description"
-              >
-                Deskripsi Detail
-              </label>
+              <div className="mt-2 p-3 bg-blue-900/30 border border-blue-700 rounded-lg">
+                <p className="text-xs text-blue-200 flex items-start gap-2">
+                  <span className="text-blue-300">💡</span>
+                  <span><strong>Tips Deskripsi:</strong> Jelaskan kondisi barang (bekas/baru), kelengkapan (charger, case, dll), cacat jika ada, dan aturan pemakaian. Deskripsi detail meningkatkan kepercayaan penyewa!</span>
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -178,14 +213,14 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
               watch={watch}
             />
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-200 mb-2">
                 Kondisi
               </label>
               <select
                 id="condition"
                 {...register("condition", { required: true })}
                 disabled={isLoading}
-                className="w-full p-4 font-light bg-white dark:bg-neutral-700 border-2 rounded-md outline-none transition disabled:opacity-70 disabled:cursor-not-allowed border-neutral-300 dark:border-neutral-600 focus:border-black dark:focus:border-emerald-400 text-neutral-800 dark:text-white"
+                className="w-full p-4 font-light bg-neutral-800 border-2 rounded-md outline-none transition disabled:opacity-70 disabled:cursor-not-allowed border-white/20 focus:border-[#00A99D] text-white"
               >
                 <option value="Baru">Baru</option>
                 <option value="Seperti Baru">Seperti Baru</option>
@@ -196,7 +231,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
           </div>
         </div>
 
-        <hr className="border-neutral-200 dark:border-neutral-700" />
+        <hr className="border-neutral-700" />
 
         {/* Images Section */}
         <div>
@@ -214,33 +249,53 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
           </div>
         </div>
 
-        <hr className="border-neutral-200 dark:border-neutral-700" />
+        <hr className="border-neutral-700" />
 
         {/* Price Section */}
         <div>
           <Heading title="Tentukan Harga Sewa" subtitle="Berapa harga sewa per hari?" />
           <div className="relative mt-4">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-700 dark:text-gray-300 font-semibold z-10">
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-200 font-semibold z-10">
               Rp
             </span>
             <input
               id="price"
-              type="number"
+              type="text"
+              inputMode="numeric"
               placeholder="50000"
               disabled={isLoading}
               {...register("price", { 
-                required: true,
-                setValueAs: (value) => value === "" ? "" : parseInt(value, 10)
+                required: "Harga wajib diisi",
+                validate: {
+                  isNumber: (value) => {
+                    const strValue = String(value || '');
+                    const num = parseInt(strValue.replace(/\D/g, ''), 10);
+                    return !isNaN(num) && num > 0 || "Harga harus berupa angka yang valid";
+                  }
+                },
+                setValueAs: (value) => {
+                  const strValue = String(value || '');
+                  const cleanValue = strValue.replace(/\D/g, '');
+                  return cleanValue === "" ? "" : parseInt(cleanValue, 10);
+                }
               })}
-              className="w-full p-4 pl-14 font-light bg-white dark:bg-neutral-700 border-2 rounded-md outline-none transition disabled:opacity-70 disabled:cursor-not-allowed border-neutral-300 dark:border-neutral-600 focus:border-black dark:focus:border-emerald-400 text-neutral-800 dark:text-white"
+              className="w-full p-4 pl-14 font-light bg-neutral-800 border-2 rounded-md outline-none transition disabled:opacity-70 disabled:cursor-not-allowed border-white/20 focus:border-[#00A99D] text-white placeholder:text-gray-400"
             />
           </div>
-          <p className="text-sm text-neutral-500 dark:text-gray-400 mt-2">
-            Masukkan hanya angka. Contoh: 50000 untuk Rp 50.000/hari
-          </p>
+          <div className="mt-3 space-y-2">
+            <p className="text-sm text-gray-300">
+              Masukkan hanya angka. Contoh: 50000 untuk Rp 50.000/hari
+            </p>
+            <div className="p-3 bg-amber-900/30 border border-amber-700 rounded-lg">
+              <p className="text-xs text-amber-200 flex items-start gap-2">
+                <span className="text-amber-300">💰</span>
+                <span><strong>Tips Harga:</strong> Cek harga sewa kompetitor untuk barang serupa. Contoh: Kamera DSLR Rp 150.000-300.000/hari, Drone Rp 200.000-500.000/hari, Proyektor Rp 100.000-200.000/hari. Harga wajar = banyak penyewa!</span>
+              </p>
+            </div>
+          </div>
         </div>
 
-        <hr className="border-neutral-200 dark:border-neutral-700" />
+        <hr className="border-neutral-700" />
 
         {/* Location Section */}
         <div>

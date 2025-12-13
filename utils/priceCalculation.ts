@@ -84,3 +84,49 @@ export function formatRupiah(amount: number): string {
 export function formatRupiahFull(amount: number): string {
   return `Rp ${formatRupiah(amount)}`;
 }
+
+/**
+ * Menghitung deposit dinamis berdasarkan metode logistik dan total sewa
+ * 
+ * Aturan Bisnis RENLE:
+ * 1. Jika metode logistik == 'pickup', deposit = 0 (Jaminan Fisik KTP)
+ * 2. Jika metode logistik == 'delivery':
+ *    - Total sewa < Rp 100.000 → Deposit Rp 50.000
+ *    - Total sewa Rp 100.000 - Rp 500.000 → Deposit Rp 150.000
+ *    - Total sewa > Rp 500.000 → Deposit 30% dari total sewa
+ * 
+ * @param logisticsMethod - Metode pengambilan barang ('pickup' atau 'delivery')
+ * @param totalRental - Total biaya sewa (basePrice saja, tanpa biaya tambahan)
+ * @returns Object dengan depositAmount dan currency
+ */
+export function calculateDynamicDeposit(
+  logisticsMethod: 'pickup' | 'delivery',
+  totalRental: number
+): { depositAmount: number; currency: 'IDR' } {
+  // 1. Jika pickup, deposit = 0 (menggunakan KTP fisik sebagai jaminan)
+  if (logisticsMethod === 'pickup') {
+    return {
+      depositAmount: 0,
+      currency: 'IDR'
+    };
+  }
+
+  // 2. Jika delivery, hitung berdasarkan total sewa
+  let depositAmount: number;
+
+  if (totalRental < 100000) {
+    // Total sewa di bawah 100rb → deposit 50rb
+    depositAmount = 50000;
+  } else if (totalRental <= 500000) {
+    // Total sewa 100rb - 500rb → deposit 150rb
+    depositAmount = 150000;
+  } else {
+    // Total sewa di atas 500rb → deposit 30%
+    depositAmount = Math.round(totalRental * 0.3);
+  }
+
+  return {
+    depositAmount,
+    currency: 'IDR'
+  };
+}

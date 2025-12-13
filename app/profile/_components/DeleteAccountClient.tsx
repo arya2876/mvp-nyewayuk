@@ -58,7 +58,7 @@ const DeleteAccountClient: React.FC<DeleteAccountClientProps> = ({ user }) => {
 
         <h1 className="text-4xl font-bold text-gray-900 mb-2">Delete Account</h1>
         <p className="text-gray-600 mb-8">
-          Permanently delete your NyewaYuk account
+          Permanently delete your RENLE account
         </p>
 
         {/* Warning Box */}

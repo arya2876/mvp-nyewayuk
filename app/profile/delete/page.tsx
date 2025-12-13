@@ -7,7 +7,7 @@ import DeleteAccountClient from "../_components/DeleteAccountClient";
 
 export const metadata: Metadata = {
   title: "Delete Account",
-  description: "Delete your NyewaYuk account",
+  description: "Delete your RENLE account",
 };
 
 export default async function DeleteAccountPage() {

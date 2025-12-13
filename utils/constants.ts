@@ -1,39 +1,39 @@
-import { TbCamera, TbDrone, TbDeviceProjector, TbHeadset, TbSpeakerphone, TbDeviceGamepad, TbDots } from "react-icons/tb";
+import { Camera, Plane, Projector, Radio, Speaker, Gamepad2, MoreHorizontal } from "lucide-react";
 
 export const categories = [
   {
     label: "Kamera",
-    icon: TbCamera,
+    icon: Camera,
     description: "Kamera DSLR & Mirrorless",
   },
   {
     label: "Drone",
-    icon: TbDrone,
+    icon: Plane,
     description: "Drone profesional",
   },
   {
     label: "Proyektor",
-    icon: TbDeviceProjector,
+    icon: Projector,
     description: "Proyektor untuk event",
   },
   {
     label: "HT",
-    icon: TbHeadset,
+    icon: Radio,
     description: "Komunikasi event lancar",
   },
   {
     label: "Sound System",
-    icon: TbSpeakerphone,
+    icon: Speaker,
     description: "Audio jernih",
   },
   {
     label: "Console",
-    icon: TbDeviceGamepad,
+    icon: Gamepad2,
     description: "PS5, Xbox, Nintendo",
   },
   {
     label: "Lainnya",
-    icon: TbDots,
+    icon: MoreHorizontal,
     description: "Barang seru lainnya",
   },
 ];

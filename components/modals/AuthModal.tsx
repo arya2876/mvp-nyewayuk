@@ -108,7 +108,7 @@ const AuthModal = ({
         onSubmit={handleSubmit(onSubmit)}
       >
         <Heading
-          title={!isLoginModal ? "Selamat Datang di NyewaYuk" : "Selamat Datang Kembali"}
+          title={!isLoginModal ? "Selamat Datang di RENLE" : "Selamat Datang Kembali"}
           subtitle={
             title === "Sign up"
               ? "Buat akun untuk memulai!"
@@ -186,7 +186,7 @@ const AuthModal = ({
             <small className="text-[15px]">
               {!isLoginModal
                 ? "Sudah punya akun?"
-                : "Pertama kali menggunakan NyewaYuk?"}
+                : "Pertama kali menggunakan RENLE?"}
             </small>
             <button
               type="button"

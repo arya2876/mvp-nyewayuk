@@ -78,7 +78,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
   }
 
   return (
-    <div className="relative">
+    <div className="relative group">
       <div className="absolute top-0 left-0 p-3 flex items-center justify-between w-full z-10">
         {showMenu && (
           <div className="z-10">
@@ -94,16 +94,16 @@ const ListingCard: React.FC<ListingCardProps> = ({
           />
         </div>
       </div>
-      <Link href={`/listings/${data.id}`} className="col-span-1 cursor-pointer">
-        <div className="flex flex-col gap-1 w-full dark:bg-[#1E293B] dark:border dark:border-white/10 dark:rounded-xl dark:overflow-hidden transition h-full">
-          <div className=" overflow-hidden md:rounded-xl rounded-md relative dark:rounded-none">
-            <div className="aspect-[1/0.95] relative bg-gray-100 dark:bg-neutral-800">
+      <Link href={`/listings/${data.id}`} className="col-span-1 cursor-pointer block">
+        <div className="flex flex-col gap-1 w-full bg-neutral-800 border border-neutral-700/50 rounded-xl overflow-hidden h-full transition-all duration-300 hover:border-[#00A99D]/30 hover:shadow-lg hover:shadow-[#00A99D]/10 hover:-translate-y-1">
+          <div className="overflow-hidden relative">
+            <div className="aspect-[1/0.95] relative bg-neutral-700">
               <Image
                 imageSrc={data.imageSrc}
                 fill
                 alt={data.title}
                 effect="zoom"
-                className="object-cover"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
                 sizes="100vw"
               />
             </div>
@@ -115,17 +115,17 @@ const ListingCard: React.FC<ListingCardProps> = ({
               </div>
             )}
           </div>
-          <div className="flex flex-col gap-1 dark:p-3">
-            <span className="font-semibold text-[16px] mt-[4px] truncate text-gray-900 dark:text-white">
+          <div className="flex flex-col gap-1 p-3">
+            <span className="font-semibold text-[16px] mt-[4px] truncate text-white group-hover:text-[#00A99D] transition-colors duration-300">
               {data.title}
             </span>
             {/* Brand & Model */}
             {(data.brand || data.model) && (
-              <span className="text-xs text-gray-500 dark:text-gray-400 truncate">
+              <span className="text-xs text-gray-300 truncate">
                 {data.brand} {data.model}
               </span>
             )}
-            <span className="font-light text-neutral-500 dark:text-neutral-400 text-sm truncate">
+            <span className="font-light text-gray-300 text-sm truncate">
               {reservationDate || locationDisplay}
             </span>
             {/* Distance from user */}
@@ -136,10 +136,10 @@ const ListingCard: React.FC<ListingCardProps> = ({
             )}
 
             <div className="flex flex-row items-baseline gap-1">
-              <span className="font-bold text-[#444] dark:text-[#00A99D] text-[14px]">
+              <span className="font-bold text-[#00A99D] text-[14px]">
                 Rp {formatPrice(price)}
               </span>
-              {!reservation && <span className="font-light dark:text-gray-400">/ hari</span>}
+              {!reservation && <span className="font-light text-gray-300">/ hari</span>}
             </div>
           </div>
         </div>

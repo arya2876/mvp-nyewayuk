@@ -3,8 +3,8 @@ import { MessageCircle } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "FAQ - NyewaYuk",
-  description: "Pertanyaan yang sering ditanyakan tentang NyewaYuk",
+  title: "FAQ - RENLE",
+  description: "Pertanyaan yang sering ditanyakan tentang RENLE",
 };
 
 export default function FAQPage() {
@@ -19,7 +19,7 @@ export default function FAQPage() {
     },
     {
       question: "Apa yang terjadi jika barang rusak?",
-      answer: "Penyewa bertanggung jawab atas kerusakan barang selama masa sewa. Untuk self pickup, KTP ditahan sebagai jaminan. Untuk Nyewa Express, deposit Rp 200.000 dijaminkan.",
+      answer: "Penyewa bertanggung jawab atas kerusakan barang selama masa sewa. Untuk self pickup, KTP ditahan sebagai jaminan. Untuk RenleExpress, deposit Rp 200.000 dijaminkan.",
     },
     {
       question: "Bagaimana sistem pembayaran?",
@@ -37,18 +37,18 @@ export default function FAQPage() {
 
   // WhatsApp number - ganti dengan nomor admin yang sebenarnya
   const waNumber = "6282137541389"; // Ganti dengan nomor WA admin
-  const waMessage = encodeURIComponent("Halo, saya ingin bertanya lebih lanjut tentang NyewaYuk");
+  const waMessage = encodeURIComponent("Halo, saya ingin bertanya lebih lanjut tentang RENLE");
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-[80px]">
+    <div className="min-h-screen bg-neutral-900 pt-[80px]">
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">
+        <h1 className="text-4xl font-bold text-white mb-2">
           Frequently Asked Questions (FAQ)
         </h1>
-        <p className="text-gray-600 mb-3">
-          Temukan informasi tentang NyewaYuk dan layanan kami. Berikut adalah pertanyaan yang sering ditanyakan beserta jawabannya.
+        <p className="text-neutral-300 mb-3">
+          Temukan informasi tentang RENLE dan layanan kami. Berikut adalah pertanyaan yang sering ditanyakan beserta jawabannya.
         </p>
-        <p className="text-gray-700 mb-8">
+        <p className="text-neutral-200 mb-8">
           Jika ada pertanyaan lebih lanjut yang belum terjawab di bawah ini, silakan{" "}
           <a
             href={`https://wa.me/${waNumber}?text=${waMessage}`}
@@ -63,23 +63,23 @@ export default function FAQPage() {
 
         <div className="space-y-4">
           {faqs.map((faq, index) => (
-            <div key={index} className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
+            <div key={index} className="bg-neutral-800 rounded-xl shadow-sm p-6 border border-neutral-700 hover:shadow-md transition">
+              <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
                 <span className="text-[#00A99D]">Q{index + 1}.</span>
                 {faq.question}
               </h3>
-              <p className="text-gray-600 leading-relaxed pl-8">{faq.answer}</p>
+              <p className="text-neutral-300 leading-relaxed pl-8">{faq.answer}</p>
             </div>
           ))}
         </div>
 
-        <div className="mt-10 bg-gradient-to-br from-[#00A99D]/10 to-blue-50 border-2 border-[#00A99D]/30 rounded-xl p-8 text-center">
+        <div className="mt-10 bg-gradient-to-br from-[#00A99D]/20 to-blue-900/30 border-2 border-[#00A99D]/30 rounded-xl p-8 text-center">
           <MessageCircle className="w-12 h-12 text-[#00A99D] mx-auto mb-4" />
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">
+          <h3 className="text-2xl font-bold text-white mb-2">
             Masih Ada Pertanyaan?
           </h3>
-          <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
-            Tim support NyewaYuk siap membantu Anda! Hubungi kami via WhatsApp untuk mendapatkan jawaban cepat dan akurat.
+          <p className="text-neutral-200 mb-6 max-w-2xl mx-auto">
+            Tim support RENLE siap membantu Anda! Hubungi kami via WhatsApp untuk mendapatkan jawaban cepat dan akurat.
           </p>
           <a
             href={`https://wa.me/${waNumber}?text=${waMessage}`}
@@ -90,7 +90,7 @@ export default function FAQPage() {
             <MessageCircle className="w-6 h-6" />
             Chat dengan Admin di WhatsApp
           </a>
-          <p className="text-sm text-gray-600 mt-4">
+          <p className="text-sm text-neutral-300 mt-4">
             Respon cepat • Senin - Minggu • 08:00 - 22:00 WIB
           </p>
         </div>
@@ -98,7 +98,7 @@ export default function FAQPage() {
         <div className="mt-8 text-center">
           <Link
             href="/"
-            className="text-gray-600 hover:text-gray-900 underline"
+            className="text-neutral-400 hover:text-white underline"
           >
             Kembali ke Beranda
           </Link>

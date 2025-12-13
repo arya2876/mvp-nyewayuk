@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Terms and Conditions",
-  description: "NyewaYuk terms and conditions",
+  description: "RENLE terms and conditions",
 };
 
 export default function TermsPage() {
@@ -30,7 +30,7 @@ export default function TermsPage() {
               1. Ketentuan Umum
             </h2>
             <p className="text-gray-600 leading-relaxed">
-              Dengan menggunakan platform NyewaYuk, Anda setuju untuk terikat dengan syarat dan ketentuan ini. Platform ini memfasilitasi penyewaan barang antara pemilik dan penyewa.
+              Dengan menggunakan platform RENLE, Anda setuju untuk terikat dengan syarat dan ketentuan ini. Platform ini memfasilitasi penyewaan barang antara pemilik dan penyewa.
             </p>
           </section>
 
@@ -57,7 +57,7 @@ export default function TermsPage() {
               4. Pembayaran
             </h2>
             <p className="text-gray-600 leading-relaxed">
-              Pembayaran dilakukan melalui platform dengan metode yang tersedia. NyewaYuk akan menahan dana hingga transaksi selesai dan barang dikembalikan dengan baik.
+              Pembayaran dilakukan melalui platform dengan metode yang tersedia. RENLE akan menahan dana hingga transaksi selesai dan barang dikembalikan dengan baik.
             </p>
           </section>
 
@@ -75,7 +75,7 @@ export default function TermsPage() {
               6. Penyelesaian Sengketa
             </h2>
             <p className="text-gray-600 leading-relaxed">
-              Jika terjadi perselisihan, NyewaYuk akan bertindak sebagai mediator. Keputusan akhir akan mempertimbangkan bukti dari kedua belah pihak.
+              Jika terjadi perselisihan, RENLE akan bertindak sebagai mediator. Keputusan akhir akan mempertimbangkan bukti dari kedua belah pihak.
             </p>
           </section>
 
@@ -93,7 +93,7 @@ export default function TermsPage() {
               8. Perubahan Ketentuan
             </h2>
             <p className="text-gray-600 leading-relaxed">
-              NyewaYuk berhak mengubah syarat dan ketentuan ini sewaktu-waktu. Perubahan akan diberitahukan kepada pengguna melalui email atau notifikasi di platform.
+              RENLE berhak mengubah syarat dan ketentuan ini sewaktu-waktu. Perubahan akan diberitahukan kepada pengguna melalui email atau notifikasi di platform.
             </p>
           </section>
         </div>

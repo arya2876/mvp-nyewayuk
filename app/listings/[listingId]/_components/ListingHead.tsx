@@ -32,7 +32,7 @@ const ListingHead: React.FC<ListingHeadProps> = async ({
         <div className="mt-3 mb-4 inline-flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 px-3 py-2">
           <ShieldCheck className="h-4 w-4 text-green-600" />
           <span className="text-sm font-medium text-green-800">
-            Terlindungi NyewaGuard AI. Kondisi terverifikasi aman.
+            Terlindungi RenleGuard AI. Kondisi terverifikasi aman.
           </span>
         </div>
       )}

@@ -41,10 +41,10 @@ const Input: React.FC<InputProps> = ({
         disabled={disabled}
         {...register(id, { required: true })}
         className={cn(
-          `text-[15px] peer w-full px-2 py-3 font-light bg-white dark:bg-[#1E293B] border-[1px] border-gray-400 dark:border-white/10 rounded outline-none transition disabled:opacity-70 disabled:cursor-not-allowed text-neutral-800 dark:text-white`,
+          `text-[15px] peer w-full px-2 py-3 font-light bg-neutral-800 border-[1px] border-white/20 rounded outline-none transition disabled:opacity-70 disabled:cursor-not-allowed text-white placeholder:text-gray-400`,
           errors[id]
             ? "border-rose-500 focus:border-rose-500"
-            : "border-neutral-300 dark:border-white/10 focus:border-black dark:focus:border-[#00A99D]",
+            : "border-white/20 focus:border-[#00A99D]",
           Icon ? "pl-9" : "pl-4"
         )}
         autoFocus={autoFocus}
@@ -52,9 +52,9 @@ const Input: React.FC<InputProps> = ({
       />
       <label
         className={cn(
-          `absolute text-[14px] duration-150 transform top-[28px] scale-80 -translate-y-4 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-80 peer-focus:-translate-y-[40px] peer-focus:bg-white dark:peer-focus:bg-neutral-700 z-[20] px-1`,
-          errors[id] ? "text-rose-500" : "text-zinc-400 dark:text-gray-400",
-          value && "-translate-y-[40px] bg-white dark:bg-neutral-700",
+          `absolute text-[14px] duration-150 transform top-[28px] scale-80 -translate-y-4 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-80 peer-focus:-translate-y-[40px] peer-focus:bg-neutral-700 z-[20] px-1`,
+          errors[id] ? "text-rose-400" : "text-gray-300",
+          value && "-translate-y-[40px] bg-neutral-700",
           Icon ? "left-9" : "left-4"
         )}
         htmlFor={id}

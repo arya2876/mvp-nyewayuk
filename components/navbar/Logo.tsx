@@ -6,8 +6,8 @@ const Logo = () => {
   return (
     <Link href="/" className="relative h-[50px] w-[140px] md:w-[160px]">
       <Image
-        src="/images/Logo Ny.png"
-        alt="NyewaYuk Logo"
+        src="/images/logo-renle-white (2).png"
+        alt="RENLE Logo"
         fill
         sizes="160px"
         priority

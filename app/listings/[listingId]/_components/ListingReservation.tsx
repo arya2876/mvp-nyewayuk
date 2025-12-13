@@ -11,6 +11,7 @@ import Calender from "@/components/Calender";
 import WhatsAppCheckoutModal from "./WhatsAppCheckoutModal";
 import {
   calculateRentalPrice,
+  calculateDynamicDeposit,
   formatRupiah,
   LogisticsOption,
 } from "@/utils/priceCalculation";
@@ -74,25 +75,29 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
   }, [reservations]);
 
   // Kalkulasi harga dinamis dengan useMemo
-  // Use timestamps for stable dependency comparison
-  const startDateTimestamp = dateRange?.startDate?.getTime() ?? 0;
-  const endDateTimestamp = dateRange?.endDate?.getTime() ?? 0;
-  
-  // Logika Jaminan NyewaYuk:
-  // - Delivery (nyewa-express): Deposit uang Rp 200.000
-  // - Pickup (self-pickup): Deposit KTP/Identitas (Rp 0)
-  const SECURITY_DEPOSIT = 200000;
-  const actualDepositAmount = logisticsOption === 'nyewa-express' ? SECURITY_DEPOSIT : 0;
-  
   const priceBreakdown = useMemo(() => {
+    // Hitung base price dulu tanpa deposit
+    const tempCalc = calculateRentalPrice({
+      pricePerDay: price,
+      startDate: dateRange?.startDate ?? null,
+      endDate: dateRange?.endDate ?? null,
+      logisticsOption,
+      depositAmount: 0, // temporary, akan di-update
+    });
+    
+    // Hitung deposit dinamis berdasarkan metode logistik dan base price
+    const logisticsMethod = logisticsOption === 'self-pickup' ? 'pickup' : 'delivery';
+    const { depositAmount } = calculateDynamicDeposit(logisticsMethod, tempCalc.basePrice);
+    
+    // Hitung ulang dengan deposit yang benar
     return calculateRentalPrice({
       pricePerDay: price,
       startDate: dateRange?.startDate ?? null,
       endDate: dateRange?.endDate ?? null,
       logisticsOption,
-      depositAmount: actualDepositAmount,
+      depositAmount,
     });
-  }, [price, dateRange?.startDate, dateRange?.endDate, logisticsOption, actualDepositAmount]);
+  }, [price, dateRange?.startDate, dateRange?.endDate, logisticsOption]);
 
   const onCreateReservation = useCallback(() => {
     if (!currentUser) {
@@ -183,8 +188,8 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
                 className="w-4 h-4 text-[#00A99D]"
               />
               <div className="flex-1">
-                <div className="font-medium text-neutral-800 dark:text-white">Nyewa Express</div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">Deposit: Rp 200.000 (Refundable)</div>
+                <div className="font-medium text-neutral-800 dark:text-white">RenleExpress</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">Deposit: Dinamis (Refundable)</div>
               </div>
               <div className="text-sm font-semibold text-neutral-800 dark:text-white">Rp 25,000</div>
             </label>
@@ -222,7 +227,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
             </div> */}
             {priceBreakdown.logisticsFee > 0 && (
               <div className="flex justify-between">
-                <span className="text-gray-600 dark:text-gray-300">Nyewa Express</span>
+                <span className="text-gray-600 dark:text-gray-300">RenleExpress</span>
                 <span className="font-medium text-neutral-800 dark:text-white">Rp {formatRupiah(priceBreakdown.logisticsFee)}</span>
               </div>
             )}
@@ -281,7 +286,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
           logisticsOption={logisticsOption}
           basePrice={priceBreakdown.basePrice}
           logisticsFee={priceBreakdown.logisticsFee}
-          depositAmount={actualDepositAmount}
+          depositAmount={priceBreakdown.depositAmount}
           totalPrice={priceBreakdown.totalPrice}
           ownerPhone={ownerPhone}
           ownerName={ownerName}

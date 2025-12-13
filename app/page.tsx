@@ -60,12 +60,12 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
         <div className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-6">
           {/* Judul Utama */}
           <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight drop-shadow-lg">
-            Pinjam daripada membeli
+            Unlock Your Assets with RENLE
           </h1>
           
           {/* Subjudul */}
           <p className="text-base md:text-lg text-white/90 max-w-2xl mx-auto drop-shadow-md">
-            Dekat dan pada waktu yang sesuai untuk Anda
+            Ubah barang nganggur jadi cuan, atau sewa alat impian tanpa beli mahal
           </p>
           
           {/* Search Bar Component */}
@@ -73,38 +73,41 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
         </div>
       </section>
 
-      {/* Popular Categories dengan Icon */}
-      <section className="mx-auto max-w-6xl px-6 py-6 dark:bg-neutral-900">
-        <h3 className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-3">Atau telusuri kategori kami yang paling populer...</h3>
-        <div className="flex flex-wrap gap-3">
+      {/* Popular Categories - Clean Modern Design */}
+      <section className="mx-auto max-w-6xl px-6 py-8">
+        <h3 className="text-sm font-medium text-neutral-400 mb-5 animate-fadeIn">
+          Telusuri kategori populer
+        </h3>
+        <div className="flex flex-wrap gap-3 stagger-children">
           {categories.map((category) => {
             const Icon = category.icon;
             const isSelected = searchParams?.category === category.label;
-            // Link ke halaman kategori terpisah
             const categorySlug = category.label.toLowerCase().replace(/\s+/g, "-");
             
             return (
               <a
                 key={category.label}
                 href={`/kategori/${categorySlug}`}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-[50px] text-sm font-medium transition shadow-sm ${
+                className={`group flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 category-icon ${
                   isSelected
-                    ? 'bg-[#00A99D] text-white border-2 border-[#00A99D]'
-                    : 'bg-white dark:bg-[#1E293B] text-neutral-700 dark:text-neutral-200 border border-neutral-300 dark:border-white/10 hover:bg-gray-50 dark:hover:bg-[#1E293B]/80 hover:border-[#00A99D]'
+                    ? 'bg-[#00A99D] text-white shadow-lg shadow-[#00A99D]/20'
+                    : 'bg-neutral-800 text-neutral-300 border border-neutral-700 hover:border-[#00A99D]/40 hover:text-white'
                 }`}
               >
-                <Icon className="w-5 h-5" />
-                {category.label}
+                <Icon className={`w-4 h-4 transition-all duration-300 ${
+                  isSelected ? 'text-white' : 'text-[#00A99D] group-hover:scale-110'
+                }`} strokeWidth={2} />
+                <span className="transition-colors duration-300">{category.label}</span>
               </a>
             );
           })}
         </div>
       </section>
 
-      {/* Section Item yang baru-baru ini aktif - DI BAGIAN ATAS */}
-      <section className="mx-auto max-w-6xl px-6 py-8 dark:bg-neutral-900">
+      {/* Section Item yang baru-baru ini aktif */}
+      <section className="mx-auto max-w-6xl px-6 py-8">
         <div className="mb-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-neutral-800 dark:text-white">
+          <h2 className="text-2xl md:text-3xl font-bold text-white">
             Item yang baru-baru ini aktif
           </h2>
           {/* Info banner jika filter lokasi aktif */}
@@ -186,7 +189,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
               <div className="mb-6 flex justify-center">
                 <div className="h-32 w-32 rounded-full overflow-hidden flex items-center justify-center">
                   <Image 
-                    src="/images/agenda.gif" 
+                    src="/images/portrait-young-person-celebrating-world-photography-day-with-camera-device.jpg" 
                     alt="Daftar Teratas 2024"
                     width={128}
                     height={128}
@@ -196,10 +199,10 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                 </div>
               </div>
               <h3 className="mb-3 text-center text-xl font-bold text-neutral-800 dark:text-white">
-                Apapun Agendamu, Alatnya Ada.
+                Sewa Lebih Hemat, Gaya Tetap Dapat
               </h3>
               <p className="text-center text-sm text-neutral-600 dark:text-gray-300 leading-relaxed">
-                Mau nugas fotografi, healing ke gunung, atau mabar PS5 di kosan? Gak perlu beli mahal-mahal. Cukup sewa alat pendukung hobimu di sini, sisa uangnya bisa buat jajan.Apakah Anda tidak yakin tentang apa yang sebenarnya dapat Anda sewakan di platform tempat Anda dapat menyewa (hampir) apa saja? Biarkan diri Anda terinspirasi oleh daftar produk yang paling banyak disewa di NyewaYuk tahun lalu.
+                Kenapa harus beli kamera 15 juta kalau cuma dipakai weekend? Di RENLE, akses ribuan alat hobi dan elektronik berkualitas di sekitarmu. Cukup bayar saat butuh, sisa uangnya bisa untuk tabungan.
               </p>
             </div>
 
@@ -208,7 +211,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
               <div className="mb-6 flex justify-center">
                 <div className="h-32 w-32 rounded-full bg-gradient-to-br from-blue-400 to-cyan-500 overflow-hidden">
                   <Image 
-                    src="/images/Agung.jpg" 
+                    src="/images/excited-asian-guy-using-laptop-celebrating-success-shaking-fists.jpg" 
                     alt="Agung - Panitia Event Kampus"
                     className="h-full w-full object-cover"
                     width={128}
@@ -217,10 +220,10 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                 </div>
               </div>
               <h3 className="mb-3 text-center text-xl font-bold text-neutral-800 dark:text-white">
-                Agung : Panitia Event Kampus
+                Agung : Kamera Nganggur Jadi "passive income" 
               </h3>
               <p className="text-center text-sm text-neutral-600 dark:text-gray-300 leading-relaxed">
-                Nyari proyektor dadakan H-1 acara susah banget, untung nemu di NyewaYuk. Respon admin cepet, barang bisa langsung COD di kampus.
+                Dulu kamera saya cuma diam di lemari dan harganya terus turun. Sekarang? Justru jadi sumber pemasukan. Lewat RENLE, aset tidur saya berubah jadi passive income aman yang bisa membiayai uang kuliah dan upgrade alat baru, tanpa rasa was-was.
               </p>
             </div>
 
@@ -229,7 +232,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
               <div className="mb-6 flex justify-center">
                 <div className="h-32 w-32 rounded-full overflow-hidden flex items-center justify-center">
                   <Image 
-                    src="/images//brainstorm.png" 
+                    src="/images//man-holding-book-clothes-donate-box-donation-concept.jpg" 
                     alt="Mahasiswa Cerdas Berbagi"
                     width={128}
                     height={128}
@@ -242,7 +245,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                     Mahasiswa Cerdas Berbagi, Bukan Membeli
                     </h3>
               <p className="text-center text-sm text-neutral-600 dark:text-gray-300 leading-relaxed">
-                Kami percaya mahasiswa tidak perlu membeli segalanya. Misi NyewaYuk adalah menghubungkan barang nganggur di kost temanmu menjadi solusi hemat untuk kebutuhanmu, kapan saja, di mana saja.
+                Kami percaya mahasiswa tidak perlu membeli segalanya. Misi RENLE adalah menghubungkan barang nganggur di kost temanmu menjadi solusi hemat untuk kebutuhanmu, kapan saja, di mana saja.
               </p>
             </div>
           </div>
@@ -264,9 +267,9 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                   className="object-contain w-auto h-auto"
                 />
               </div>
-              <h3 className="text-xl font-bold text-neutral-800 dark:text-white">Semuanya terjamin</h3>
+              <h3 className="text-xl font-bold text-neutral-800 dark:text-white">Semuanya Terjamin</h3>
               <p className="text-sm text-neutral-600 dark:text-gray-300 max-w-xs">
-                Perlindungan bagi penyewa dan penyewa luar
+                Perlindungan Bagi Penyewa Dan Pemilik Barang
               </p>
             </div>
 
@@ -280,9 +283,9 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                   className="object-contain w-auto h-auto"
                 />
               </div>
-              <h3 className="text-xl font-bold text-neutral-800 dark:text-white">Semua orang terverifikasi</h3>
+              <h3 className="text-xl font-bold text-neutral-800 dark:text-white">Semua Orang Terverifikasi</h3>
               <p className="text-sm text-neutral-600 dark:text-gray-300 max-w-xs">
-                NyewaYuk aman. Semua orang terverifikasi.
+                RENLE aman. Semua orang terverifikasi.
               </p>
             </div>
 
@@ -297,9 +300,9 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                   className="object-contain w-auto h-auto"
                 />
               </div>
-              <h3 className="text-xl font-bold text-neutral-800 dark:text-white">Lebih murah daripada membeli</h3>
+              <h3 className="text-xl font-bold text-neutral-800 dark:text-white">Lebih Murah Daripada Membeli</h3>
               <p className="text-sm text-neutral-600 dark:text-gray-300 max-w-xs">
-                Seringkali 60% lebih murah menyewa melalui NyewaYuk di banding beli baru.
+                Seringkali 60% lebih murah menyewa melalui RENLE di banding beli baru.
               </p>
             </div>
 
@@ -313,7 +316,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                   className="object-contain w-auto h-auto"
                 />
               </div>
-              <h3 className="text-xl font-bold text-neutral-800 dark:text-white">Sewa di daerah Anda</h3>
+              <h3 className="text-xl font-bold text-neutral-800 dark:text-white">Sewa Di Daerah Anda</h3>
               <p className="text-sm text-neutral-600 dark:text-gray-300 max-w-xs">
                 Anda biasanya dapat menyewa sesuatu yang lebih dekat dengan Anda daripada toko terdekat.
               </p>
@@ -330,7 +333,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                   className="object-contain w-auto h-auto"
                 />
               </div>
-              <h3 className="text-xl font-bold text-neutral-800 dark:text-white">Jam yang sesuai untuk Anda</h3>
+              <h3 className="text-xl font-bold text-neutral-800 dark:text-white">Waktu Yang Sesuai Untuk Anda</h3>
               <p className="text-sm text-neutral-600 dark:text-gray-300 max-w-xs">
                 Sewa kapan saja yang cocok untuk Anda
               </p>
@@ -346,7 +349,7 @@ const Home: FC<HomeProps> = async ({ searchParams }) => {
                   className="object-contain w-auto h-auto"
                 />
               </div>
-              <h3 className="text-xl font-bold text-neutral-800 dark:text-white">Baik untuk Lingkungan</h3>
+              <h3 className="text-xl font-bold text-neutral-800 dark:text-white">Baik Untuk Lingkungan</h3>
               <p className="text-sm text-neutral-600 dark:text-gray-300 max-w-xs">
                 Berbagi lebih baik untuk planet kita
               </p>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Noto_Sans } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 import "./globals.css";
@@ -9,25 +9,26 @@ import Providers from "@/components/Provider";
 import Footer from "@/components/Footer";
 import { ToastProvider } from "@/components/ToastProvider";
 
-const inter = Inter({ 
-  subsets: ["latin"],
+const notoSans = Noto_Sans({ 
+  subsets: ["latin-ext", "vietnamese"],
   display: "swap",
-  variable: "--font-inter",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-noto-sans",
 });
 
 export const metadata: Metadata = {
-  title: "NyewaYuk - Sewa Aman, Hidup Hemat",
+  title: "RENLE | Sewa Aman, Aset Cuan",
   description:
-    "Platform peer-to-peer rental terpercaya di Indonesia. Sewa barang yang Anda butuhkan atau sewakan barang yang Anda miliki dengan aman menggunakan NyewaGuard AI.",
+    "Platform peer-to-peer rental terpercaya di Indonesia. Sewa barang yang Anda butuhkan atau sewakan barang yang Anda miliki dengan aman menggunakan RenleGuard AI.",
   icons: {
     icon: [
-      { url: "/images/Logo Ny.png", type: "image/png" },
+      { url: "/images/logo-renle-white.png", type: "image/png" },
     ],
-    shortcut: "/images/Logo Ny.png",
-    apple: "/images/Logo Ny.png",
+    shortcut: "/images/logo-renle-white.png",
+    apple: "/images/logo-renle-white.png",
     other: {
       rel: "icon",
-      url: "/images/Logo Ny.png",
+      url: "/images/logo-renle-white.png",
     },
   },
 };
@@ -38,13 +39,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id" suppressHydrationWarning>
+    <html lang="id" className="dark" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/images/Logo Ny.png" type="image/png" />
-        <link rel="shortcut icon" href="/images/Logo Ny.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/images/Logo Ny.png" />
+        <link rel="icon" href="/images/logo-renle-white.png" type="image/png" />
+        <link rel="shortcut icon" href="/images/logo-renle-white.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/images/logo-renle-white.png" />
       </head>
-      <body className={`${inter.variable} antialiased`} suppressHydrationWarning>
+      <body className={`${notoSans.className} antialiased bg-neutral-900 text-gray-100`} suppressHydrationWarning>
         <Providers>
           <ToastProvider>
             <Navbar />

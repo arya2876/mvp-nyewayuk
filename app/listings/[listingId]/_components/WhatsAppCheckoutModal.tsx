@@ -48,7 +48,7 @@ const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
     });
   };
 
-  const logisticsLabel = logisticsOption === "self-pickup" ? "Ambil Sendiri" : "Nyewa Express (Diantar)";
+  const logisticsLabel = logisticsOption === "self-pickup" ? "Ambil Sendiri" : "RenleExpress (Diantar)";
   const depositLabel = logisticsOption === "self-pickup" ? "KTP/Identitas Asli" : `Rp ${formatRupiah(depositAmount)}`;
 
   // Generate WhatsApp message
@@ -74,18 +74,18 @@ Apakah barang tersedia?`;
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 overflow-y-auto">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm"
         onClick={onClose}
       />
 
       {/* Modal */}
-      <div className="relative bg-white dark:bg-[#1E293B] rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
+      <div className="relative bg-neutral-800 rounded-2xl shadow-2xl max-w-md w-full my-8 overflow-hidden animate-in fade-in zoom-in duration-200">
         {/* Header */}
-        <div className="sticky top-0 bg-white dark:bg-[#1E293B] px-6 py-4 border-b border-gray-200 dark:border-white/10 flex items-center justify-between">
-          <h2 className="text-xl font-bold text-neutral-800 dark:text-white">Konfirmasi Pesanan</h2>
+        <div className="sticky top-0 bg-neutral-800 px-6 py-4 border-b border-neutral-700 flex items-center justify-between z-10">
+          <h2 className="text-xl font-bold text-white">Konfirmasi Pesanan</h2>
           <button 
             onClick={onClose}
             title="Tutup"
@@ -99,11 +99,11 @@ Apakah barang tersedia?`;
         {/* Content */}
         <div className="p-6 space-y-6">
           {/* Item Name */}
-          <div className="flex items-start gap-3 p-4 bg-[#00A99D]/10 dark:bg-[#00A99D]/20 rounded-xl">
+          <div className="flex items-start gap-3 p-4 bg-[#00A99D]/20 rounded-xl">
             <Package className="w-6 h-6 text-[#00A99D] flex-shrink-0 mt-0.5" />
-            <div>
+            <div className="flex-1 min-w-0">
               <div className="text-sm text-[#00A99D] font-medium">Barang yang disewa</div>
-              <div className="text-lg font-bold text-[#0054A6] dark:text-white">{itemName}</div>
+              <div className="text-lg font-bold text-white break-words">{itemName}</div>
             </div>
           </div>
 
@@ -111,10 +111,10 @@ Apakah barang tersedia?`;
           <div className="space-y-4">
             {/* Dates */}
             <div className="flex items-start gap-3">
-              <Calendar className="w-5 h-5 text-gray-500 flex-shrink-0 mt-0.5" />
-              <div className="flex-1">
-                <div className="text-sm text-gray-500 dark:text-gray-400">Tanggal Sewa</div>
-                <div className="font-semibold text-neutral-800 dark:text-white">
+              <Calendar className="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" />
+              <div className="flex-1 min-w-0">
+                <div className="text-sm text-gray-400">Tanggal Sewa</div>
+                <div className="font-semibold text-white break-words">
                   {formatDate(startDate)} - {formatDate(endDate)}
                 </div>
                 <div className="text-sm text-[#00A99D] font-medium">{dayCount} Hari</div>
@@ -123,46 +123,46 @@ Apakah barang tersedia?`;
 
             {/* Logistics */}
             <div className="flex items-start gap-3">
-              <Truck className="w-5 h-5 text-gray-500 flex-shrink-0 mt-0.5" />
-              <div className="flex-1">
-                <div className="text-sm text-gray-500 dark:text-gray-400">Metode Pengambilan</div>
-                <div className="font-semibold text-neutral-800 dark:text-white">{logisticsLabel}</div>
+              <Truck className="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" />
+              <div className="flex-1 min-w-0">
+                <div className="text-sm text-gray-400">Metode Pengambilan</div>
+                <div className="font-semibold text-white">{logisticsLabel}</div>
               </div>
             </div>
           </div>
 
           {/* Price Breakdown */}
-          <div className="border border-gray-200 dark:border-neutral-700 rounded-xl p-4 space-y-3">
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-600 dark:text-gray-400">Biaya Sewa ({dayCount} hari)</span>
-              <span className="font-medium text-neutral-800 dark:text-white">Rp {formatRupiah(basePrice)}</span>
+          <div className="border border-neutral-700 rounded-xl p-4 space-y-3 bg-neutral-700/30">
+            <div className="flex justify-between text-sm items-start gap-3">
+              <span className="text-gray-300 flex-shrink-0">Biaya Sewa ({dayCount} hari)</span>
+              <span className="font-medium text-white text-right">Rp {formatRupiah(basePrice)}</span>
             </div>
             {logisticsFee > 0 && (
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-600 dark:text-gray-400">Nyewa Express</span>
-                <span className="font-medium text-neutral-800 dark:text-white">Rp {formatRupiah(logisticsFee)}</span>
+              <div className="flex justify-between text-sm items-start gap-3">
+                <span className="text-gray-300 flex-shrink-0">RenleExpress</span>
+                <span className="font-medium text-white text-right">Rp {formatRupiah(logisticsFee)}</span>
               </div>
             )}
-            <div className="flex justify-between text-sm">
-              <span className="text-gray-600 dark:text-gray-400">
+            <div className="flex justify-between text-sm items-start gap-3">
+              <span className="text-gray-300 flex-shrink-0">
                 Deposit Jaminan
               </span>
-              <span className="font-medium text-neutral-800 dark:text-white">
+              <span className="font-medium text-white text-right">
                 {depositLabel}
               </span>
             </div>
-            <div className="pt-3 border-t border-gray-200 dark:border-neutral-600 flex justify-between">
-              <span className="font-bold text-neutral-800 dark:text-white">Total Estimasi</span>
-              <span className="font-bold text-xl text-[#00A99D]">Rp {formatRupiah(totalPrice)}</span>
+            <div className="pt-3 border-t border-neutral-600 flex justify-between items-start gap-3">
+              <span className="font-bold text-white flex-shrink-0">Total Estimasi</span>
+              <span className="font-bold text-xl text-[#00A99D] text-right">Rp {formatRupiah(totalPrice)}</span>
             </div>
           </div>
 
           {/* Warning for Self Pickup */}
           {logisticsOption === "self-pickup" && (
-            <div className="p-4 bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-700 rounded-xl">
+            <div className="p-4 bg-yellow-900/30 border border-yellow-700 rounded-xl">
               <div className="flex items-start gap-3">
-                <span className="text-xl">⚠️</span>
-                <div className="text-sm text-yellow-700 dark:text-yellow-300">
+                <span className="text-xl flex-shrink-0">⚠️</span>
+                <div className="text-sm text-yellow-200 flex-1 min-w-0">
                   <strong>Penting:</strong> Anda WAJIB menyerahkan <strong>KTP/Identitas Asli</strong> kepada pemilik saat pengambilan barang sebagai jaminan.
                 </div>
               </div>
@@ -170,15 +170,15 @@ Apakah barang tersedia?`;
           )}
 
           {/* Agreement Checkbox */}
-          <label className="flex items-start gap-3 p-4 border border-gray-200 dark:border-white/10 rounded-xl cursor-pointer hover:bg-gray-50 dark:hover:bg-[#1E293B]/50 transition">
+          <label className="flex items-start gap-3 p-4 border border-white/20 rounded-xl cursor-pointer hover:bg-neutral-700/50 transition">
             <input
               type="checkbox"
               checked={isAgreed}
               onChange={(e) => setIsAgreed(e.target.checked)}
-              className="w-5 h-5 mt-0.5 text-[#00A99D] rounded border-gray-300 focus:ring-[#00A99D]"
+              className="w-5 h-5 mt-0.5 text-[#00A99D] rounded border-gray-400 focus:ring-[#00A99D] flex-shrink-0"
             />
-            <div className="text-sm text-gray-700 dark:text-gray-300">
-              Saya setuju dengan <button type="button" onClick={(e) => { e.preventDefault(); setIsTermsOpen(true); }} className="text-[#00A99D] underline font-medium hover:text-[#008F85]">Syarat & Ketentuan</button> NyewaYuk termasuk kewajiban menyerahkan <strong>KTP Asli/Deposit</strong> sebagai jaminan keamanan.
+            <div className="text-sm text-gray-200 flex-1 min-w-0">
+              Saya setuju dengan <button type="button" onClick={(e) => { e.preventDefault(); setIsTermsOpen(true); }} className="text-[#00A99D] underline font-medium hover:text-[#00C5B5]">Syarat & Ketentuan</button> RENLE termasuk kewajiban menyerahkan <strong>KTP Asli/Deposit</strong> sebagai jaminan keamanan.
             </div>
           </label>
 
@@ -189,7 +189,7 @@ Apakah barang tersedia?`;
             className={`w-full flex items-center justify-center gap-3 py-4 px-6 rounded-[50px] font-bold text-lg transition ${
               isAgreed
                 ? "bg-[#25D366] hover:bg-[#1DA851] text-white shadow-lg hover:shadow-xl"
-                : "bg-gray-300 dark:bg-neutral-600 text-gray-500 dark:text-neutral-400 cursor-not-allowed"
+                : "bg-neutral-600 text-neutral-400 cursor-not-allowed"
             }`}
           >
             <MessageCircle className="w-6 h-6" />
@@ -197,7 +197,7 @@ Apakah barang tersedia?`;
           </button>
 
           {/* Info */}
-          <div className="text-center text-xs text-gray-500 dark:text-gray-400">
+          <div className="text-center text-xs text-gray-400">
             Admin akan mengkonfirmasi ketersediaan barang melalui WhatsApp
           </div>
         </div>
@@ -205,27 +205,27 @@ Apakah barang tersedia?`;
 
       {/* Terms & Conditions Popup */}
       {isTermsOpen && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 overflow-y-auto">
           <div 
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm"
             onClick={() => setIsTermsOpen(false)}
           />
-          <div className="relative bg-white dark:bg-[#1E293B] rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white dark:bg-[#1E293B] px-6 py-4 border-b border-gray-200 dark:border-white/10 flex items-center justify-between">
-              <h2 className="text-xl font-bold text-neutral-800 dark:text-white">Syarat & Ketentuan NyewaYuk</h2>
+          <div className="relative bg-neutral-800 rounded-2xl shadow-2xl max-w-2xl w-full my-8">
+            <div className="sticky top-0 bg-neutral-800 px-6 py-4 border-b border-neutral-700 flex items-center justify-between z-10">
+              <h2 className="text-xl font-bold text-white">Syarat & Ketentuan RENLE</h2>
               <button 
                 onClick={() => setIsTermsOpen(false)}
                 title="Tutup"
                 aria-label="Tutup"
-                className="p-2 hover:bg-gray-100 dark:hover:bg-neutral-700 rounded-full transition"
+                className="p-2 hover:bg-neutral-700 rounded-full transition"
               >
-                <X className="w-5 h-5 text-gray-500" />
+                <X className="w-5 h-5 text-gray-300" />
               </button>
             </div>
-            <div className="p-6 space-y-4 text-sm text-gray-700 dark:text-gray-300">
+            <div className="p-6 space-y-4 text-sm text-gray-200 max-h-[70vh] overflow-y-auto">
               <section>
-                <h3 className="font-bold text-lg mb-2 text-neutral-800 dark:text-white">1. Tentang NyewaYuk</h3>
-                <p>NyewaYuk adalah platform peer-to-peer rental yang menghubungkan pemilik barang (Lender) dengan penyewa (Borrower). Platform ini memfasilitasi transaksi sewa-menyewa yang aman dan terpercaya.</p>
+                <h3 className="font-bold text-lg mb-2 text-white">1. Tentang RENLE</h3>
+                <p>RENLE adalah platform peer-to-peer rental yang menghubungkan pemilik barang (Lender) dengan penyewa (Borrower). Platform ini memfasilitasi transaksi sewa-menyewa yang aman dan terpercaya.</p>
               </section>
 
               <section>
@@ -237,7 +237,7 @@ Apakah barang tersedia?`;
                     <li>Identitas akan dikembalikan setelah barang dikembalikan dalam kondisi baik</li>
                     <li>Tidak ada biaya deposit uang</li>
                   </ul>
-                  <p className="font-semibold mt-3">Opsi Nyewa Express (Delivery):</p>
+                  <p className="font-semibold mt-3">Opsi RenleExpress (Delivery):</p>
                   <ul className="list-disc pl-5 space-y-1">
                     <li>Penyewa membayar deposit keamanan sebesar <strong>Rp 200.000</strong></li>
                     <li>Deposit akan dikembalikan 100% setelah barang dikembalikan dalam kondisi baik</li>
@@ -247,7 +247,7 @@ Apakah barang tersedia?`;
               </section>
 
               <section>
-                <h3 className="font-bold text-lg mb-2 text-neutral-800 dark:text-white">3. Tanggung Jawab Penyewa</h3>
+                <h3 className="font-bold text-lg mb-2 text-white">3. Tanggung Jawab Penyewa</h3>
                 <ul className="list-disc pl-5 space-y-1">
                   <li>Menjaga barang dalam kondisi baik selama masa sewa</li>
                   <li>Mengembalikan barang tepat waktu sesuai tanggal yang disepakati</li>
@@ -257,16 +257,16 @@ Apakah barang tersedia?`;
               </section>
 
               <section>
-                <h3 className="font-bold text-lg mb-2 text-neutral-800 dark:text-white">4. Pembayaran</h3>
+                <h3 className="font-bold text-lg mb-2 text-white">4. Pembayaran</h3>
                 <ul className="list-disc pl-5 space-y-1">
                   <li>Pembayaran dilakukan setelah konfirmasi dari pemilik melalui WhatsApp</li>
                   <li>Metode pembayaran akan diinformasikan oleh admin</li>
-                  <li>Transaksi dilindungi oleh sistem jaminan NyewaYuk</li>
+                  <li>Transaksi dilindungi oleh sistem jaminan RENLE</li>
                 </ul>
               </section>
 
               <section>
-                <h3 className="font-bold text-lg mb-2 text-neutral-800 dark:text-white">5. Pembatalan & Pengembalian</h3>
+                <h3 className="font-bold text-lg mb-2 text-white">5. Pembatalan & Pengembalian</h3>
                 <ul className="list-disc pl-5 space-y-1">
                   <li>Pembatalan oleh penyewa: Silakan hubungi pemilik melalui WhatsApp</li>
                   <li>Pembatalan oleh pemilik: Dana akan dikembalikan 100%</li>
@@ -275,21 +275,21 @@ Apakah barang tersedia?`;
               </section>
 
               <section>
-                <h3 className="font-bold text-lg mb-2 text-neutral-800 dark:text-white">6. Ketentuan Lainnya</h3>
+                <h3 className="font-bold text-lg mb-2 text-white">6. Ketentuan Lainnya</h3>
                 <ul className="list-disc pl-5 space-y-1">
                   <li>Penyewa harus berusia minimal 17 tahun</li>
-                  <li>Data pribadi dilindungi sesuai kebijakan privasi NyewaYuk</li>
-                  <li>NyewaYuk berhak memblokir akun yang melanggar ketentuan</li>
+                  <li>Data pribadi dilindungi sesuai kebijakan privasi RENLE</li>
+                  <li>RENLE berhak memblokir akun yang melanggar ketentuan</li>
                 </ul>
               </section>
 
-              <div className="mt-6 p-4 bg-[#00A99D]/10 dark:bg-[#00A99D]/20 rounded-lg">
+              <div className="mt-6 p-4 bg-[#00A99D]/20 rounded-lg">
                 <p className="text-[#00A99D] font-medium">
                   Dengan melanjutkan, Anda menyetujui semua syarat dan ketentuan di atas.
                 </p>
               </div>
             </div>
-            <div className="sticky bottom-0 bg-white dark:bg-[#1E293B] px-6 py-4 border-t border-gray-200 dark:border-white/10">
+            <div className="sticky bottom-0 bg-neutral-800 px-6 py-4 border-t border-neutral-700">
               <button
                 onClick={() => setIsTermsOpen(false)}
                 className="w-full bg-[#00A99D] hover:bg-[#008F85] text-white font-semibold py-3 px-6 rounded-[50px] transition"

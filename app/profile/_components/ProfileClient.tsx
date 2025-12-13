@@ -2,7 +2,7 @@
 
 import { User } from "next-auth";
 import { signOut } from "next-auth/react";
-import { ChevronRight, Flag, User as UserIcon, Bookmark, Ticket, Lock, MessageCircle, HelpCircle, FileText, UserX, Paintbrush } from "lucide-react";
+import { ChevronRight, Flag, User as UserIcon, Bookmark, Ticket, Lock, MessageCircle, HelpCircle, FileText, UserX } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface ProfileClientProps {
@@ -49,13 +49,13 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ user }) => {
     {
       icon: MessageCircle,
       title: "Start chat",
-      subtitle: "Contact NyewaYuk",
+      subtitle: "Contact RENLE",
       onClick: () => {},
     },
     {
       icon: HelpCircle,
       title: "Frequently asked questions",
-      subtitle: "Here you will find information about most things about NyewaYuk and our services.",
+      subtitle: "Here you will find information about most things about RENLE and our services.",
       onClick: () => router.push("/profile/faq"),
     },
     {
@@ -69,15 +69,6 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ user }) => {
       title: "Delete account",
       subtitle: null,
       onClick: () => router.push("/profile/delete"),
-    },
-  ];
-
-  const betaMenuItems = [
-    {
-      icon: Paintbrush,
-      title: "Appearance: Light",
-      subtitle: "To change appearance you need to restart the application",
-      onClick: () => {},
     },
   ];
 
@@ -115,7 +106,7 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ user }) => {
 
         {/* Help Section */}
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Bantuan</h2>
-        <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-sm dark:shadow-neutral-950/50 mb-6">
+        <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-sm dark:shadow-neutral-950/50">
           {helpMenuItems.map((item, index) => (
             <div key={index}>
               <button
@@ -136,30 +127,6 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ user }) => {
               {index < helpMenuItems.length - 1 && (
                 <div className="border-b border-gray-100 dark:border-neutral-700 mx-6" />
               )}
-            </div>
-          ))}
-        </div>
-
-        {/* Beta Section */}
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Beta</h2>
-        <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-sm dark:shadow-neutral-950/50">
-          {betaMenuItems.map((item, index) => (
-            <div key={index}>
-              <button
-                onClick={item.onClick}
-                className="w-full flex items-center justify-between p-6 hover:bg-gray-50 dark:hover:bg-neutral-700 transition-colors"
-              >
-                <div className="flex items-center gap-4">
-                  <item.icon className="w-6 h-6 text-gray-700 dark:text-gray-300" />
-                  <div className="text-left">
-                    <p className="font-medium text-gray-900 dark:text-white">{item.title}</p>
-                    {item.subtitle && (
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{item.subtitle}</p>
-                    )}
-                  </div>
-                </div>
-                <ChevronRight className="w-5 h-5 text-gray-400 dark:text-gray-500" />
-              </button>
             </div>
           ))}
         </div>
