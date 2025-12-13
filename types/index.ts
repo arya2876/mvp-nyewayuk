@@ -1,7 +1,7 @@
-import { IconType } from "react-icons";
+import { LucideIcon } from "lucide-react";
 
 export interface Category {
   label: string;
-  icon: IconType;
+  icon: LucideIcon;
   description?: string;
 }
