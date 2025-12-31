@@ -84,11 +84,11 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
       logisticsOption,
       depositAmount: 0, // temporary, akan di-update
     });
-    
+
     // Hitung deposit dinamis berdasarkan metode logistik dan base price
     const logisticsMethod = logisticsOption === 'self-pickup' ? 'pickup' : 'delivery';
     const { depositAmount } = calculateDynamicDeposit(logisticsMethod, tempCalc.basePrice);
-    
+
     // Hitung ulang dengan deposit yang benar
     return calculateRentalPrice({
       pricePerDay: price,
@@ -124,7 +124,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
     <div className="bg-white dark:bg-neutral-800 rounded-xl border border-gray-200 dark:border-neutral-700 overflow-hidden shadow-sm">
       <div className="p-6">
         <h3 className="text-2xl font-bold mb-6 text-neutral-800 dark:text-white">Pilih Tanggal Sewa</h3>
-        
+
         {/* Calendar */}
         <div className="mb-6">
           <Calender
@@ -290,6 +290,8 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
           totalPrice={priceBreakdown.totalPrice}
           ownerPhone={ownerPhone}
           ownerName={ownerName}
+          listingId={listingId}
+          currentUserId={currentUser?.id}
         />
       )}
     </div>

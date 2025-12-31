@@ -43,8 +43,14 @@ export const HOMEPAGE_LISTINGS_LIMIT = 10; // Max barang di homepage
 
 export const menuItems = [
   {
-    label: "Pemesanan",
+    label: "Rental Saya",
     path: "/trips",
+    description: "Barang yang saya sewa",
+  },
+  {
+    label: "Pemesanan Masuk",
+    path: "/reservations",
+    description: "Orang yang menyewa barang saya",
   },
   {
     label: "Barang Saya",

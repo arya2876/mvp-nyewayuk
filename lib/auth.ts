@@ -17,20 +17,20 @@ export const authOptions: AuthOptions = {
     // Only add GitHub provider if credentials are set
     ...(process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET
       ? [
-          GitHubProvider({
-            clientId: process.env.GITHUB_CLIENT_ID,
-            clientSecret: process.env.GITHUB_CLIENT_SECRET,
-          }),
-        ]
+        GitHubProvider({
+          clientId: process.env.GITHUB_CLIENT_ID,
+          clientSecret: process.env.GITHUB_CLIENT_SECRET,
+        }),
+      ]
       : []),
     // Only add Google provider if credentials are set
     ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
       ? [
-          GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-          }),
-        ]
+        GoogleProvider({
+          clientId: process.env.GOOGLE_CLIENT_ID,
+          clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        }),
+      ]
       : []),
     CredentialsProvider({
       name: "credentials",
@@ -69,7 +69,7 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async session({ token, session }) {
       if (token) {
-        session.user.id = token.id;
+        session.user.id = token.id as string;
         session.user.name = token.name;
         session.user.email = token.email;
       }
@@ -78,11 +78,26 @@ export const authOptions: AuthOptions = {
     },
 
     async jwt({ token, user }) {
+      // If user is provided (first sign in), use it directly
       if (user) {
-        return { ...token, ...user };
+        return { ...token, id: user.id, name: user.name, email: user.email };
       }
+
+      // For subsequent requests, if token doesn't have id, fetch from database
+      if (!token.id && token.email) {
+        const dbUser = await db.user.findUnique({
+          where: { email: token.email },
+          select: { id: true, name: true },
+        });
+        if (dbUser) {
+          token.id = dbUser.id;
+          token.name = dbUser.name;
+        }
+      }
+
       return token;
     },
+
 
     async redirect({ url, baseUrl }) {
       // Redirect to homepage after sign in

@@ -3,13 +3,15 @@ import Image from "next/image";
 
 interface AvatarProps {
   src: string | null | undefined;
-  size?: "small" | "medium" | "large";
+  size?: "sm" | "small" | "medium" | "lg" | "large";
 }
 
 const Avatar: React.FC<AvatarProps> = ({ src, size = "small" }) => {
   const sizeMap = {
+    sm: 24,
     small: 30,
     medium: 50,
+    lg: 56,
     large: 80,
   };
 

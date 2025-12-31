@@ -1,83 +1,96 @@
 "use client";
 
-import { useState } from "react";
-import { Star } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Star, Loader2 } from "lucide-react";
 import Avatar from "@/components/Avatar";
 
 interface Review {
   id: string;
-  userName: string;
-  userImage?: string;
   rating: number;
   comment: string;
   createdAt: string;
+  reviewType: string;
+  reviewer: {
+    id: string;
+    name: string | null;
+    image: string | null;
+  };
 }
 
 interface ListingReviewsProps {
-  reviews?: Review[];
+  itemId: string;
 }
 
-const MOCK_REVIEWS: Review[] = [
-  {
-    id: "1",
-    userName: "Sarah Johnson",
-    rating: 5,
-    comment: "Pengalaman luar biasa! Barang sesuai deskripsi dan pemiliknya sangat responsif. Pasti akan sewa lagi!",
-    createdAt: "2024-01-15",
-  },
-  {
-    id: "2",
-    userName: "Michael Chen",
-    rating: 5,
-    comment: "Kualitas bagus dan harga adil. Pengambilan dan pengembalian lancar. Sangat direkomendasikan!",
-    createdAt: "2024-01-10",
-  },
-  {
-    id: "3",
-    userName: "Emma Williams",
-    rating: 4,
-    comment: "Pengalaman keseluruhan bagus. Kondisi barang sesuai deskripsi. Pemiliknya ramah dan membantu.",
-    createdAt: "2024-01-05",
-  },
-  {
-    id: "4",
-    userName: "David Martinez",
-    rating: 5,
-    comment: "Pengalaman sewa yang sempurna! Semuanya berjalan lancar dari booking hingga pengembalian. Akan pakai lagi.",
-    createdAt: "2023-12-28",
-  },
-  {
-    id: "5",
-    userName: "Lisa Anderson",
-    rating: 5,
-    comment: "Pelayanan luar biasa! Pemilik sangat akomodatif dengan jadwal dan barangnya melebihi ekspektasi.",
-    createdAt: "2023-12-20",
-  },
-];
-
-const ListingReviews: React.FC<ListingReviewsProps> = ({ reviews = MOCK_REVIEWS }) => {
+const ListingReviews: React.FC<ListingReviewsProps> = ({ itemId }) => {
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [loading, setLoading] = useState(true);
   const [showAll, setShowAll] = useState(false);
 
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await fetch(`/api/reviews?itemId=${itemId}`);
+        if (response.ok) {
+          const data = await response.json();
+          setReviews(data.reviews || []);
+        }
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (itemId) {
+      fetchReviews();
+    }
+  }, [itemId]);
+
+  if (loading) {
+    return (
+      <div className="py-8">
+        <h2 className="text-2xl font-bold mb-8">Reviews</h2>
+        <div className="flex items-center justify-center py-8">
+          <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+        </div>
+      </div>
+    );
+  }
+
+  if (reviews.length === 0) {
+    return (
+      <div className="py-8">
+        <h2 className="text-2xl font-bold mb-4">Reviews</h2>
+        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+          <Star className="w-12 h-12 mx-auto mb-3 opacity-30" />
+          <p>Belum ada review untuk barang ini</p>
+          <p className="text-sm mt-1">Jadilah yang pertama memberikan review!</p>
+        </div>
+      </div>
+    );
+  }
+
   const displayedReviews = showAll ? reviews : reviews.slice(0, 3);
-  const averageRating = reviews.length > 0 
+  const averageRating = reviews.length > 0
     ? (reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length).toFixed(1)
     : "0";
 
   return (
     <div className="py-8">
       <div className="flex items-center justify-between mb-8">
-        <h2 className="text-2xl font-bold">Reviews ({reviews.length})</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+          Reviews ({reviews.length})
+        </h2>
         <div className="flex items-center gap-2">
-          <span className="text-3xl font-bold">{averageRating}</span>
+          <span className="text-3xl font-bold text-gray-900 dark:text-white">{averageRating}</span>
           <div className="flex gap-1">
             {[1, 2, 3, 4, 5].map((star) => (
               <Star
                 key={star}
-                className={`w-5 h-5 ${
-                  star <= Math.round(Number(averageRating))
+                className={`w-5 h-5 ${star <= Math.round(Number(averageRating))
                     ? "fill-yellow-400 text-yellow-400"
-                    : "fill-gray-200 text-gray-200"
-                }`}
+                    : "fill-gray-200 text-gray-200 dark:fill-gray-600 dark:text-gray-600"
+                  }`}
               />
             ))}
           </div>
@@ -86,35 +99,44 @@ const ListingReviews: React.FC<ListingReviewsProps> = ({ reviews = MOCK_REVIEWS 
 
       <div className="space-y-6">
         {displayedReviews.map((review) => (
-          <div key={review.id} className="border-b border-gray-200 pb-6 last:border-0">
+          <div key={review.id} className="border-b border-gray-200 dark:border-gray-700 pb-6 last:border-0">
             <div className="flex items-start gap-4">
-              <Avatar src={review.userImage} />
+              <Avatar src={review.reviewer.image} />
               <div className="flex-1">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-semibold text-lg">{review.userName}</h3>
-                  <span className="text-sm text-gray-500">
-                    {new Date(review.createdAt).toLocaleDateString("en-US", {
-                      month: "short",
+                  <h3 className="font-semibold text-lg text-gray-900 dark:text-white">
+                    {review.reviewer.name || "Pengguna RENLE"}
+                  </h3>
+                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                    {new Date(review.createdAt).toLocaleDateString("id-ID", {
                       day: "numeric",
+                      month: "short",
                       year: "numeric",
                     })}
                   </span>
                 </div>
-                
+
                 <div className="flex gap-1 mb-3">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <Star
                       key={star}
-                      className={`w-4 h-4 ${
-                        star <= review.rating
+                      className={`w-4 h-4 ${star <= review.rating
                           ? "fill-yellow-400 text-yellow-400"
-                          : "fill-gray-200 text-gray-200"
-                      }`}
+                          : "fill-gray-200 text-gray-200 dark:fill-gray-600 dark:text-gray-600"
+                        }`}
                     />
                   ))}
                 </div>
-                
-                <p className="text-gray-700 leading-relaxed">{review.comment}</p>
+
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{review.comment}</p>
+
+                {/* Review Type Badge */}
+                <span className={`inline-block mt-2 text-xs px-2 py-1 rounded-full ${review.reviewType === "RENTER_TO_ITEM"
+                    ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
+                    : "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300"
+                  }`}>
+                  {review.reviewType === "RENTER_TO_ITEM" ? "Review Barang" : "Review Pemilik"}
+                </span>
               </div>
             </div>
           </div>
@@ -125,9 +147,9 @@ const ListingReviews: React.FC<ListingReviewsProps> = ({ reviews = MOCK_REVIEWS 
         <div className="mt-6 text-center">
           <button
             onClick={() => setShowAll(!showAll)}
-            className="text-purple-600 hover:text-purple-700 font-semibold text-sm underline"
+            className="text-[#00A99D] hover:text-[#008F85] font-semibold text-sm underline"
           >
-            {showAll ? "Show less" : `Show all ${reviews.length} reviews`}
+            {showAll ? "Tampilkan lebih sedikit" : `Lihat semua ${reviews.length} review`}
           </button>
         </div>
       )}

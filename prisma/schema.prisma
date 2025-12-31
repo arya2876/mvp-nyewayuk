@@ -24,9 +24,20 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  // Review relationships
+  reviewsGiven    Review[] @relation("ReviewsGiven")
+  reviewsReceived Review[] @relation("ReviewsReceived")
+
+  // Ratings (cached for performance)
+  averageRatingAsLender Float @default(0)
+  averageRatingAsRenter Float @default(0)
+  totalReviewsAsLender  Int   @default(0)
+  totalReviewsAsRenter  Int   @default(0)
+
   accounts     Account[]
   items        Item[]
   reservations Reservation[]
+  notifications Notification[]
 }
 
 model Account {
@@ -72,9 +83,15 @@ model Item {
   isNyewaGuardVerified Boolean  @default(false)
   nyewaGuardImageSrc   String?
 
+  // Review fields
+  averageRating Float @default(0)
+  totalReviews  Int   @default(0)
+
   user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
 
-  reservations Reservation[]
+  reservations    Reservation[]
+  reviews         Review[]
+  conditionChecks ConditionCheck[]
 }
 
 model Reservation {
@@ -86,6 +103,126 @@ model Reservation {
   totalPrice Int
   createdAt  DateTime @default(now())
 
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  item    Item    @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  // Condition check tracking
+  beforeCheckCompleted  Boolean @default(false)
+  afterCheckCompleted   Boolean @default(false)
+  canStartRental        Boolean @default(false)
+  canCompleteRental     Boolean @default(false)
+
+  // Status
+  status String @default("PENDING") // PENDING, ACTIVE, COMPLETED, CANCELLED
+
+  user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  item            Item             @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  reviews         Review[]
+  conditionChecks ConditionCheck[]
+}
+
+// Review Model - Komentar Dua Arah
+model Review {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Review Details
+  rating     Int    // 1-5 stars
+  comment    String
+  reviewType String // LENDER_TO_RENTER, RENTER_TO_LENDER, RENTER_TO_ITEM, PLATFORM_REVIEW
+
+  // Relationships
+  reviewerId String @db.ObjectId
+  reviewer   User   @relation("ReviewsGiven", fields: [reviewerId], references: [id], onDelete: Cascade)
+
+  revieweeId String @db.ObjectId
+  reviewee   User   @relation("ReviewsReceived", fields: [revieweeId], references: [id], onDelete: Cascade)
+
+  // Optional for PLATFORM_REVIEW type
+  itemId String? @db.ObjectId
+  item   Item?   @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  reservationId String?      @db.ObjectId
+  reservation   Reservation? @relation(fields: [reservationId], references: [id], onDelete: Cascade)
+
+  // Metadata
+  isVerified   Boolean @default(false) // Admin bisa verifikasi review asli
+  isFeatured   Boolean @default(false) // Tampil di homepage
+  helpfulCount Int     @default(0)     // User lain bisa mark "helpful"
+  reportCount  Int     @default(0)     // User bisa report spam/fake
+
+  // Response from reviewee (optional)
+  response     String?
+  responseDate DateTime?
+
+  @@index([reviewerId])
+  @@index([revieweeId])
+  @@index([itemId])
+  @@index([isFeatured])
+}
+
+// Condition Check Model - Before/After Photos
+model ConditionCheck {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Photos
+  photos String[] // Array of URLs
+
+  // Check Type
+  checkType String // BEFORE_RENTAL, AFTER_RENTAL
+
+  // AI Analysis Results (untuk RenleGuard AI)
+  aiAnalysis        String? // JSON string of AI analysis
+  damageDetected    Boolean @default(false)
+  damageDescription String?
+  conditionScore    Int?    // 0-100 score
+
+  // Metadata
+  uploadedBy String   @db.ObjectId
+  uploadedAt DateTime @default(now())
+  notes      String?
+
+  // Approval (Lender approves condition)
+  isApproved Boolean   @default(false)
+  approvedAt DateTime?
+  approvedBy String?   @db.ObjectId
+
+  // Relationships
+  reservationId String      @db.ObjectId
+  reservation   Reservation @relation(fields: [reservationId], references: [id], onDelete: Cascade)
+
+  itemId String @db.ObjectId
+  item   Item   @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@index([reservationId])
+  @@index([itemId])
+  @@index([checkType])
+}
+
+// Notification Model - User notifications for rental events
+model Notification {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+
+  // User receiving the notification
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Notification type and content
+  type    String // NEW_RESERVATION, RESERVATION_ACCEPTED, RESERVATION_REJECTED, REVIEW_RECEIVED, CONDITION_APPROVED
+  title   String
+  message String
+  linkUrl String? // Optional link to related page
+
+  // Related entities (optional)
+  reservationId String? @db.ObjectId
+  itemId        String? @db.ObjectId
+
+  // Read status
+  isRead Boolean   @default(false)
+  readAt DateTime?
+
+  @@index([userId])
+  @@index([isRead])
+  @@index([createdAt])
 }

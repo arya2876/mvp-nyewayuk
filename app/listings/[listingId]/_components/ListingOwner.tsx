@@ -1,7 +1,7 @@
 "use client";
 
 import Avatar from "@/components/Avatar";
-import { Check, Clock, MessageCircle, MapPin, Shield, Star } from "lucide-react";
+import { Check, Clock, MessageCircle, MapPin, Star } from "lucide-react";
 
 interface ListingOwnerProps {
   user: {
@@ -9,13 +9,16 @@ interface ListingOwnerProps {
     image: string | null;
     email: string | null;
     address: string | null;
+    averageRatingAsLender?: number;
+    totalReviewsAsLender?: number;
   };
   itemLocation?: string;
 }
 
 const ListingOwner: React.FC<ListingOwnerProps> = ({ user, itemLocation }) => {
-  const rating = 5; // Placeholder - bisa ditambahkan ke database nanti
-  
+  const rating = user.averageRatingAsLender || 0;
+  const totalReviews = user.totalReviewsAsLender || 0;
+
   // Display location from user's address or item location
   const displayLocation = user.address || itemLocation || "Lokasi tidak tersedia";
 
@@ -27,10 +30,21 @@ const ListingOwner: React.FC<ListingOwnerProps> = ({ user, itemLocation }) => {
         <div className="flex-1">
           <h4 className="text-xl font-bold text-gray-900 dark:text-white">{user.name || "Anonymous"}</h4>
           <div className="flex items-center gap-1 mt-1">
-            {[...Array(rating)].map((_, i) => (
-              <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+            {[1, 2, 3, 4, 5].map((star) => (
+              <Star
+                key={star}
+                className={`w-5 h-5 ${star <= Math.round(rating)
+                    ? "text-yellow-400 fill-yellow-400"
+                    : "text-gray-300 fill-gray-300 dark:text-gray-600 dark:fill-gray-600"
+                  }`}
+              />
             ))}
-            <span className="ml-2 text-gray-600 dark:text-gray-400 text-sm">{rating}/5</span>
+            <span className="ml-2 text-gray-600 dark:text-gray-400 text-sm">
+              {rating > 0 ? rating.toFixed(1) : "-"}/5
+              {totalReviews > 0 && (
+                <span className="ml-1">({totalReviews} review)</span>
+              )}
+            </span>
           </div>
         </div>
       </div>

@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { X, Package, Calendar, Truck, CreditCard, CheckCircle, MessageCircle } from "lucide-react";
+import { X, Package, Calendar, Truck, CreditCard, CheckCircle, MessageCircle, Loader2 } from "lucide-react";
 import { formatRupiah } from "@/utils/priceCalculation";
+import { toast } from "react-hot-toast";
 
 interface WhatsAppCheckoutModalProps {
   isOpen: boolean;
@@ -18,6 +19,9 @@ interface WhatsAppCheckoutModalProps {
   totalPrice: number;
   ownerPhone?: string;
   ownerName?: string;
+  // New props for reservation creation
+  listingId: string;
+  currentUserId?: string;
 }
 
 const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
@@ -32,11 +36,14 @@ const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
   logisticsFee,
   depositAmount,
   totalPrice,
-  ownerPhone = "6281215276475", // Default phone number - replace with actual owner's phone
+  ownerPhone = "6281215276475",
   ownerName = "Admin",
+  listingId,
+  currentUserId,
 }) => {
   const [isAgreed, setIsAgreed] = useState(false);
   const [isTermsOpen, setIsTermsOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isOpen) return null;
 
@@ -64,19 +71,52 @@ Apakah barang tersedia?`;
     return encodeURIComponent(message);
   };
 
-  const handleWhatsAppRedirect = () => {
-    const message = generateWhatsAppMessage();
-    // Clean phone number: remove all non-digit characters
-    const cleanPhone = ownerPhone.replace(/\D/g, '');
-    const whatsappUrl = `https://wa.me/${cleanPhone}?text=${message}`;
-    window.open(whatsappUrl, "_blank");
-    onClose();
+  const handleWhatsAppRedirect = async () => {
+    if (!currentUserId) {
+      toast.error("Silakan login terlebih dahulu");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Create reservation in database first
+      const response = await fetch("/api/reservations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          listingId,
+          startDate: startDate.toISOString(),
+          endDate: endDate.toISOString(),
+          totalPrice,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Gagal membuat reservasi");
+      }
+
+      toast.success("Reservasi berhasil dibuat!");
+
+      // Then redirect to WhatsApp
+      const message = generateWhatsAppMessage();
+      const cleanPhone = ownerPhone.replace(/\D/g, '');
+      const whatsappUrl = `https://wa.me/${cleanPhone}?text=${message}`;
+      window.open(whatsappUrl, "_blank");
+      onClose();
+    } catch (error) {
+      console.error("Reservation error:", error);
+      toast.error(error instanceof Error ? error.message : "Terjadi kesalahan");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 overflow-y-auto">
       {/* Backdrop */}
-      <div 
+      <div
         className="fixed inset-0 bg-black/60 backdrop-blur-sm"
         onClick={onClose}
       />
@@ -86,7 +126,7 @@ Apakah barang tersedia?`;
         {/* Header */}
         <div className="sticky top-0 bg-neutral-800 px-6 py-4 border-b border-neutral-700 flex items-center justify-between z-10">
           <h2 className="text-xl font-bold text-white">Konfirmasi Pesanan</h2>
-          <button 
+          <button
             onClick={onClose}
             title="Tutup"
             aria-label="Tutup modal"
@@ -185,15 +225,23 @@ Apakah barang tersedia?`;
           {/* WhatsApp Button */}
           <button
             onClick={handleWhatsAppRedirect}
-            disabled={!isAgreed}
-            className={`w-full flex items-center justify-center gap-3 py-4 px-6 rounded-[50px] font-bold text-lg transition ${
-              isAgreed
+            disabled={!isAgreed || isSubmitting}
+            className={`w-full flex items-center justify-center gap-3 py-4 px-6 rounded-[50px] font-bold text-lg transition ${isAgreed && !isSubmitting
                 ? "bg-[#25D366] hover:bg-[#1DA851] text-white shadow-lg hover:shadow-xl"
                 : "bg-neutral-600 text-neutral-400 cursor-not-allowed"
-            }`}
+              }`}
           >
-            <MessageCircle className="w-6 h-6" />
-            <span>Lanjut ke WhatsApp</span>
+            {isSubmitting ? (
+              <>
+                <Loader2 className="w-6 h-6 animate-spin" />
+                <span>Membuat Reservasi...</span>
+              </>
+            ) : (
+              <>
+                <MessageCircle className="w-6 h-6" />
+                <span>Lanjut ke WhatsApp</span>
+              </>
+            )}
           </button>
 
           {/* Info */}
@@ -206,14 +254,14 @@ Apakah barang tersedia?`;
       {/* Terms & Conditions Popup */}
       {isTermsOpen && (
         <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 overflow-y-auto">
-          <div 
+          <div
             className="fixed inset-0 bg-black/70 backdrop-blur-sm"
             onClick={() => setIsTermsOpen(false)}
           />
           <div className="relative bg-neutral-800 rounded-2xl shadow-2xl max-w-2xl w-full my-8">
             <div className="sticky top-0 bg-neutral-800 px-6 py-4 border-b border-neutral-700 flex items-center justify-between z-10">
               <h2 className="text-xl font-bold text-white">Syarat & Ketentuan RENLE</h2>
-              <button 
+              <button
                 onClick={() => setIsTermsOpen(false)}
                 title="Tutup"
                 aria-label="Tutup"

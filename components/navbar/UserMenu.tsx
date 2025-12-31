@@ -11,6 +11,7 @@ import Menu from "@/components/Menu";
 import RentModal from "../modals/RentModal";
 import Modal from "../modals/Modal";
 import AuthModal from "../modals/AuthModal";
+import NotificationDropdown from "@/components/notifications/NotificationDropdown";
 import { menuItems } from "@/utils/constants";
 
 interface UserMenuProps {
@@ -47,7 +48,10 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
             Sewakan Barang
           </button>
         </Modal.Trigger>
-        
+
+        {/* Notification Bell - Only show when logged in */}
+        {user && <NotificationDropdown />}
+
         {/* Avatar/Menu User */}
         <Menu>
           <Menu.Toggle id="user-menu">

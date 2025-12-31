@@ -29,11 +29,11 @@ const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: numbe
   const R = 6371; // Radius bumi dalam km
   const dLat = (lat2 - lat1) * Math.PI / 180;
   const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-    Math.sin(dLon/2) * Math.sin(dLon/2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c;
 };
 
@@ -45,7 +45,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
 }) => {
   const pathname = usePathname();
   const showMenu = pathname === "/properties" || pathname === "/reservations" || pathname === "/trips";
-  
+
   const price = reservation ? reservation.totalPrice : data?.price;
 
   let reservationDate;
@@ -56,12 +56,12 @@ const ListingCard: React.FC<ListingCardProps> = ({
   }
 
   // Format location consistently - prioritize new format
-  const locationDisplay = data.district && data.city 
-    ? `${data.district}, ${data.city}` 
-    : (data.region && data.country 
-        ? `${data.region}, ${data.country}` 
-        : data.country || "Indonesia"
-      );
+  const locationDisplay = data.district && data.city
+    ? `${data.district}, ${data.city}`
+    : (data.region && data.country
+      ? `${data.region}, ${data.country}`
+      : data.country || "Indonesia"
+    );
 
   // Hitung jarak jika koordinat user dan listing tersedia
   let distanceText = '';
@@ -72,10 +72,19 @@ const ListingCard: React.FC<ListingCardProps> = ({
       data.latlng[0],
       data.latlng[1]
     );
-    distanceText = distance < 1 
+    distanceText = distance < 1
       ? `${Math.round(distance * 1000)}m dari Anda`
       : `${distance.toFixed(1)}km dari Anda`;
   }
+
+  // Link destination - go to appropriate detail page based on current page
+  const linkHref = reservation
+    ? pathname === "/reservations"
+      ? `/reservations/${reservation.id}`
+      : pathname === "/trips"
+        ? `/trips/${reservation.id}`
+        : `/listings/${data.id}`
+    : `/listings/${data.id}`;
 
   return (
     <div className="relative group">
@@ -94,7 +103,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
           />
         </div>
       </div>
-      <Link href={`/listings/${data.id}`} className="col-span-1 cursor-pointer block">
+      <Link href={linkHref} className="col-span-1 cursor-pointer block">
         <div className="flex flex-col gap-1 w-full bg-neutral-800 border border-neutral-700/50 rounded-xl overflow-hidden h-full transition-all duration-300 hover:border-[#00A99D]/30 hover:shadow-lg hover:shadow-[#00A99D]/10 hover:-translate-y-1">
           <div className="overflow-hidden relative">
             <div className="aspect-[1/0.95] relative bg-neutral-700">

@@ -8,11 +8,11 @@ const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: numbe
   const R = 6371; // Radius bumi dalam km
   const dLat = (lat2 - lat1) * Math.PI / 180;
   const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-    Math.sin(dLon/2) * Math.sin(dLon/2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c;
 };
 
@@ -94,25 +94,25 @@ export const getListings = async (query?: {
     if (lat && lng) {
       const userLat = parseFloat(lat as string);
       const userLng = parseFloat(lng as string);
-      
+
       if (!isNaN(userLat) && !isNaN(userLng)) {
         console.log(`🔍 Filtering by location: User at [${userLat}, ${userLng}]`);
-        
+
         listings = listings.filter(listing => {
           if (!listing.latlng || listing.latlng.length < 2) {
             console.log(`⚠️ Listing "${listing.title}" has no coordinates`);
             return false; // Skip listing tanpa koordinat
           }
-          
+
           const listingLat = listing.latlng[0];
           const listingLng = listing.latlng[1];
           const distance = calculateDistance(userLat, userLng, listingLat, listingLng);
-          
+
           console.log(`📍 Listing "${listing.title}": [${listingLat}, ${listingLng}] = ${distance.toFixed(2)}km dari user`);
-          
+
           return distance <= 10; // Hanya tampilkan dalam radius 10km
         });
-        
+
         console.log(`✅ Found ${listings.length} listings within 10km`);
       }
     }
@@ -148,6 +148,8 @@ export const getListingById = async (id: string) => {
             email: true,
             phone: true,
             address: true,
+            averageRatingAsLender: true,
+            totalReviewsAsLender: true,
           },
         },
         reservations: {

@@ -54,11 +54,11 @@ const ListingPage = async ({ params: { listingId } }: { params: IParams }) => {
   };
 
   // Format location display - prioritize new format (district, city, province)
-  const locationText = district && city && province 
+  const locationText = district && city && province
     ? `${district}, ${city}, ${province}`
     : (region && country ? `${region}, ${country}` : country || "Lokasi tidak tersedia");
-  
-  const locationShort = district && city 
+
+  const locationShort = district && city
     ? `${district}, ${city}`
     : (region && country ? `${region}, ${country}` : country || "Indonesia");
 
@@ -110,10 +110,10 @@ const ListingPage = async ({ params: { listingId } }: { params: IParams }) => {
           </div> */}
 
           {/* Reviews */}
-          <ListingReviews />
+          <ListingReviews itemId={id} />
 
           {/* Related Items */}
-          <ListingRelated 
+          <ListingRelated
             currentListingId={id}
             ownerId={userId}
             ownerName={owner?.name || "Owner"}
