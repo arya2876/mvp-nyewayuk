@@ -190,8 +190,8 @@ export async function DELETE(
       where: { id: reviewId },
     });
 
-    // Update cached ratings
-    if (review.reviewType === "RENTER_TO_ITEM") {
+    // Update cached ratings - only if itemId exists
+    if (review.reviewType === "RENTER_TO_ITEM" && review.itemId) {
       const itemReviews = await db.review.aggregate({
         where: {
           itemId: review.itemId,
