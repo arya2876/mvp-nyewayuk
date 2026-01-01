@@ -1,4 +1,4 @@
-# NyewaYuk - Platform Sewa Barang C2C
+# RENLE - Platform Sewa Barang C2C
 
 NyewaYuk adalah platform rental peer-to-peer yang memungkinkan orang untuk menyewakan dan menyewa barang dari tetangga sekitar. Dibangun dengan Next.js, TypeScript, Tailwind CSS, MongoDB, Prisma, NextAuth, Leaflet dan teknologi modern lainnya.
 
