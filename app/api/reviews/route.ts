@@ -11,10 +11,23 @@ export async function GET(request: Request) {
     const userId = searchParams.get("userId");
     const featured = searchParams.get("featured");
     const reviewType = searchParams.get("reviewType");
+    const received = searchParams.get("received"); // Get reviews received by current user
     const limit = parseInt(searchParams.get("limit") || "10");
     const page = parseInt(searchParams.get("page") || "1");
 
     const where: Record<string, unknown> = {};
+
+    // If received=true, get reviews where current user is the reviewee
+    if (received === "true") {
+      const currentUser = await getCurrentUser();
+      if (!currentUser) {
+        return NextResponse.json(
+          { error: "Unauthorized" },
+          { status: 401 }
+        );
+      }
+      where.revieweeId = currentUser.id;
+    }
 
     if (itemId) where.itemId = itemId;
     if (userId) where.revieweeId = userId;

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
-import { ArrowLeft, Calendar, MapPin, User, Clock, CheckCircle, XCircle } from "lucide-react";
+import { ArrowLeft, Calendar, MapPin, User, Clock, CheckCircle, XCircle, Star } from "lucide-react";
 
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/services/user";
@@ -62,6 +62,35 @@ export default async function ReservationDetailPage({ params }: ReservationDetai
     // Only lender or renter can view this page
     if (!isLender && !isRenter) {
         return <EmptyState title="Tidak Diizinkan" subtitle="Anda tidak memiliki akses ke halaman ini" />;
+    }
+
+    // Get renter statistics (for lender view)
+    let renterStats = null;
+    if (isLender) {
+        const [renterReviews, completedRentals] = await Promise.all([
+            // Get reviews where this user is the renter (LENDER_TO_RENTER reviews)
+            db.review.aggregate({
+                where: {
+                    revieweeId: reservation.userId,
+                    reviewType: "LENDER_TO_RENTER",
+                },
+                _avg: { rating: true },
+                _count: { rating: true },
+            }),
+            // Get count of completed reservations
+            db.reservation.count({
+                where: {
+                    userId: reservation.userId,
+                    status: "COMPLETED",
+                },
+            }),
+        ]);
+
+        renterStats = {
+            averageRating: renterReviews._avg.rating || 0,
+            totalReviews: renterReviews._count.rating,
+            completedRentals,
+        };
     }
 
     const getStatusBadge = () => {
@@ -179,24 +208,24 @@ export default async function ReservationDetailPage({ params }: ReservationDetai
                                 <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-3">
                                     Informasi Penyewa
                                 </h3>
-                                <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-full bg-gray-300 dark:bg-gray-600 overflow-hidden">
+                                <div className="flex items-start gap-4">
+                                    <div className="w-14 h-14 rounded-full bg-gray-300 dark:bg-gray-600 overflow-hidden flex-shrink-0">
                                         {reservation.user.image ? (
                                             <Image
                                                 src={reservation.user.image}
                                                 alt={reservation.user.name || "Penyewa"}
-                                                width={48}
-                                                height={48}
-                                                className="object-cover"
+                                                width={56}
+                                                height={56}
+                                                className="object-cover w-full h-full"
                                             />
                                         ) : (
                                             <div className="w-full h-full flex items-center justify-center text-gray-500">
-                                                <User className="w-6 h-6" />
+                                                <User className="w-7 h-7" />
                                             </div>
                                         )}
                                     </div>
-                                    <div>
-                                        <p className="font-semibold text-gray-900 dark:text-white">
+                                    <div className="flex-1">
+                                        <p className="font-semibold text-gray-900 dark:text-white text-lg">
                                             {reservation.user.name || "Penyewa"}
                                         </p>
                                         <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -206,6 +235,64 @@ export default async function ReservationDetailPage({ params }: ReservationDetai
                                             <p className="text-sm text-gray-500 dark:text-gray-400">
                                                 📞 {reservation.user.phone}
                                             </p>
+                                        )}
+
+                                        {/* Renter Statistics */}
+                                        {renterStats && (
+                                            <div className="mt-4 grid grid-cols-3 gap-3">
+                                                {/* Rating */}
+                                                <div className="bg-white dark:bg-gray-800 rounded-lg p-3 text-center border border-gray-100 dark:border-gray-600">
+                                                    <div className="flex items-center justify-center gap-1 mb-1">
+                                                        <Star className={`w-4 h-4 ${renterStats.averageRating > 0 ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} />
+                                                        <span className="font-bold text-gray-900 dark:text-white">
+                                                            {renterStats.averageRating > 0 ? renterStats.averageRating.toFixed(1) : '-'}
+                                                        </span>
+                                                    </div>
+                                                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                                                        Rating ({renterStats.totalReviews})
+                                                    </p>
+                                                </div>
+
+                                                {/* Completed Rentals */}
+                                                <div className="bg-white dark:bg-gray-800 rounded-lg p-3 text-center border border-gray-100 dark:border-gray-600">
+                                                    <p className="font-bold text-gray-900 dark:text-white">
+                                                        {renterStats.completedRentals}
+                                                    </p>
+                                                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                                                        Rental Selesai
+                                                    </p>
+                                                </div>
+
+                                                {/* Trust Badge */}
+                                                <div className={`rounded-lg p-3 text-center border ${renterStats.averageRating >= 4
+                                                        ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
+                                                        : renterStats.averageRating >= 3
+                                                            ? 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800'
+                                                            : renterStats.totalReviews === 0
+                                                                ? 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-600'
+                                                                : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'
+                                                    }`}>
+                                                    <p className={`font-bold text-sm ${renterStats.averageRating >= 4
+                                                            ? 'text-green-600 dark:text-green-400'
+                                                            : renterStats.averageRating >= 3
+                                                                ? 'text-yellow-600 dark:text-yellow-400'
+                                                                : renterStats.totalReviews === 0
+                                                                    ? 'text-gray-500 dark:text-gray-400'
+                                                                    : 'text-red-600 dark:text-red-400'
+                                                        }`}>
+                                                        {renterStats.averageRating >= 4
+                                                            ? '✓ Terpercaya'
+                                                            : renterStats.averageRating >= 3
+                                                                ? '⚠ Cukup'
+                                                                : renterStats.totalReviews === 0
+                                                                    ? 'Baru'
+                                                                    : '⚠ Perlu Waspada'}
+                                                    </p>
+                                                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                                        Status
+                                                    </p>
+                                                </div>
+                                            </div>
                                         )}
                                     </div>
                                 </div>

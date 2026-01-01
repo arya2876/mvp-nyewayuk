@@ -2,7 +2,7 @@
 
 import { User } from "next-auth";
 import { signOut } from "next-auth/react";
-import { ChevronRight, Flag, User as UserIcon, Bookmark, Ticket, Lock, MessageCircle, HelpCircle, FileText, UserX } from "lucide-react";
+import { ChevronRight, Flag, User as UserIcon, Bookmark, Ticket, Lock, MessageCircle, HelpCircle, FileText, UserX, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface ProfileClientProps {
@@ -17,7 +17,7 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ user }) => {
       icon: Flag,
       title: "Current country: ID",
       subtitle: null,
-      onClick: () => {},
+      onClick: () => { },
     },
     {
       icon: UserIcon,
@@ -30,6 +30,12 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ user }) => {
       title: "My favorites",
       subtitle: null,
       onClick: () => router.push("/favorites"),
+    },
+    {
+      icon: Star,
+      title: "Review Saya",
+      subtitle: "Lihat review yang Anda terima",
+      onClick: () => router.push("/profile/reviews"),
     },
     {
       icon: Ticket,
@@ -50,7 +56,7 @@ const ProfileClient: React.FC<ProfileClientProps> = ({ user }) => {
       icon: MessageCircle,
       title: "Start chat",
       subtitle: "Contact RENLE",
-      onClick: () => {},
+      onClick: () => { },
     },
     {
       icon: HelpCircle,
