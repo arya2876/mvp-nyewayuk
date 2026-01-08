@@ -3,7 +3,6 @@ import Image from "next/image";
 import { TbPhotoPlus, TbX } from "react-icons/tb";
 
 import SpinnerMini from "./Loader";
-import { useEdgeStore } from "@/lib/edgestore";
 import { cn } from "@/utils/helper";
 
 interface ImageUploadProps {
@@ -27,7 +26,6 @@ const ImageUpload: FC<ImageUploadProps> = ({
   const [images, setImages] = useState<string[]>(initialImages);
   const [isLoading, startTransition] = useTransition();
   const [isDragging, setIsDragging] = useState(false);
-  const { edgestore } = useEdgeStore();
 
   const uploadImage = (e: any, file: File) => {
     if(!file.type.startsWith("image")) return;
@@ -40,9 +38,15 @@ const ImageUpload: FC<ImageUploadProps> = ({
       setImages(prev => [...prev, tempUrl]);
       
       startTransition(async () => {
-        const res = await edgestore.publicFiles.upload({
-          file,
+        const formData = new FormData();
+        formData.append("file", file);
+        
+        const response = await fetch("/api/cloudinary/upload", {
+          method: "POST",
+          body: formData,
         });
+        
+        const res = await response.json();
         
         setImages(prev => {
           const newImages = prev.map(img => img === tempUrl ? res.url : img);
@@ -53,12 +57,15 @@ const ImageUpload: FC<ImageUploadProps> = ({
     } else {
       setImage(URL.createObjectURL(file));
       startTransition(async () => {
-        const res = await edgestore.publicFiles.upload({
-          file,
-          options: {
-            replaceTargetUrl: initialImage,
-          },
+        const formData = new FormData();
+        formData.append("file", file);
+        
+        const response = await fetch("/api/cloudinary/upload", {
+          method: "POST",
+          body: formData,
         });
+        
+        const res = await response.json();
 
         onChange(fieldName, res.url);
         setTimeout(() => {

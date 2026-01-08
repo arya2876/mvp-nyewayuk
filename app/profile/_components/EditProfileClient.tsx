@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft, Camera } from "lucide-react";
 import Avatar from "@/components/Avatar";
 import Button from "@/components/Button";
-import { useEdgeStore } from "@/lib/edgestore";
 import { useToast } from "@/components/ToastProvider";
 
 interface UserDetails {
@@ -30,7 +29,6 @@ const EditProfileClient: React.FC<EditProfileClientProps> = ({ user, userDetails
   const [isLoading, setIsLoading] = useState(false);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { edgestore } = useEdgeStore();
   const [formData, setFormData] = useState({
     name: userDetails?.name || user.name || "",
     email: userDetails?.email || user.email || "",
@@ -54,7 +52,15 @@ const EditProfileClient: React.FC<EditProfileClientProps> = ({ user, userDetails
 
     setIsUploadingImage(true);
     try {
-      const res = await edgestore.publicFiles.upload({ file });
+      const formDataUpload = new FormData();
+      formDataUpload.append("file", file);
+      
+      const response = await fetch("/api/cloudinary/upload", {
+        method: "POST",
+        body: formDataUpload,
+      });
+      
+      const res = await response.json();
       setFormData({ ...formData, image: res.url });
       showToast("Foto profil berhasil diunggah", "success");
     } catch (error) {
