@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Sans } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import "./globals.css";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -53,6 +54,7 @@ export default function RootLayout({
             <Footer />
           </ToastProvider>
         </Providers>
+        <SpeedInsights />
       </body>
       {process.env.GA_MEASUREMENT_ID && <GoogleAnalytics gaId={process.env.GA_MEASUREMENT_ID} />}
     </html>
