@@ -3,7 +3,6 @@
 import { useState, useCallback } from "react";
 import { Camera, Upload, X, Check, Loader2, AlertCircle } from "lucide-react";
 import { toast } from "react-hot-toast";
-import { useEdgeStore } from "@/lib/edgestore";
 
 interface ConditionCheckUploadProps {
   reservationId: string;
@@ -28,7 +27,6 @@ export default function ConditionCheckUpload({
   const [uploading, setUploading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [notes, setNotes] = useState("");
-  const { edgestore } = useEdgeStore();
 
   const title = checkType === "BEFORE_RENTAL" 
     ? "Upload Foto Sebelum Sewa" 
@@ -78,13 +76,15 @@ export default function ConditionCheckUpload({
           continue;
         }
 
-        const res = await edgestore.publicFiles.upload({
-          file,
-          options: {
-            temporary: false,
-          },
+        const formData = new FormData();
+        formData.append("file", file);
+        
+        const response = await fetch("/api/cloudinary/upload", {
+          method: "POST",
+          body: formData,
         });
-
+        
+        const res = await response.json();
         uploadedUrls.push(res.url);
       }
 
@@ -96,7 +96,7 @@ export default function ConditionCheckUpload({
     } finally {
       setUploading(false);
     }
-  }, [photos.length, edgestore]);
+  }, [photos.length]);
 
   const removePhoto = useCallback((index: number) => {
     setPhotos((prev) => prev.filter((_, i) => i !== index));
