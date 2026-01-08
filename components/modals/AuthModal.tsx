@@ -100,11 +100,11 @@ const AuthModal = ({
   };
 
   return (
-    <div className="h-full w-full">
+    <div className="w-full">
       <Modal.WindowHeader title={title} />
 
       <form
-        className="flex flex-col gap-5 p-6 pb-0 w-full h-full"
+        className="flex flex-col gap-4 p-4 sm:p-6 pb-0 w-full"
         onSubmit={handleSubmit(onSubmit)}
       >
         <Heading
@@ -156,29 +156,29 @@ const AuthModal = ({
           {isLoading ? <SpinnerMini className="w-5 h-5" /> : "Lanjutkan"}
         </Button>
       </form>
-      <div className="flex flex-col gap-4 mt-3 p-6 pt-0">
+      <div className="flex flex-col gap-3 mt-2 p-4 sm:p-6 pt-0">
         <hr className="border-neutral-200 dark:border-neutral-700" />
         <Button
           outline
           onClick={() => signIn("google", { callbackUrl: "/" })}
           className="flex flex-row justify-center gap-2 items-center px-3 py-2"
         >
-          <FcGoogle className="w-6 h-6" />
-          <span className="text-[14px]">Lanjutkan dengan Google</span>
+          <FcGoogle className="w-5 h-5 sm:w-6 sm:h-6" />
+          <span className="text-[13px] sm:text-[14px]">Lanjutkan dengan Google</span>
         </Button>
         <Button
           outline
           onClick={() => signIn("github", { callbackUrl: "/" })}
           className="flex flex-row justify-center gap-2 items-center px-3 py-2"
         >
-          <AiFillGithub className="w-6 h-6" />
-          <span className="text-[14px]">Lanjutkan dengan Github</span>
+          <AiFillGithub className="w-5 h-5 sm:w-6 sm:h-6" />
+          <span className="text-[13px] sm:text-[14px]">Lanjutkan dengan Github</span>
         </Button>
         <div
           className="
             text-neutral-500 dark:text-gray-400
           text-center 
-          mt-2 
+          mt-1
           font-light
         "
         >

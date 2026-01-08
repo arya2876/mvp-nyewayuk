@@ -36,7 +36,7 @@ const WhatsAppCheckoutModal: React.FC<WhatsAppCheckoutModalProps> = ({
   logisticsFee,
   depositAmount,
   totalPrice,
-  ownerPhone = "6281215276475",
+  ownerPhone = "62882007444799",
   ownerName = "Admin",
   listingId,
   currentUserId,

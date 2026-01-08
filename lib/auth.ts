@@ -72,26 +72,33 @@ export const authOptions: AuthOptions = {
         session.user.id = token.id as string;
         session.user.name = token.name;
         session.user.email = token.email;
+        session.user.image = token.image as string | null;
       }
 
       return session;
     },
 
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
+      // If session update triggered
+      if (trigger === "update" && session) {
+        return { ...token, ...session.user };
+      }
+      
       // If user is provided (first sign in), use it directly
       if (user) {
-        return { ...token, id: user.id, name: user.name, email: user.email };
+        return { ...token, id: user.id, name: user.name, email: user.email, image: user.image };
       }
 
       // For subsequent requests, if token doesn't have id, fetch from database
       if (!token.id && token.email) {
         const dbUser = await db.user.findUnique({
           where: { email: token.email },
-          select: { id: true, name: true },
+          select: { id: true, name: true, image: true },
         });
         if (dbUser) {
           token.id = dbUser.id;
           token.name = dbUser.name;
+          token.image = dbUser.image;
         }
       }
 

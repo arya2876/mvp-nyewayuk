@@ -120,13 +120,13 @@ const Window: FC<WindowProps> = ({ children, name }) => {
           exit="hidden"
           className="justify-center items-center flex w-full h-full overflow-hidden  fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70"
         >
-          <div className="relative ">
+          <div className="relative w-full h-full md:h-auto flex items-center justify-center p-4 md:p-0">
             <motion.div
               variants={slideIn("up", "tween", 0.3)}
               initial="hidden"
               animate="show"
               exit="hidden"
-              className="md:h-auto h-screen md:max-h-screen overflow-y-auto rounded-lg shadow-lg w-screen bg-neutral-800 md:w-[900px] md:max-w-4xl"
+              className="md:h-auto h-auto max-h-[90vh] md:max-h-screen overflow-y-auto rounded-lg shadow-lg w-full bg-neutral-800 md:w-[500px] lg:w-[600px]"
               ref={ref}
             >
               {cloneElement(children, { onCloseModal: close })}

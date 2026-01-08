@@ -3,6 +3,7 @@
 import { User } from "next-auth";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { ArrowLeft, Camera } from "lucide-react";
 import Avatar from "@/components/Avatar";
 import Button from "@/components/Button";
@@ -26,6 +27,7 @@ interface EditProfileClientProps {
 const EditProfileClient: React.FC<EditProfileClientProps> = ({ user, userDetails }) => {
   const router = useRouter();
   const { showToast } = useToast();
+  const { update: updateSession } = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -85,6 +87,14 @@ const EditProfileClient: React.FC<EditProfileClientProps> = ({ user, userDetails
       });
 
       if (response.ok) {
+        // Update session dengan data baru termasuk image
+        await updateSession({
+          user: {
+            name: formData.name,
+            image: formData.image,
+          }
+        });
+        
         showToast("Profil berhasil diperbarui", "success");
         router.push("/profile");
         router.refresh();

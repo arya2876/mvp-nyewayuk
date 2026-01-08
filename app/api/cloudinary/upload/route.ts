@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import cloudinary from "@/lib/cloudinary";
 
 export async function POST(request: NextRequest) {
   try {
@@ -19,11 +18,30 @@ export async function POST(request: NextRequest) {
     const base64 = buffer.toString('base64');
     const dataURI = `data:${file.type};base64,${base64}`;
 
-    // Upload to Cloudinary
-    const result = await cloudinary.uploader.upload(dataURI, {
-      folder: "nyewayuk",
-      resource_type: "auto",
-    });
+    // Upload to Cloudinary using unsigned upload
+    const cloudinaryFormData = new FormData();
+    cloudinaryFormData.append('file', dataURI);
+    cloudinaryFormData.append('upload_preset', 'renle.id');
+    cloudinaryFormData.append('folder', 'renle.id');
+
+    const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+    const response = await fetch(
+      `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+      {
+        method: 'POST',
+        body: cloudinaryFormData,
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      console.error("Cloudinary error:", result);
+      return NextResponse.json(
+        { error: result.error?.message || "Upload failed" },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({
       url: result.secure_url,
@@ -32,7 +50,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Error uploading to Cloudinary:", error);
     return NextResponse.json(
-      { error: "Failed to upload image" },
+      { error: "Failed to upload image", details: error instanceof Error ? error.message : String(error) },
       { status: 500 }
     );
   }

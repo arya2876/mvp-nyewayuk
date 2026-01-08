@@ -55,7 +55,8 @@ const ImageUpload: FC<ImageUploadProps> = ({
         });
       });
     } else {
-      setImage(URL.createObjectURL(file));
+      const tempUrl = URL.createObjectURL(file);
+      setImage(tempUrl);
       startTransition(async () => {
         const formData = new FormData();
         formData.append("file", file);
@@ -67,6 +68,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
         
         const res = await response.json();
 
+        setImage(res.url);
         onChange(fieldName, res.url);
         setTimeout(() => {
           e.target.form?.requestSubmit();
